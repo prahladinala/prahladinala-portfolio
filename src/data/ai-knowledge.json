@@ -1,0 +1,187 @@
+{
+  "greetings": [
+    "Hello! I'm Prahlad's AI assistant. Ask me anything about his experience, skills, or projects.",
+    "Hi there! Curious about Prahlad's work? I can help answer your questions.",
+    "Hey! I'm here to answer any questions you have about Prahlad.",
+    "Welcome! Feel free to ask me about Prahlad's tech stack, projects, or background."
+  ],
+  "knowledgeBase": [
+    {
+      "keywords": [
+        "hi",
+        "hello",
+        "hey",
+        "howdy",
+        "greetings",
+        "how are you",
+        "what's up",
+        "whats up",
+        "hii",
+        "helo",
+        "hllo",
+        "hye",
+        "hw are you",
+        "wat up"
+      ],
+      "responses": [
+        "Hi! How are you doing? I'm an AI assistant here to help you learn about Prahlad.",
+        "Hello! I'm doing great. Feel free to ask me about Prahlad's experience or skills.",
+        "Hey there! What would you like to know about Prahlad?",
+        "Hi! I'm ready to answer any questions about Prahlad's portfolio and career."
+      ]
+    },
+    {
+      "keywords": [
+        "experience",
+        "work",
+        "job",
+        "career",
+        "experiance",
+        "experence",
+        "exprience",
+        "wrk",
+        "jbo",
+        "carrer"
+      ],
+      "responses": [
+        "Prahlad is currently working as a Guidewire Jutro Developer at NTT DATA, where he builds robust insurance portals. Previously, he was a Frontend Developer at Tech Solutions Inc. He has over 3 years of professional experience.",
+        "He has 3+ years of experience, currently at PWC as a Guidewire Jutro Developer. Before that, he honed his frontend skills at Tech Solutions Inc.",
+        "Prahlad's career spans over 3 years, with a strong focus on frontend and enterprise applications. He's currently a Guidewire Jutro Developer at NTT DATA."
+      ]
+    },
+    {
+      "keywords": [
+        "tech",
+        "skills",
+        "technologies",
+        "tech stack",
+        "languages",
+        "know",
+        "skils",
+        "skil",
+        "tecnologies",
+        "techologies",
+        "teck stack",
+        "languagas",
+        "langages",
+        "kno"
+      ],
+      "responses": [
+        "Prahlad's core tech stack includes React, Next.js, TypeScript, and Tailwind CSS. He is also highly skilled in Guidewire Jutro for enterprise insurance applications, and has experience with Node.js.",
+        "He specializes in Frontend development with React and Next.js, uses TypeScript heavily, and builds enterprise apps using Guidewire Jutro.",
+        "His go-to tools are React, Next.js, and TypeScript. He's also proficient in Node.js, MongoDB, PostgreSQL, and Guidewire Jutro."
+      ]
+    },
+    {
+      "keywords": [
+        "projects",
+        "portfolio",
+        "built",
+        "made",
+        "github",
+        "project",
+        "projets",
+        "progects",
+        "portflio",
+        "bult",
+        "gitub",
+        "githb"
+      ],
+      "responses": [
+        "Some of Prahlad's key projects include an AI Resume Optimizer, an enterprise Customer Insurance Portal built with Guidewire, and the DevMate VS Code extension.",
+        "He has built several cool things! Highlights include an AI Resume Optimizer, a VS Code extension with 15k+ downloads, and complex Guidewire insurance portals.",
+        "You can check out his projects in the 'Projects' section, which includes an AI Resume Optimizer and DevMate VS Code extension. He also contributes to open source!"
+      ]
+    },
+    {
+      "keywords": [
+        "contact",
+        "email",
+        "hire",
+        "reach",
+        "message",
+        "contac",
+        "conect",
+        "emial",
+        "mail",
+        "hie",
+        "reah",
+        "mesage"
+      ],
+      "responses": [
+        "You can reach Prahlad by filling out the contact form in the 'Contact' section, or by emailing him directly at prahladinala@example.com.",
+        "The best way to get in touch is via the Contact form below, or you can find him on LinkedIn and Twitter/X.",
+        "Feel free to drop him an email at prahladinala@gmail.com or use the contact form on this site. He usually replies within 24 hours!"
+      ]
+    },
+    {
+      "keywords": [
+        "education",
+        "degree",
+        "university",
+        "college",
+        "study",
+        "educaton",
+        "eduation",
+        "degre",
+        "unversity",
+        "colege"
+      ],
+      "responses": [
+        "Prahlad has a degree in Computer Science and is constantly learning through certifications and building real-world projects.",
+        "He holds a Computer Science degree and stays updated by actively learning new frameworks and architectures.",
+        "His academic background is in Computer Science, but he believes the best learning comes from building open-source projects and enterprise apps."
+      ]
+    },
+    {
+      "keywords": [
+        "guidewire",
+        "jutro",
+        "insurance",
+        "guidwire",
+        "guide wire",
+        "jutr",
+        "insurence",
+        "insurace"
+      ],
+      "responses": [
+        "Prahlad specializes in Guidewire Jutro, a UI framework tailored for building enterprise insurance applications. He has helped launch complex insurance portals improving UI performance by 40%.",
+        "He's an expert in Guidewire Jutro! He builds robust, scalable insurance portals for enterprise clients.",
+        "Guidewire Jutro is one of his niche skills. He leverages it alongside React to build fast and accessible insurance experiences."
+      ]
+    },
+    {
+      "keywords": [
+        "location",
+        "live",
+        "where",
+        "based",
+        "locaton",
+        "locasion",
+        "liv",
+        "whre",
+        "wer",
+        "basaed"
+      ],
+      "responses": [
+        "Prahlad is based in India and is open to remote opportunities worldwide.",
+        "He currently lives in India and works remotely.",
+        "He is based out of India, but is highly comfortable working in global, remote, and asynchronous environments."
+      ]
+    },
+    {
+      "keywords": ["resume", "cv", "resum", "resme", "c v"],
+      "responses": [
+        "You can view and download Prahlad's resume by clicking the 'Resume' button in the navigation bar or the Hero section.",
+        "His resume is available for download! Just click the 'View Resume' button at the top of the page.",
+        "Check the navigation menu for a direct link to his PDF resume."
+      ]
+    }
+  ],
+  "defaultResponses": [
+    "I'm a simple AI without a backend! I mainly know about Prahlad's professional experience, skills, projects, and how to contact him. Could you try asking about one of those?",
+    "I'm not quite sure how to answer that. Try asking about Prahlad's skills, experience, or recent projects!",
+    "Hmm, I didn't catch that. You can ask me things like 'What are Prahlad's skills?' or 'Where does he work?'",
+    "I don't have that information. But I can tell you all about his tech stack or how to get in touch with him!"
+  ]
+}
