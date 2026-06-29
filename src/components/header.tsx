@@ -89,9 +89,9 @@ export function Header() {
             ))}
             <div className="pl-4 border-l border-border flex items-center gap-2">
               <ThemeToggle />
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ size: "sm", variant: "default" }), "rounded-full")}>
+              <Link href="/resume" className={cn(buttonVariants({ size: "sm", variant: "default" }), "rounded-full")}>
                 Resume
-              </a>
+              </Link>
             </div>
           </nav>
 
@@ -120,9 +120,9 @@ export function Header() {
                     </Link>
                   ))}
                   <div className="pt-4 mt-4 border-t border-border">
-                    <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className={cn(buttonVariants(), "w-full rounded-full")}>
+                    <Link href="/resume" className={cn(buttonVariants(), "w-full rounded-full")}>
                       View Resume
-                    </a>
+                    </Link>
                   </div>
                 </nav>
               </SheetContent>

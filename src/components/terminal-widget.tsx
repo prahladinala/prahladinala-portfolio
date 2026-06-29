@@ -64,8 +64,8 @@ export function TerminalWidget() {
         output = "Frontend: React, Next.js, TypeScript, Tailwind | Backend: Node.js, Express | Niche: Guidewire Jutro";
         break;
       case "resume":
-        output = "Opening resume...";
-        window.open("/resume.pdf", "_blank");
+        output = "Navigating to resume download page...";
+        router.push("/resume");
         break;
       case "contact":
         output = "Scrolling to contact section...";

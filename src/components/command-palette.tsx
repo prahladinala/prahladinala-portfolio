@@ -90,11 +90,11 @@ export function CommandPalette() {
             
             <Command.Group heading="Links" className="text-xs font-medium text-muted-foreground px-2 py-1.5 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground">
               <Command.Item 
-                onSelect={() => runCommand(() => handleNavigate("/resume.pdf"))}
+                onSelect={() => runCommand(() => handleNavigate("/resume"))}
                 className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
               >
                 <FileText className="mr-2 h-4 w-4" />
-                <span>View Resume</span>
+                <span>Download Resume</span>
               </Command.Item>
               <Command.Item 
                 onSelect={() => runCommand(() => handleNavigate("https://github.com/PRAHLADINALA"))}
