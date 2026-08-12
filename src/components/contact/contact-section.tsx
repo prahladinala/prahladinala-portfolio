@@ -138,6 +138,7 @@ export function ContactSection() {
                     rel="noopener noreferrer"
                     className="w-10 h-10 bg-background rounded-full flex items-center justify-center border border-border hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all hover:-translate-y-1"
                     title={link.name}
+                    aria-label={`Visit my ${link.name} profile`}
                   >
                     {link.icon}
                   </a>

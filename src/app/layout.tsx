@@ -23,9 +23,13 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://prahladinala.in"),
+  alternates: {
+    canonical: "/",
+  },
   title: {
-    default: "Prahlad | Software Engineer",
-    template: "%s | Prahlad"
+    default: "Prahlad Inala | Software Engineer & Frontend Developer",
+    template: "%s | Prahlad Inala"
   },
   description: "Modern portfolio for Prahlad, specializing in React, Next.js, and Guidewire.",
   keywords: ["Software Engineer", "Frontend Developer", "Guidewire Jutro", "React", "Next.js", "TypeScript", "Prahlad"],
@@ -46,14 +50,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://prahladinala.dev",
-    title: "Prahlad | Software Engineer",
+    url: "https://prahladinala.in",
+    title: "Prahlad Inala | Software Engineer & Frontend Developer",
     description: "Modern portfolio for Prahlad, specializing in React, Next.js, and Guidewire.",
     siteName: "Prahlad Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Prahlad | Software Engineer",
+    title: "Prahlad Inala | Software Engineer & Frontend Developer",
     description: "Modern portfolio for Prahlad, specializing in React, Next.js, and Guidewire.",
     creator: "@prahladinala",
   },
@@ -64,7 +68,7 @@ const jsonLd = {
   "@type": "Person",
   name: "Prahlad",
   jobTitle: "Software Engineer",
-  url: "https://prahladinala.dev",
+  url: "https://prahladinala.in",
   sameAs: [
     "https://github.com/PRAHLADINALA",
     "https://linkedin.com/in/prahladinala",

@@ -44,6 +44,8 @@ export default function ResumePage() {
           Downloading Resume
         </h1>
         
+        <h2 className="sr-only">Resume Download Progress</h2>
+        
         <p className="text-lg text-muted-foreground mb-12">
           Your download should begin automatically. Thank you for your interest in my profile!
         </p>
