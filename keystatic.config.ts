@@ -3,7 +3,11 @@ import { config, fields, collection, singleton } from '@keystatic/core';
 export default config({
   storage: {
     // In production, you would switch this to 'github' and set your repo
-    kind: process.env.NODE_ENV === 'production' ? 'local' : 'local',
+    kind: process.env.NODE_ENV === 'production' ? 'github' : 'local',
+    repo: {
+      owner: 'prahladinala',
+      name: 'prahladinala-portfolio'
+    }
   },
   ui: {
     brand: {
