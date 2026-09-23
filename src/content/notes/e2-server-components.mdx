@@ -1,0 +1,40 @@
+---
+topic: nextjs
+title: Mastering Server Components
+date: '2024-04-10'
+description: Why Server Components matter and how to use them effectively.
+---
+topic: nextjs
+
+# Server Components (RSC)
+
+By default, every component in the App Router is a Server Component. 
+
+## Benefits of RSC
+
+1. **Zero Bundle Size**: Server components do not add any JavaScript to the client bundle.
+2. **Direct Backend Access**: You can directly query databases or access file systems (like we do in this Notes app!) without writing API routes.
+3. **Security**: Sensitive environment variables and secrets never leak to the client.
+
+## When to use `"use client"`
+
+You only need to add `"use client"` at the top of a file when your component requires:
+- Interactivity (`onClick`, `onChange`)
+- React State or Lifecycle hooks (`useState`, `useEffect`)
+- Browser APIs (`window`, `document`)
+
+```tsx
+"use client";
+
+import { useState } from 'react';
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+  
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Clicked {count} times
+    </button>
+  );
+}
+```

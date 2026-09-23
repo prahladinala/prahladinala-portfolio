@@ -1,7 +1,7 @@
-import { skillCategories } from "@/data/skills";
+import type { SkillCategory } from "@/lib/keystatic-data";
 import { SkillCloud } from "./skill-cloud";
 
-export function SkillsSection() {
+export function SkillsSection({ categories }: { categories: SkillCategory[] }) {
   return (
     <section id="skills" className="py-24 bg-muted/30 w-full relative">
       <div className="container px-4 md:px-6 mx-auto">
@@ -14,7 +14,7 @@ export function SkillsSection() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {skillCategories.map((category) => (
+          {categories.map((category) => (
             <div key={category.title} className="flex flex-col">
               <h3 className="text-xl font-semibold mb-6 flex items-center">
                 <span className="w-8 h-px bg-border mr-4" />

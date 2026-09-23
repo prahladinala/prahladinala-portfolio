@@ -1,0 +1,32 @@
+{
+  "company": "Valuemomentum",
+  "role": "Software Engineer",
+  "duration": "June 2021 - July 2025",
+  "location": "Hyderabad, Telangana, India",
+  "shortDescription": "Developed scalable metadata-driven Guidewire portals for commercial insurance products using React and Jutro.",
+  "responsibilities": [
+    "Developed metadata-driven Guidewire Jutro UI for Workers Compensation and Commercial Auto insurance products.",
+    "Integrated Guidewire EDGE APIs for real-time policy data rendering.",
+    "Designed reusable UI components, reducing development effort by 40% and production defects by 70%.",
+    "Optimized portal performance through component rendering and API handling improvements.",
+    "Resolved critical UI issues, ensuring stable sprint releases and improved reliability.",
+    "Collaborated with business analysts and stakeholders to gather and implement requirements.",
+    "Performed peer code reviews and enforced React and Guidewire best practices."
+  ],
+  "technologies": [
+    "React JS",
+    "JavaScript (ES6+)",
+    "HTML5",
+    "SCSS",
+    "Guidewire Jutro",
+    "Guidewire EDGE APIs",
+    "PolicyCenter",
+    "Producer Engage",
+    "Customer Engage",
+    "Git",
+    "GitHub",
+    "Bitbucket",
+    "Storybook",
+    "Agile/Scrum"
+  ]
+}

@@ -1,93 +1,93 @@
-import Link from "next/link";
-import { navLinks } from "@/config/nav";
-import { Mail } from "lucide-react";
-import { Linkedin, Twitter, Github } from "@/components/icons";
+"use client";
 
-export function Footer() {
-  const currentYear = new Date().getFullYear();
+import { Heart, Mail } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Github, Linkedin, Twitter, Medium } from "@/components/icons";
+import type { Socials } from "@/lib/keystatic-data";
+
+export function Footer({ socials }: { socials?: Socials | null }) {
+  const pathname = usePathname();
+  const isNotesPage = pathname?.startsWith("/notes");
+
+  if (isNotesPage) {
+    return (
+      <footer className="w-full border-t border-border/40 bg-background py-8 mt-auto print:hidden">
+        <div className="container mx-auto px-4 md:px-6 flex flex-col items-center justify-center text-sm text-muted-foreground gap-2">
+          <p className="flex items-center gap-1.5">
+            With <Heart className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" /> from
+            <Link href="https://prahladinala.in" className="font-medium text-foreground hover:text-primary transition-colors">
+              prahladinala.in
+            </Link>
+          </p>
+        </div>
+      </footer>
+    );
+  }
+
+  // Default to empty strings if socials is undefined
+  const safeSocials = socials || { github: '', linkedin: '', twitter: '', email: '', medium: '' };
 
   return (
-    <footer className="w-full border-t border-border bg-background pt-16 pb-8">
-      <div className="container px-4 md:px-6 mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-12">
-          <div className="md:col-span-2">
-            <Link
-              href="#home"
-              className="text-2xl font-bold tracking-tight mb-4 inline-block"
-            >
-              Prahlad<span className="text-primary">.</span>
-            </Link>
-            <p className="text-muted-foreground max-w-sm mt-4">
-              Building fast, accessible, and beautiful web experiences.
-              Specialized in React, Next.js, and Guidewire Jutro.
+    <footer className="w-full border-t border-border/40 bg-background pt-16 pb-8 mt-auto print:hidden">
+      <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-16">
+          <div className="md:col-span-2 space-y-4">
+            <h3 className="text-xl font-bold text-foreground">Prahlad.</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed max-w-sm">
+              Building fast, accessible, and beautiful web experiences. Specialized in React, Next.js, and Guidewire Jutro.
             </p>
           </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {navLinks.slice(0, 5).map((link) => (
-                <li key={link.title}>
-                  <Link
-                    href={link.href}
-                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
-                  >
-                    {link.title}
-                  </Link>
-                </li>
-              ))}
+          <div className="space-y-4">
+            <h4 className="font-semibold text-foreground">Quick Links</h4>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
+              <li><Link href="/#about" className="hover:text-primary transition-colors">About</Link></li>
+              <li><Link href="/#experience" className="hover:text-primary transition-colors">Experience</Link></li>
+              <li><Link href="/#projects" className="hover:text-primary transition-colors">Projects</Link></li>
+              <li><Link href="/#skills" className="hover:text-primary transition-colors">Skills</Link></li>
             </ul>
           </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">Connect</h4>
-            <div className="flex gap-4">
-              <a
-                href="https://github.com/prahladinala"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Github className="w-5 h-5" />
-                <span className="sr-only">GitHub</span>
-              </a>
-              <a
-                href="https://linkedin.com/in/prahladinala"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Linkedin className="w-5 h-5" />
-                <span className="sr-only">LinkedIn</span>
-              </a>
-              <a
-                href="https://twitter.com/prahladinala"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Twitter className="w-5 h-5" />
-                <span className="sr-only">Twitter</span>
-              </a>
-              <a
-                href="mailto:prahladinala@gmail.com"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Mail className="w-5 h-5" />
-                <span className="sr-only">Email</span>
-              </a>
+          <div className="space-y-4">
+            <h4 className="font-semibold text-foreground">Connect</h4>
+            <div className="flex gap-4 text-muted-foreground">
+              {safeSocials.github && (
+                <Link href={safeSocials.github} className="hover:text-primary transition-colors">
+                  <Github className="w-5 h-5" />
+                  <span className="sr-only">GitHub</span>
+                </Link>
+              )}
+              {safeSocials.linkedin && (
+                <Link href={safeSocials.linkedin} className="hover:text-primary transition-colors">
+                  <Linkedin className="w-5 h-5" />
+                  <span className="sr-only">LinkedIn</span>
+                </Link>
+              )}
+              {safeSocials.twitter && (
+                <Link href={safeSocials.twitter} className="hover:text-primary transition-colors">
+                  <Twitter className="w-5 h-5" />
+                  <span className="sr-only">Twitter</span>
+                </Link>
+              )}
+              {safeSocials.medium && (
+                <Link href={safeSocials.medium} className="hover:text-primary transition-colors">
+                  <Medium className="w-5 h-5" />
+                  <span className="sr-only">Medium</span>
+                </Link>
+              )}
+              {safeSocials.email && (
+                <Link href={`mailto:${safeSocials.email}`} className="hover:text-primary transition-colors">
+                  <Mail className="w-5 h-5" />
+                  <span className="sr-only">Email</span>
+                </Link>
+              )}
             </div>
           </div>
         </div>
-
-        <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">
-            © {currentYear} Prahlad Inala. All rights reserved.
-          </p>
-          <p className="text-sm font-medium text-muted-foreground flex items-center">
-            Designed & Built by Prahlad <span className="mx-2">|</span> Built
-            with Next.js
-          </p>
+        
+        <div className="border-t border-border/40 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+          <p>© {new Date().getFullYear()} Prahlad Inala. All rights reserved.</p>
+          <p>Designed & Built by Prahlad <span className="mx-2">|</span> Built with Next.js</p>
         </div>
       </div>
     </footer>

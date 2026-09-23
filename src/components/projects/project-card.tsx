@@ -1,6 +1,6 @@
 import { ExternalLink } from "lucide-react";
 import { Github } from "@/components/icons";
-import { Project } from "@/data/projects";
+import type { Project } from "@/lib/keystatic-data";
 
 export function ProjectCard({ project }: { project: Project }) {
   return (

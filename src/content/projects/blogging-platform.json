@@ -1,0 +1,16 @@
+{
+  "title": "blogging-platform",
+  "description": "A blogging platform that allows users to create, edit, and publish their own blogs with a rich text editor and customizable themes.",
+  "longDescription": "",
+  "image": "/placeholder-project.svg",
+  "tags": [
+    "React",
+    "TypeScript",
+    "Node.js",
+    "AI",
+    "Tailwind CSS"
+  ],
+  "githubUrl": "",
+  "liveUrl": "https://www.blog.toolmate.co.in/",
+  "featured": false
+}

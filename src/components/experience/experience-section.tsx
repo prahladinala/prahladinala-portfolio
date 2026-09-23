@@ -1,7 +1,7 @@
-import { experiences } from "@/data/experience";
 import { TimelineItem } from "./timeline-item";
+import type { Experience } from "@/lib/keystatic-data";
 
-export function ExperienceSection() {
+export function ExperienceSection({ experiences }: { experiences: Experience[] }) {
   return (
     <section id="experience" className="py-24 bg-muted/30 w-full relative">
       <div className="container px-4 md:px-6 mx-auto">

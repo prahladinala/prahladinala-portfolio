@@ -3,16 +3,18 @@
 import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { Send, CheckCircle, Copy, Mail, FileText } from "lucide-react";
-import { Linkedin, Twitter, Github } from "@/components/icons";
+import { Linkedin, Twitter, Github, Medium } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import type { Socials } from "@/lib/keystatic-data";
 
-export function ContactSection() {
+export function ContactSection({ socials }: { socials: Socials | null }) {
+  if (!socials) socials = { email: '', github: '', linkedin: '', twitter: '', medium: '' };
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
 
-  const email = "prahladinala@gmail.com"; // Replace with actual email
+  const email = socials.email;
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(email);
@@ -50,22 +52,22 @@ export function ContactSection() {
     {
       name: "GitHub",
       icon: <Github className="w-5 h-5" />,
-      url: "https://github.com/prahladinala",
+      url: socials.github,
     },
     {
       name: "LinkedIn",
       icon: <Linkedin className="w-5 h-5" />,
-      url: "https://linkedin.com/in/prahladinala",
+      url: socials.linkedin,
     },
     {
       name: "Twitter",
       icon: <Twitter className="w-5 h-5" />,
-      url: "https://twitter.com/prahladinala",
+      url: socials.twitter,
     },
     {
       name: "Medium",
-      icon: <FileText className="w-5 h-5" />,
-      url: "https://medium.com/@prahladinala",
+      icon: <Medium className="w-5 h-5" />,
+      url: socials.medium,
     },
   ];
 

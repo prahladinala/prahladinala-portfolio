@@ -13,10 +13,11 @@ export function ProfileImage() {
           </div> */}
           {/* Image instead of placeholder */}
           <Image
-            src="/avatar.PNG"
+            src="/avatar.webp"
             alt="Prahlad Inala"
             width={320}
             height={320}
+            priority
             className="w-full h-full object-cover"
           />
         </div>

@@ -1,0 +1,36 @@
+---
+title: Next.js App Router Basics
+description: A comprehensive guide to transitioning to the Next.js App Router paradigm.
+date: 2024-04-01
+topic: nextjs
+tags:
+  - nextjs
+  - app-router
+  - react
+---
+topic: nextjs
+
+# Getting Started with the App Router by PRahlad
+
+The Next.js App Router introduces a completely new mental model for building React applications, natively leveraging React Server Components (RSC).&#x20;
+
+![](/images/notes/20260718_204803.jpg)
+
+## Folder-Based Routing
+
+Instead of putting files inside `/pages`, you now create folders inside `/app`, where the folder name becomes the route, and a `page.tsx` file makes it publicly accessible.
+
+### Example Directory
+
+```text
+src/
+└── app/
+    ├── layout.tsx     # Global Layout
+    ├── page.tsx       # Domain Root (/)
+    └── about/
+        └── page.tsx   # About Page (/about)
+```
+
+## The Power of Layouts
+
+Layouts (`layout.tsx`) wrap around your pages. They preserve state across navigations and do not re-render when switching between child pages! This is extremely powerful for things like Sidebar navigation in a Notes app.

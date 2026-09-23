@@ -4,7 +4,7 @@ import { Github } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { Project } from "@/data/projects";
+import type { Project } from "@/lib/keystatic-data";
 
 export function FeaturedProject({ project }: { project: Project }) {
   return (

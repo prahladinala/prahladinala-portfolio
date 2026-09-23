@@ -1,13 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { projects, projectCategories } from "@/data/projects";
 import { FeaturedProject } from "./featured-project";
 import { ProjectCard } from "./project-card";
 import { Badge } from "@/components/ui/badge";
+import type { Project } from "@/lib/keystatic-data";
 
-export function ProjectsSection() {
+export function ProjectsSection({ projects }: { projects: Project[] }) {
+  const projectCategories = useMemo(() => {
+    const categories = new Set<string>();
+    categories.add('All');
+    projects.forEach(p => p.tags.forEach(t => categories.add(t)));
+    return Array.from(categories);
+  }, [projects]);
   const [activeCategory, setActiveCategory] = useState("All");
 
   const featuredProject = projects.find((p) => p.featured);

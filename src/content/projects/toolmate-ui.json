@@ -1,0 +1,14 @@
+{
+  "title": "toolmate-ui",
+  "description": "A modern and responsive portfolio website built with Next.js, showcasing my projects, skills, and experience.",
+  "longDescription": "",
+  "image": "/placeholder-project.svg",
+  "tags": [
+    "Next.js",
+    "Tailwind CSS",
+    "Framer Motion"
+  ],
+  "githubUrl": "https://github.com/prahladinala/toolmate-ui",
+  "liveUrl": "https://www.ui.toolmate.co.in/",
+  "featured": false
+}

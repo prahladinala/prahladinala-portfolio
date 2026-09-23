@@ -1,30 +1,34 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Code2, GitMerge, PenTool, TerminalSquare } from "lucide-react";
 
-const stats = [
-  {
-    title: "Years Experience",
-    value: "5+",
-    icon: <TerminalSquare className="w-5 h-5 text-primary" />,
-  },
-  {
-    title: "Projects Built",
-    value: "20+",
-    icon: <Code2 className="w-5 h-5 text-purple-500" />,
-  },
-  {
-    title: "Blog Posts",
-    value: "15+",
-    icon: <PenTool className="w-5 h-5 text-blue-500" />,
-  },
-  {
-    title: "Git Repos",
-    value: "50+",
-    icon: <GitMerge className="w-5 h-5 text-orange-500" />,
-  },
-];
+export function StatsGrid({ 
+  stats: dynamicStats 
+}: { 
+  stats: { experience: string; projects: string; blogs: string; repos: string; } 
+}) {
+  const stats = [
+    {
+      title: "Years Experience",
+      value: dynamicStats.experience + "+",
+      icon: <TerminalSquare className="w-5 h-5 text-primary" />,
+    },
+    {
+      title: "Projects Built",
+      value: dynamicStats.projects + "+",
+      icon: <Code2 className="w-5 h-5 text-purple-500" />,
+    },
+    {
+      title: "Blog Posts",
+      value: dynamicStats.blogs + "+",
+      icon: <PenTool className="w-5 h-5 text-blue-500" />,
+    },
+    {
+      title: "Git Repos",
+      value: dynamicStats.repos + "+",
+      icon: <GitMerge className="w-5 h-5 text-orange-500" />,
+    },
+  ];
 
-export function StatsGrid() {
   return (
     <div className="grid grid-cols-2 gap-4 mt-8 w-full max-w-xl">
       {stats.map((stat) => (

@@ -4,8 +4,8 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        // Apply these headers to all routes
-        source: "/(.*)",
+        // Apply these headers to all routes except keystatic and api
+        source: "/((?!keystatic|api/keystatic).*)",
         headers: [
           {
             key: "X-Content-Type-Options",
@@ -25,6 +25,20 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        source: "/admin/:path*",
+        destination: "/keystatic/:path*",
+        permanent: false,
+      },
+      {
+        source: "/admin",
+        destination: "/keystatic",
+        permanent: false,
+      }
     ];
   },
 };

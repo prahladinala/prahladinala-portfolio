@@ -1,0 +1,47 @@
+---
+topic: react
+title: React Hooks Deep Dive
+date: '2024-03-12'
+description: >-
+  Understanding the lifecycle and performance implications of useEffect and
+  useMemo.
+---
+topic: react
+
+# React Hooks Deep Dive
+
+React Hooks completely revolutionized how we write components. Let's look closely at `useEffect` and `useMemo`.
+
+## The `useEffect` Hook
+
+The most common mistake with `useEffect` is omitting dependencies or recreating them constantly on every render.
+
+```jsx
+import { useEffect, useState } from 'react';
+
+export function UserProfile({ userId }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Only runs when userId changes!
+    fetch(`/api/users/${userId}`)
+      .then(res => res.json())
+      .then(data => setUser(data));
+  }, [userId]); 
+
+  if (!user) return <div>Loading...</div>;
+  return <div>{user.name}</div>;
+}
+```
+
+## Performance with `useMemo`
+
+If you have a very expensive calculation, you can wrap it in `useMemo` to ensure it only recalculates when its specific dependencies change.
+
+```jsx
+const expensiveResult = useMemo(() => {
+  return computeExtremelyHeavyTask(data);
+}, [data]);
+```
+
+> **Pro Tip**: Don't overuse `useMemo`! React is already incredibly fast. Only use it when the calculation actually causes a measurable performance bottleneck.

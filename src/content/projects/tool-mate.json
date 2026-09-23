@@ -1,0 +1,15 @@
+{
+  "title": "tool-mate",
+  "description": "Fast browser tools. Built for devs - friendly for everyone.",
+  "longDescription": "Fast browser tools. Built for devs - friendly for everyone.",
+  "image": "/placeholder-project.svg",
+  "tags": [
+    "Next.js",
+    "AI",
+    "TypeScript",
+    "Tailwind CSS"
+  ],
+  "githubUrl": "https://github.com/prahladinala/toolmate",
+  "liveUrl": "https://www.toolmate.co.in/",
+  "featured": true
+}

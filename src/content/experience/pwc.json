@@ -1,0 +1,30 @@
+{
+  "company": "PWC",
+  "role": "Senior Associate",
+  "duration": "Aug 2025 - Present",
+  "location": "Hyderabad, Telangana, India",
+  "shortDescription": "Leading end-to-end development of Guidewire Digital Portals using Jutro and React JS for enterprise insurance clients.",
+  "responsibilities": [
+    "Led end-to-end design and development of Guidewire Digital Portals using Jutro and React JS.",
+    "Owned feature delivery from design through production deployment in an Agile environment.",
+    "Resolved critical performance bottlenecks, reducing portal load time by 35%.",
+    "Refactored legacy components to build a fully responsive portal with 100% mobile compatibility.",
+    "Implemented business-critical features including side-by-side quoting and custom data masking.",
+    "Leveraged GenAI tools to accelerate development and improve code quality.",
+    "Conducted code reviews and mentored developers to improve engineering standards."
+  ],
+  "technologies": [
+    "React JS",
+    "Guidewire Jutro",
+    "JavaScript",
+    "SCSS",
+    "Guidewire EDGE APIs",
+    "Storybook",
+    "Git",
+    "Bitbucket",
+    "Figma",
+    "Agile/Scrum",
+    "ChatGPT",
+    "GitHub Copilot"
+  ]
+}

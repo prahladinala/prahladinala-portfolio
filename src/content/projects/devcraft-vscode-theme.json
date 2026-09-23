@@ -1,0 +1,15 @@
+{
+  "title": "devcraft-vscode-theme",
+  "description": "A VS Code extension that provides a modern and customizable theme for developers.",
+  "longDescription": "",
+  "image": "/placeholder-project.svg",
+  "tags": [
+    "VS Code",
+    "Theme",
+    "UI",
+    "Tools"
+  ],
+  "githubUrl": "",
+  "liveUrl": "https://marketplace.visualstudio.com/items?itemName=PrahladInala.devcraft-themes",
+  "featured": false
+}

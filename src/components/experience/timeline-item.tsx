@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ChevronDown, MapPin, Calendar, Building2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import { Experience } from "@/data/experience";
+import type { Experience } from "@/lib/keystatic-data";
 
 export function TimelineItem({ experience, isLast }: { experience: Experience; isLast: boolean }) {
   const [isExpanded, setIsExpanded] = useState(false);

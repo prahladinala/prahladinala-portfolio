@@ -1,7 +1,8 @@
 import dynamic from "next/dynamic";
-import { Header } from "@/components/header";
+
 import { HeroSection } from "@/components/hero/hero-section";
 import { ActiveSectionObserver } from "@/components/active-section-observer";
+import { getExperiences, getProjects, getSkills, getSocials } from "@/lib/keystatic-data";
 
 // Lazy load all sections below the fold for better initial page load performance
 const AboutSection = dynamic(() =>
@@ -56,25 +57,28 @@ const Footer = dynamic(() =>
 );
 
 export default function Home() {
+  const experiences = getExperiences();
+  const projects = getProjects();
+  const skills = getSkills();
+  const socials = getSocials();
   return (
     <>
       <ActiveSectionObserver />
-      <Header />
-      <main className="flex min-h-screen flex-col items-center justify-between">
+
+      <main className="flex w-full flex-col items-center justify-between">
         <HeroSection />
         <AboutSection />
-        <ExperienceSection />
-        <ProjectsSection />
-        <SkillsSection />
+        <ExperienceSection experiences={experiences} />
+        <ProjectsSection projects={projects} />
+        <SkillsSection categories={skills} />
         {/* <BlogSection /> */}
         <DeveloperInsights />
         {/* <OpenSourceSection /> */}
         {/* <TestimonialsSection /> */}
         {/* <TechRadarSection /> */}
         {/* <NowSection /> */}
-        <ContactSection />
+        <ContactSection socials={socials} />
       </main>
-      <Footer />
     </>
   );
 }

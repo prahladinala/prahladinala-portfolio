@@ -1,7 +1,64 @@
 import { ProfileImage } from "./profile-image";
 import { StatsGrid } from "./stats-grid";
+import { getExperiences, getProjects, getSocials } from "@/lib/keystatic-data";
+import fs from "fs";
+import path from "path";
 
-export function AboutSection() {
+export async function AboutSection() {
+  const experiences = getExperiences();
+  const projects = getProjects();
+  const socials = getSocials();
+  
+  // Blog count
+  const notesDir = path.join(process.cwd(), "src/content/notes");
+  let blogCount = 0;
+  if (fs.existsSync(notesDir)) {
+    blogCount = fs.readdirSync(notesDir).filter(file => !file.startsWith('.') && file.endsWith('.mdx')).length;
+  }
+  
+  // Experience count
+  let minYear = new Date().getFullYear();
+  experiences.forEach(exp => {
+    const match = exp.duration?.match(/\b(20\d{2})\b/g);
+    if (match) {
+      match.forEach(y => {
+        const year = parseInt(y, 10);
+        if (year < minYear) minYear = year;
+      });
+    }
+  });
+  let expCount = new Date().getFullYear() - minYear;
+  if (expCount <= 0) expCount = experiences.length;
+  
+  // Projects count
+  const projectCount = projects.length;
+  
+  // Git Repos
+  let repoCount = "0";
+  try {
+    let username = "prahladinala"; // fallback
+    if (socials?.github) {
+      const urlParts = socials.github.split('/').filter(Boolean);
+      username = urlParts[urlParts.length - 1];
+    }
+    
+    // Fetch from GitHub
+    const res = await fetch(`https://api.github.com/users/${username}`, { next: { revalidate: 3600 } });
+    if (res.ok) {
+      const data = await res.json();
+      repoCount = data.public_repos?.toString() || "0";
+    }
+  } catch (e) {
+    console.error("Failed to fetch github repos", e);
+  }
+
+  const stats = {
+    experience: expCount > 0 ? expCount.toString() : "0",
+    projects: projectCount > 0 ? projectCount.toString() : "0",
+    blogs: blogCount > 0 ? blogCount.toString() : "0",
+    repos: repoCount
+  };
+
   return (
     <section id="about" className="py-24 sm:py-32 w-full relative">
       <div className="container px-4 md:px-6 mx-auto">
@@ -27,7 +84,7 @@ export function AboutSection() {
               </p>
             </div>
             
-            <StatsGrid />
+            <StatsGrid stats={stats} />
           </div>
         </div>
       </div>

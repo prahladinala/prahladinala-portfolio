@@ -1,0 +1,36 @@
+---
+topic: react
+title: Introduction to React MDX
+date: '2024-03-10'
+description: 'A deep dive into building static notes with React, Next.js, and MDX.'
+---
+topic: react
+
+# Welcome to the MDX Notes System
+
+This is a sample note dynamically rendered from a `.mdx` file stored directly in your local `src/content/notes` directory.
+
+## Why MDX?
+
+MDX allows you to write standard Markdown while seamlessly embedding JSX components. This is perfect for technical blogs and digital gardens!
+
+### Code Example
+
+Here is a quick example of a React component with syntax highlighting:
+
+```jsx
+import React from 'react';
+
+export default function HelloWorld() {
+  return (
+    <div className="bg-primary text-primary-foreground p-4 rounded-lg">
+      <h1>Hello World!</h1>
+    </div>
+  );
+}
+```
+
+## Features Supported
+- **Frontmatter**: Titles, dates, and descriptions are parsed via `gray-matter`.
+- **Syntax Highlighting**: Beautiful code blocks powered by `rehype-highlight`.
+- **Tailwind Typography**: Out-of-the-box styling for standard markdown elements using the `prose` class.

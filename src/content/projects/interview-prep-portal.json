@@ -1,0 +1,14 @@
+{
+  "title": "interview-prep-portal",
+  "description": "A web application that provides curated interview questions and answers for various technical topics.",
+  "longDescription": "",
+  "image": "/placeholder-project.svg",
+  "tags": [
+    "React",
+    "Guidewire",
+    "SCSS"
+  ],
+  "githubUrl": "",
+  "liveUrl": "https://www.interview.toolmate.co.in/",
+  "featured": false
+}
