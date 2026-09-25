@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header-v2";
-import { getSocials } from "@/lib/keystatic-data";
+import { getSocials, getExperiences, getProjects } from "@/lib/keystatic-data";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -76,6 +76,8 @@ export default function MainLayout({
   children: React.ReactNode;
 }>) {
   const socials = getSocials();
+  const experiences = getExperiences();
+  const projects = getProjects();
   
   const jsonLd = {
     "@context": "https://schema.org",
@@ -120,12 +122,13 @@ export default function MainLayout({
           <CustomContextMenu />
           <CommandPalette socials={socials} />
           <TerminalWidget />
-          <AIAssistant />
+          <AIAssistant experiences={experiences} projects={projects} />
         </ThemeProvider>
       </body>
     </html>
   );
 }
+
 
 
 

@@ -22,7 +22,7 @@ export function TimelineItem({ experience, isLast }: { experience: Experience; i
         <div className="absolute left-0 md:left-1/2 w-6 h-6 rounded-full bg-background border-4 border-primary z-10 md:-translate-x-1/2 mt-1.5 md:mt-0" />
 
         {/* Content Card */}
-        <div className="md:w-[calc(50%-2rem)] md:ml-auto w-full bg-card rounded-xl border border-border p-5 hover:border-primary/50 transition-colors cursor-pointer" onClick={() => setIsExpanded(!isExpanded)}>
+        <div className="md:w-[calc(50%-2rem)] md:ml-auto w-full bg-card rounded-xl border border-border p-5 hover:border-primary/50 transition-colors cursor-pointer text-left" onClick={() => setIsExpanded(!isExpanded)} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsExpanded(!isExpanded); } }} role="button" tabIndex={0} aria-expanded={isExpanded}>
           <div className="flex justify-between items-start mb-2">
             <div>
               <h3 className="text-xl font-bold">{experience.role}</h3>

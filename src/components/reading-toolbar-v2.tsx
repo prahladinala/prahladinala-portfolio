@@ -320,6 +320,7 @@ export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "docu
         <div className="flex items-center gap-1 border-l border-border pl-2 ml-1">
           <button 
             onClick={toggleBookmark} 
+            aria-label={isBookmarked ? "Remove Bookmark" : "Save Bookmark"}
             className={`p-2 rounded-lg transition-colors flex items-center justify-center gap-2 ${isBookmarked ? 'bg-primary/10 text-primary' : 'hover:bg-background hover:text-primary text-muted-foreground'}`}
             title={isBookmarked ? "Remove Bookmark" : "Save Bookmark"}
           >

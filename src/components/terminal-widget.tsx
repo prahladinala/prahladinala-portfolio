@@ -112,14 +112,14 @@ export function TerminalWidget() {
             initial={{ opacity: 0, y: 50, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.95 }}
-            className="fixed bottom-24 left-6 z-50 w-[350px] sm:w-[450px] bg-[#0a0a0a] border border-[#333] rounded-xl shadow-2xl overflow-hidden font-mono text-sm"
+            className="fixed bottom-24 left-6 z-50 w-[calc(100vw-3rem)] sm:w-[450px] bg-[#0a0a0a] border border-[#333] rounded-xl shadow-2xl overflow-hidden font-mono text-sm"
           >
             {/* Terminal Header */}
             <div className="flex items-center justify-between px-4 py-2 bg-[#1a1a1a] border-b border-[#333]">
               <div className="flex gap-2">
-                <button onClick={() => setIsOpen(false)} className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600" />
-                <button className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-600" />
-                <button className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-600" />
+                <button onClick={() => setIsOpen(false)} className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600" aria-label="Close terminal" />
+                <button className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-600" aria-label="Minimize terminal" />
+                <button className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-600" aria-label="Maximize terminal" />
               </div>
               <div className="text-[#888] text-xs font-semibold">guest@prahlad-os:~</div>
               <div className="w-10"></div> {/* Spacer for alignment */}
@@ -130,6 +130,10 @@ export function TerminalWidget() {
               ref={scrollRef}
               className="p-4 h-[300px] overflow-y-auto text-gray-300 scroll-smooth hide-scrollbar"
               onClick={() => inputRef.current?.focus()}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inputRef.current?.focus(); } }}
+              role="textbox"
+              tabIndex={0}
+              aria-label="Terminal output area"
             >
               <div className="space-y-3">
                 {history.map((item) => (

@@ -22,7 +22,7 @@ export function ThemeToggle() {
 
   return (
     <div className="flex items-center gap-1 bg-muted/40 p-1 rounded-full border border-border shadow-sm">
-      <button 
+      <button aria-label="Toggle theme" 
         onClick={() => setTheme('light')} 
         className={`p-1.5 rounded-full transition-colors ${currentTheme === 'light' ? 'bg-primary/10 text-primary' : 'hover:bg-background hover:text-primary text-muted-foreground'}`}
         title="Light Mode"

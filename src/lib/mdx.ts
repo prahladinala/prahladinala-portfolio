@@ -74,7 +74,7 @@ export function getAllNotes(): NoteMeta[] {
     };
   });
 
-  let finalNotes = process.env.NODE_ENV === "production" ? notes.filter(n => !n.draft) : notes;
+  const finalNotes = process.env.NODE_ENV === "production" ? notes.filter(n => !n.draft) : notes;
   return finalNotes.sort((a, b) => (a.date > b.date ? 1 : -1));
 }
 

@@ -33,6 +33,10 @@ export function MdxImage({ src, alt, width, height, ...props }: any) {
       <span 
         className="relative flex flex-col my-8 overflow-hidden rounded-xl border border-border bg-muted/5 text-center min-h-[300px] w-full items-center justify-center block cursor-zoom-in group"
         onClick={() => setIsZoomed(true)}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsZoomed(true); } }}
+        role="button"
+        tabIndex={0}
+        aria-label={`Zoom image: ${alt || "Image"}`}
       >
         {isLoading && (
           <span className="absolute inset-0 z-10 block w-full h-full bg-muted/40 animate-pulse rounded-xl" />
@@ -69,6 +73,10 @@ export function MdxImage({ src, alt, width, height, ...props }: any) {
         <div 
           className="fixed inset-0 z-[100] flex items-center justify-center bg-background/95 backdrop-blur-sm cursor-zoom-out p-4 sm:p-8 animate-in fade-in duration-200"
           onClick={() => setIsZoomed(false)}
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsZoomed(false); } }}
+          role="dialog"
+          aria-modal="true"
+          tabIndex={-1}
         >
           <button 
             className="absolute top-6 right-6 p-2 rounded-full bg-muted/50 hover:bg-muted text-foreground transition-colors z-[101]"
@@ -76,6 +84,7 @@ export function MdxImage({ src, alt, width, height, ...props }: any) {
               e.stopPropagation();
               setIsZoomed(false);
             }}
+            aria-label="Close zoomed image"
           >
             <X className="w-6 h-6" />
           </button>

@@ -28,7 +28,11 @@
         "Hello! I'm doing great. Feel free to ask me about Prahlad's experience or skills.",
         "Hey there! What would you like to know about Prahlad?",
         "Hi! I'm ready to answer any questions about Prahlad's portfolio and career."
-      ]
+      ],
+      "actionLink": {
+        "label": "",
+        "url": ""
+      }
     },
     {
       "keywords": [
@@ -47,7 +51,11 @@
         "Prahlad is currently working as a Guidewire Jutro Developer at PWC, where he builds robust insurance portals. Previously, he was a Frontend Developer at Tech Solutions Inc. He has over 3 years of professional experience.",
         "He has 3+ years of experience, currently at PWC as a Guidewire Jutro Developer. Before that, he honed his frontend skills at Valuemomentum.",
         "Prahlad's career spans over 3 years, with a strong focus on frontend and enterprise applications. He's currently a Guidewire Jutro Developer at PWC."
-      ]
+      ],
+      "actionLink": {
+        "label": "",
+        "url": ""
+      }
     },
     {
       "keywords": [
@@ -70,7 +78,11 @@
         "Prahlad's core tech stack includes React, Next.js, TypeScript, and Tailwind CSS. He is also highly skilled in Guidewire Jutro for enterprise insurance applications, and has experience with Node.js.",
         "He specializes in Frontend development with React and Next.js, uses TypeScript heavily, and builds enterprise apps using Guidewire Jutro.",
         "His go-to tools are React, Next.js, and TypeScript. He's also proficient in Node.js, MongoDB, PostgreSQL, and Guidewire Jutro."
-      ]
+      ],
+      "actionLink": {
+        "label": "",
+        "url": ""
+      }
     },
     {
       "keywords": [
@@ -91,7 +103,11 @@
         "Some of Prahlad's key projects include an AI Resume Optimizer, an enterprise Customer Insurance Portal built with Guidewire, and the DevMate VS Code extension.",
         "He has built several cool things! Highlights include an AI Resume Optimizer, a VS Code extension with 15k+ downloads, and complex Guidewire insurance portals.",
         "You can check out his projects in the 'Projects' section, which includes an AI Resume Optimizer and DevMate VS Code extension. He also contributes to open source!"
-      ]
+      ],
+      "actionLink": {
+        "label": "View Projects",
+        "url": "/#projects"
+      }
     },
     {
       "keywords": [
@@ -112,7 +128,11 @@
         "You can reach Prahlad by filling out the contact form in the 'Contact' section, or by emailing him directly at prahladinala@gmail.com.",
         "The best way to get in touch is via the Contact form below, or you can find him on LinkedIn and Twitter/X.",
         "Feel free to drop him an email at prahladinala@gmail.com or use the contact form on this site. He usually replies within 24 hours!"
-      ]
+      ],
+      "actionLink": {
+        "label": "Contact Prahlad",
+        "url": "/#contact"
+      }
     },
     {
       "keywords": [
@@ -131,7 +151,11 @@
         "Prahlad has a degree in Computer Science and is constantly learning through certifications and building real-world projects.",
         "He holds a Computer Science degree and stays updated by actively learning new frameworks and architectures.",
         "His academic background is in Computer Science, but he believes the best learning comes from building open-source projects and enterprise apps."
-      ]
+      ],
+      "actionLink": {
+        "label": "",
+        "url": ""
+      }
     },
     {
       "keywords": [
@@ -148,7 +172,11 @@
         "Prahlad specializes in Guidewire Jutro, a UI framework tailored for building enterprise insurance applications. He has helped launch complex insurance portals improving UI performance by 40%.",
         "He's an expert in Guidewire Jutro! He builds robust, scalable insurance portals for enterprise clients.",
         "Guidewire Jutro is one of his niche skills. He leverages it alongside React to build fast and accessible insurance experiences."
-      ]
+      ],
+      "actionLink": {
+        "label": "",
+        "url": ""
+      }
     },
     {
       "keywords": [
@@ -167,15 +195,97 @@
         "Prahlad is based in India and is open to remote opportunities worldwide.",
         "He currently lives in India and works remotely.",
         "He is based out of India, but is highly comfortable working in global, remote, and asynchronous environments."
-      ]
+      ],
+      "actionLink": {
+        "label": "",
+        "url": ""
+      }
     },
     {
-      "keywords": ["resume", "cv", "resum", "resme", "c v"],
+      "keywords": [
+        "resume",
+        "cv",
+        "resum",
+        "resme",
+        "c v"
+      ],
       "responses": [
         "You can view and download Prahlad's resume by clicking the 'Resume' button in the navigation bar or the Hero section.",
         "His resume is available for download! Just click the 'View Resume' button at the top of the page.",
         "Check the navigation menu for a direct link to his PDF resume."
-      ]
+      ],
+      "actionLink": {
+        "label": "Go to Resume Page",
+        "url": "/resume"
+      }
+    },
+    {
+      "keywords": [
+        "notes",
+        "blog",
+        "articles",
+        "read"
+      ],
+      "responses": [
+        "I've written several digital notes and tutorials covering React, Next.js, Node, and general web development.",
+        "You can find my thoughts, snippets, and tutorials in the Digital Notes section.",
+        "I love sharing what I learn! Check out my notes on React, Next.js, and more."
+      ],
+      "actionLink": {
+        "label": "Go to Notes Page",
+        "url": "/notes"
+      }
+    },
+    {
+      "keywords": [
+        "react",
+        "react notes",
+        "reactjs",
+        "react.js"
+      ],
+      "responses": [
+        "I have written several digital notes and tutorials on React.",
+        "You can read my React notes to dive deep into hooks, state management, and performance.",
+        "I love building UIs with React! Check out my specific notes on it."
+      ],
+      "actionLink": {
+        "label": "Go to React Notes",
+        "url": "/notes/react"
+      }
+    },
+    {
+      "keywords": [
+        "next",
+        "nextjs",
+        "next.js",
+        "next notes",
+        "app router"
+      ],
+      "responses": [
+        "I frequently write about Next.js! Check out my notes covering the App Router, SSR, and more.",
+        "Next.js is my go-to framework. I have a dedicated section of notes for it."
+      ],
+      "actionLink": {
+        "label": "Go to Next.js Notes",
+        "url": "/notes/nextjs"
+      }
+    },
+    {
+      "keywords": [
+        "node",
+        "nodejs",
+        "node.js",
+        "node notes",
+        "backend"
+      ],
+      "responses": [
+        "I have some notes on Node.js and backend development. Feel free to explore them!",
+        "If you're interested in my backend knowledge, check out my Node.js notes."
+      ],
+      "actionLink": {
+        "label": "Go to Node Notes",
+        "url": "/notes/node"
+      }
     }
   ],
   "defaultResponses": [

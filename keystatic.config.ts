@@ -1,13 +1,50 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
 
 export default config({
-  storage: { kind: 'github', repo: { owner: 'prahladinala', name: 'prahladinala-portfolio' } },
+  storage: process.env.NODE_ENV === 'development' ? { kind: 'local' } : { kind: 'github', repo: { owner: 'prahladinala', name: 'prahladinala-portfolio' } },
   ui: {
     brand: {
       name: 'Prahlad Portfolio CMS',
     },
   },
   singletons: {
+    aiKnowledgeBase: singleton({
+      label: 'AI Knowledge Base',
+      path: 'src/content/ai-knowledge-base',
+      format: { data: 'json' },
+      schema: {
+        greetings: fields.array(
+          fields.text({ label: 'Greeting' }),
+          { label: 'Greetings', itemLabel: props => props.value }
+        ),
+        defaultResponses: fields.array(
+          fields.text({ label: 'Default Response' }),
+          { label: 'Default Responses', itemLabel: props => props.value }
+        ),
+        knowledgeBase: fields.array(
+          fields.object({
+            keywords: fields.array(
+              fields.text({ label: 'Keyword' }),
+              { label: 'Keywords', itemLabel: props => props.value }
+            ),
+            responses: fields.array(
+              fields.text({ label: 'Response', multiline: true }),
+              { label: 'Responses', itemLabel: props => props.value }
+            ),
+            actionLink: fields.object({
+              label: fields.text({ label: 'Action Link Label (Optional)' }),
+              url: fields.text({ label: 'Action Link URL (Optional)' })
+            })
+          }),
+          {
+            label: 'Knowledge Base Items',
+            itemLabel: props => {
+               try { return props.fields.keywords.elements[0].value || 'Item' } catch(e) { return 'Item' }
+            }
+          }
+        )
+      }
+    }),
     socials: singleton({
       label: 'Social Links',
       path: 'src/content/socials/socials',
@@ -132,4 +169,5 @@ export default config({
 // Cache bust: 1790180505.6265287
 
 // BUST CACHE 1790281666544
+
 
