@@ -99,7 +99,8 @@ export default function MainLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
+        <link rel="preconnect" href="https://giscus.app" crossOrigin="anonymous" />
+        </head>
       <body suppressHydrationWarning className="min-h-full flex flex-col font-sans">
         <ThemeProvider
           attribute="class"
@@ -125,5 +126,6 @@ export default function MainLayout({
     </html>
   );
 }
+
 
 
