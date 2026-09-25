@@ -28,6 +28,9 @@ export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "docu
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string | null>(null);
+  const [generatedPdf, setGeneratedPdf] = useState<any>(null);
+  const [pdfModalOpen, setPdfModalOpen] = useState(false);
   
   const { theme, resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -214,7 +217,10 @@ export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "docu
         pdf.text(`Page ${i} of ${totalPages}`, pdfWidth - margin, pageHeight - 12, { align: "right" });
       }
       
-      pdf.save(`${title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`);
+      const dataUri = pdf.output("datauristring");
+        setPdfPreviewUrl(dataUri);
+        setGeneratedPdf(pdf);
+        setPdfModalOpen(true);
       
     } catch (error) {
       console.error("Failed to generate PDF:", error);
@@ -354,6 +360,46 @@ export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "docu
             <DialogClose render={<Button type="button" variant="secondary" />}>
               Close
             </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={pdfModalOpen} onOpenChange={setPdfModalOpen}>
+        <DialogContent className="max-w-4xl w-[95vw] h-[90vh] flex flex-col p-4 sm:p-6">
+          <DialogHeader className="mb-2">
+            <DialogTitle>PDF Preview</DialogTitle>
+            <DialogDescription>
+              Preview your document before downloading.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="flex-1 w-full rounded-md border border-border overflow-hidden bg-muted/20 relative">
+            {pdfPreviewUrl ? (
+              <iframe 
+                src={pdfPreviewUrl} 
+                className="w-full h-full"
+                title="PDF Preview"
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
+              </div>
+            )}
+          </div>
+          
+          <DialogFooter className="mt-4 flex flex-col sm:flex-row gap-2">
+            <Button variant="outline" className="w-full sm:w-auto" onClick={() => setPdfModalOpen(false)}>Cancel</Button>
+            <Button 
+              className="w-full sm:w-auto"
+              onClick={() => {
+                if (generatedPdf) {
+                  generatedPdf.save(`${title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`);
+                  setPdfModalOpen(false);
+                }
+              }}
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Download PDF
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

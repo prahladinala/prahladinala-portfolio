@@ -118,7 +118,9 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
   };
 
   return (
-    <div className="flex xl:gap-12 relative items-start">
+    <>
+      <ReadingProgress />
+      <div className="flex xl:gap-12 relative items-start">
       <article className="flex-1 min-w-0 max-w-3xl pb-24 print:pb-0">
         <script
           type="application/ld+json"
