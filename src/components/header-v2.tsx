@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle-v2";
-import { navLinks } from "@/config/nav";
+import { NAV_LINKS } from "@/config/constants";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
@@ -24,7 +24,7 @@ export function Header() {
 
       // Determine active section based on scroll position
       if (pathname === "/") {
-        const sections = navLinks
+        const sections = NAV_LINKS
           .map((link) => link.href.split("#")[1])
           .filter(Boolean);
         
@@ -86,7 +86,7 @@ export function Header() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center space-x-1 lg:space-x-4">
-            {navLinks.map((link) => {
+            {NAV_LINKS.map((link) => {
               const isActive = 
                 (link.href === "/" && activeSection === "home") || 
                 (link.href.includes("#") && activeSection === link.href.split("#")[1]) ||
@@ -149,7 +149,7 @@ export function Header() {
               <SheetContent side="right" className="w-[80vw] sm:w-[350px] flex flex-col pt-16">
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <nav className="flex flex-col space-y-4">
-                  {navLinks.map((link) => {
+                  {NAV_LINKS.map((link) => {
                     const isActive = 
                       (link.href === "/" && activeSection === "home") || 
                       (link.href.includes("#") && activeSection === link.href.split("#")[1]) ||
@@ -184,4 +184,5 @@ export function Header() {
     </header>
   );
 }
+
 

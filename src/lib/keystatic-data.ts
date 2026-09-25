@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { cache } from "react";
 
 // Define the types (mirroring the old hardcoded ones)
 export type Experience = {
@@ -32,7 +33,7 @@ export type SkillCategory = {
   skills: string[];
 };
 
-export function getExperiences(): Experience[] {
+export const getExperiences = cache((): Experience[] => {
   const dir = path.join(process.cwd(), "src/content/experience");
   if (!fs.existsSync(dir)) return [];
   
@@ -46,9 +47,9 @@ export function getExperiences(): Experience[] {
       ...data,
     } as Experience;
   });
-}
+});
 
-export function getProjects(): Project[] {
+export const getProjects = cache((): Project[] => {
   const dir = path.join(process.cwd(), "src/content/projects");
   if (!fs.existsSync(dir)) return [];
   
@@ -62,16 +63,16 @@ export function getProjects(): Project[] {
       ...data,
     } as Project;
   });
-}
+});
 
-export function getSkills(): SkillCategory[] {
+export const getSkills = cache((): SkillCategory[] => {
   const filePath = path.join(process.cwd(), "src/content/skills/skills.json");
   if (!fs.existsSync(filePath)) return [];
   
   const content = fs.readFileSync(filePath, "utf8");
   const data = JSON.parse(content);
   return data.categories || [];
-}
+});
 
 export type Socials = {
   email: string;
@@ -81,10 +82,10 @@ export type Socials = {
   medium: string;
 };
 
-export function getSocials(): Socials | null {
+export const getSocials = cache((): Socials | null => {
   const filePath = path.join(process.cwd(), "src/content/socials/socials.json");
   if (!fs.existsSync(filePath)) return null;
   
   const content = fs.readFileSync(filePath, "utf8");
   return JSON.parse(content) as Socials;
-}
+});

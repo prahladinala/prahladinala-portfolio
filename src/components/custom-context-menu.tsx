@@ -1,4 +1,5 @@
 "use client";
+import { STORAGE_KEYS } from "@/config/constants";
 
 import { useEffect, useState, useRef } from "react";
 import { Copy, Share2, ExternalLink, Check, CheckCircle, Bookmark } from "lucide-react";
@@ -37,8 +38,8 @@ export function CustomContextMenu() {
 
         if (isNoteLink) {
           try {
-            const completed = JSON.parse(localStorage.getItem("prahlad-completed-notes") || "[]");
-            const bookmarked = JSON.parse(localStorage.getItem("prahlad-bookmarked-notes") || "[]");
+            const completed = JSON.parse(localStorage.getItem(STORAGE_KEYS.completedNotes) || "[]");
+            const bookmarked = JSON.parse(localStorage.getItem(STORAGE_KEYS.bookmarkedNotes) || "[]");
             setIsCompleted(completed.includes(path));
             setIsBookmarked(bookmarked.includes(path));
           } catch (err) {
@@ -121,12 +122,12 @@ export function CustomContextMenu() {
   const toggleComplete = () => {
     if (!notePath) return;
     try {
-      const completed = JSON.parse(localStorage.getItem("prahlad-completed-notes") || "[]");
+      const completed = JSON.parse(localStorage.getItem(STORAGE_KEYS.completedNotes) || "[]");
       const newCompleted = isCompleted 
         ? completed.filter((p: string) => p !== notePath)
         : [...completed, notePath];
       
-      localStorage.setItem("prahlad-completed-notes", JSON.stringify(newCompleted));
+      localStorage.setItem(STORAGE_KEYS.completedNotes, JSON.stringify(newCompleted));
       window.dispatchEvent(new Event("prahlad-notes-updated"));
       setShow(false);
     } catch (err) {
@@ -137,12 +138,12 @@ export function CustomContextMenu() {
   const toggleBookmark = () => {
     if (!notePath) return;
     try {
-      const bookmarked = JSON.parse(localStorage.getItem("prahlad-bookmarked-notes") || "[]");
+      const bookmarked = JSON.parse(localStorage.getItem(STORAGE_KEYS.bookmarkedNotes) || "[]");
       const newBookmarked = isBookmarked 
         ? bookmarked.filter((p: string) => p !== notePath)
         : [...bookmarked, notePath];
       
-      localStorage.setItem("prahlad-bookmarked-notes", JSON.stringify(newBookmarked));
+      localStorage.setItem(STORAGE_KEYS.bookmarkedNotes, JSON.stringify(newBookmarked));
       window.dispatchEvent(new Event("prahlad-notes-updated"));
       setShow(false);
     } catch (err) {

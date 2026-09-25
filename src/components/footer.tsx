@@ -1,5 +1,3 @@
-"use client";
-
 import { Heart, Mail } from "lucide-react";
 import Link from "next/link";
 import { Github, Linkedin, Twitter, Medium } from "@/components/icons";
@@ -75,3 +73,4 @@ export function Footer({ socials }: { socials?: Socials | null }) {
     </footer>
   );
 }
+

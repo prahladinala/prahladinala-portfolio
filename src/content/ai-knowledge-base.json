@@ -1,4 +1,17 @@
 {
+  "slashCommands": [
+    { "command": "/dark", "label": "Dark Mode", "desc": "Turn off the lights" },
+    { "command": "/light", "label": "Light Mode", "desc": "Turn on the lights" },
+    { "command": "/focus", "label": "Focus Mode", "desc": "Minimize distractions" },
+    { "command": "/projects", "label": "Projects", "desc": "Scroll to projects" },
+    { "command": "/experience", "label": "Experience", "desc": "Scroll to experience" },
+    { "command": "/contact", "label": "Contact", "desc": "Scroll to contact info" },
+    { "command": "/tictactoe", "label": "Tic-Tac-Toe", "desc": "Play a quick game" },
+    { "command": "/rps", "label": "Rock Paper Scissors", "desc": "Play against AI" },
+    { "command": "/memory", "label": "Memory Match", "desc": "Test your brain" },
+    { "command": "/clear", "label": "Clear Chat", "desc": "Wipe history" },
+    { "command": "/print", "label": "Print Resume", "desc": "Open print dialog" }
+  ],
   "greetings": [
     "Hello! I'm Prahlad's AI assistant. Ask me anything about his experience, skills, or projects.",
     "Hi there! Curious about Prahlad's work? I can help answer your questions.",

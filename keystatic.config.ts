@@ -13,7 +13,15 @@ export default config({
       path: 'src/content/ai-knowledge-base',
       format: { data: 'json' },
       schema: {
-        greetings: fields.array(
+        slashCommands: fields.array(
+        fields.object({
+          command: fields.text({ label: 'Command (e.g. /dark)' }),
+          label: fields.text({ label: 'Label (e.g. Dark Mode)' }),
+          desc: fields.text({ label: 'Description' })
+        }),
+        { label: 'Slash Commands', itemLabel: props => props.fields.command.value }
+      ),
+      greetings: fields.array(
           fields.text({ label: 'Greeting' }),
           { label: 'Greetings', itemLabel: props => props.value }
         ),
@@ -169,5 +177,6 @@ export default config({
 // Cache bust: 1790180505.6265287
 
 // BUST CACHE 1790281666544
+
 
 

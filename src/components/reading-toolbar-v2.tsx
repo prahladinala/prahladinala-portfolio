@@ -1,4 +1,5 @@
 "use client";
+import { STORAGE_KEYS } from "@/config/constants";
 
 import { useState, useEffect } from "react";
 import { Download, Type, Volume2, VolumeX, Minus, Plus, Loader2, AlertCircle, Share2, Bookmark, CheckCircle } from "lucide-react";
@@ -41,10 +42,10 @@ export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "docu
     const loadState = () => {
       try {
         const path = window.location.pathname;
-        const bookmarks = JSON.parse(localStorage.getItem("prahlad-bookmarked-notes") || "[]");
+        const bookmarks = JSON.parse(localStorage.getItem(STORAGE_KEYS.bookmarkedNotes) || "[]");
         setIsBookmarked(bookmarks.includes(path));
         
-        const completed = JSON.parse(localStorage.getItem("prahlad-completed-notes") || "[]");
+        const completed = JSON.parse(localStorage.getItem(STORAGE_KEYS.completedNotes) || "[]");
         setIsCompleted(completed.includes(path));
       } catch (e) {
         console.error(e);
@@ -85,15 +86,15 @@ export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "docu
 
   const toggleBookmark = () => {
     try {
-      const bookmarks = JSON.parse(localStorage.getItem("prahlad-bookmarked-notes") || "[]");
+      const bookmarks = JSON.parse(localStorage.getItem(STORAGE_KEYS.bookmarkedNotes) || "[]");
       const path = window.location.pathname;
       if (isBookmarked) {
         const newBookmarks = bookmarks.filter((p: string) => p !== path);
-        localStorage.setItem("prahlad-bookmarked-notes", JSON.stringify(newBookmarks));
+        localStorage.setItem(STORAGE_KEYS.bookmarkedNotes, JSON.stringify(newBookmarks));
         setIsBookmarked(false);
       } else {
         bookmarks.push(path);
-        localStorage.setItem("prahlad-bookmarked-notes", JSON.stringify(bookmarks));
+        localStorage.setItem(STORAGE_KEYS.bookmarkedNotes, JSON.stringify(bookmarks));
         setIsBookmarked(true);
       }
       window.dispatchEvent(new Event('prahlad-notes-updated'));
@@ -104,15 +105,15 @@ export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "docu
 
   const toggleComplete = () => {
     try {
-      const completed = JSON.parse(localStorage.getItem("prahlad-completed-notes") || "[]");
+      const completed = JSON.parse(localStorage.getItem(STORAGE_KEYS.completedNotes) || "[]");
       const path = window.location.pathname;
       if (isCompleted) {
         const newCompleted = completed.filter((p: string) => p !== path);
-        localStorage.setItem("prahlad-completed-notes", JSON.stringify(newCompleted));
+        localStorage.setItem(STORAGE_KEYS.completedNotes, JSON.stringify(newCompleted));
         setIsCompleted(false);
       } else {
         completed.push(path);
-        localStorage.setItem("prahlad-completed-notes", JSON.stringify(completed));
+        localStorage.setItem(STORAGE_KEYS.completedNotes, JSON.stringify(completed));
         setIsCompleted(true);
       }
       window.dispatchEvent(new Event('prahlad-notes-updated'));

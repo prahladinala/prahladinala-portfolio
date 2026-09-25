@@ -9,6 +9,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header-v2";
 import { getSocials, getExperiences, getProjects } from "@/lib/keystatic-data";
+import { SITE_CONFIG } from "@/config/constants";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -30,19 +31,19 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://prahladinala.in"),
+  metadataBase: new URL(SITE_CONFIG.url),
   alternates: {
     canonical: "/",
   },
   title: {
-    default: "Prahlad Inala | Software Engineer & Frontend Developer",
-    template: "%s | Prahlad Inala"
+    default: `${SITE_CONFIG.name} | Software Engineer & Frontend Developer`,
+    template: `%s | ${SITE_CONFIG.name}`
   },
-  description: "Modern portfolio for Prahlad, specializing in React, Next.js, and Guidewire.",
-  keywords: ["Software Engineer", "Frontend Developer", "Guidewire Jutro", "React", "Next.js", "TypeScript", "Prahlad"],
-  authors: [{ name: "Prahlad" }],
-  creator: "Prahlad",
-  applicationName: "Prahlad Portfolio",
+  description: SITE_CONFIG.description,
+  keywords: SITE_CONFIG.keywords,
+  authors: [{ name: SITE_CONFIG.name }],
+  creator: SITE_CONFIG.name,
+  applicationName: SITE_CONFIG.name + " Portfolio",
   robots: {
     index: true,
     follow: true,
@@ -57,16 +58,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://prahladinala.in",
-    title: "Prahlad Inala | Software Engineer & Frontend Developer",
-    description: "Modern portfolio for Prahlad, specializing in React, Next.js, and Guidewire.",
-    siteName: "Prahlad Portfolio",
+    url: SITE_CONFIG.url,
+    title: `${SITE_CONFIG.name} | Software Engineer & Frontend Developer`,
+    description: SITE_CONFIG.description,
+    siteName: SITE_CONFIG.name + " Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Prahlad Inala | Software Engineer & Frontend Developer",
-    description: "Modern portfolio for Prahlad, specializing in React, Next.js, and Guidewire.",
-    creator: "@prahladinala",
+    title: `${SITE_CONFIG.name} | Software Engineer & Frontend Developer`,
+    description: SITE_CONFIG.description,
+    creator: SITE_CONFIG.twitterHandle,
   },
 };
 
@@ -82,9 +83,9 @@ export default function MainLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Prahlad Inala",
+    name: SITE_CONFIG.name,
     jobTitle: "Software Engineer",
-    url: "https://prahladinala.in",
+    url: SITE_CONFIG.url,
     sameAs: [
       socials?.github,
       socials?.linkedin,
@@ -128,6 +129,9 @@ export default function MainLayout({
     </html>
   );
 }
+
+
+
 
 
 

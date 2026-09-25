@@ -1,4 +1,5 @@
 "use client";
+import { STORAGE_KEYS } from "@/config/constants";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -25,9 +26,9 @@ export function NotesSidebar({ topics }: SidebarProps) {
     setMounted(true);
     const loadState = () => {
       try {
-        setCompletedNotes(JSON.parse(localStorage.getItem("prahlad-completed-notes") || "[]"));
-        const newKeys = JSON.parse(localStorage.getItem("prahlad-bookmarked-notes") || "[]");
-        const oldKeys = JSON.parse(localStorage.getItem("prahlad-bookmarks") || "[]");
+        setCompletedNotes(JSON.parse(localStorage.getItem(STORAGE_KEYS.completedNotes) || "[]"));
+        const newKeys = JSON.parse(localStorage.getItem(STORAGE_KEYS.bookmarkedNotes) || "[]");
+        const oldKeys = JSON.parse(localStorage.getItem(STORAGE_KEYS.oldBookmarks) || "[]");
         setBookmarkedNotes(Array.from(new Set([...newKeys, ...oldKeys])));
       } catch (e) {}
     };

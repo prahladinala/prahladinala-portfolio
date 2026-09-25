@@ -1,4 +1,5 @@
 "use client";
+import { STORAGE_KEYS } from "@/config/constants";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -14,8 +15,8 @@ export function BookmarksClient({ allNotes }: { allNotes: NoteMeta[] }) {
     setMounted(true);
     const loadBookmarks = () => {
       try {
-        const newKeys = JSON.parse(localStorage.getItem("prahlad-bookmarked-notes") || "[]");
-        const oldKeys = JSON.parse(localStorage.getItem("prahlad-bookmarks") || "[]");
+        const newKeys = JSON.parse(localStorage.getItem(STORAGE_KEYS.bookmarkedNotes) || "[]");
+        const oldKeys = JSON.parse(localStorage.getItem(STORAGE_KEYS.oldBookmarks) || "[]");
         // Merge and deduplicate
         const merged = Array.from(new Set([...newKeys, ...oldKeys]));
         setBookmarkedPaths(merged);

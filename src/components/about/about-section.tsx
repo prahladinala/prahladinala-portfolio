@@ -1,8 +1,7 @@
 import { ProfileImage } from "./profile-image";
 import { StatsGrid } from "./stats-grid";
 import { getExperiences, getProjects, getSocials } from "@/lib/keystatic-data";
-import fs from "fs";
-import path from "path";
+import { getAllNotes } from "@/lib/mdx";
 
 export async function AboutSection() {
   const experiences = getExperiences();
@@ -10,11 +9,8 @@ export async function AboutSection() {
   const socials = getSocials();
   
   // Blog count
-  const notesDir = path.join(process.cwd(), "src/content/notes");
-  let blogCount = 0;
-  if (fs.existsSync(notesDir)) {
-    blogCount = fs.readdirSync(notesDir).filter(file => !file.startsWith('.') && file.endsWith('.mdx')).length;
-  }
+  const allNotes = getAllNotes();
+  const blogCount = allNotes.length;
   
   // Experience count
   let minYear = new Date().getFullYear();
