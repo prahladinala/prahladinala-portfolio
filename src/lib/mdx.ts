@@ -21,14 +21,25 @@ export type Note = {
   content: string;
 };
 
-// Get all topics (folders in src/content/notes)
+function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): string[] {
+  if (!fs.existsSync(dirPath)) return [];
+  const files = fs.readdirSync(dirPath);
+  files.forEach((file) => {
+    if (fs.statSync(dirPath + "/" + file).isDirectory()) {
+      arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
+    } else {
+      arrayOfFiles.push(path.join(dirPath, "/", file));
+    }
+  });
+  return arrayOfFiles;
+}
+
 export function getNoteTopics(): string[] {
   if (!fs.existsSync(NOTES_PATH)) return [];
-  const files = fs.readdirSync(NOTES_PATH).filter((file) => file.endsWith(".mdx") || file.endsWith(".md"));
+  const files = getAllFiles(NOTES_PATH).filter((file) => file.endsWith(".mdx") || file.endsWith(".md"));
   
   const topics = new Set<string>();
-  files.forEach((file) => {
-    const filePath = path.join(NOTES_PATH, file);
+  files.forEach((filePath) => {
     const fileContent = fs.readFileSync(filePath, "utf-8");
     const { data } = matter(fileContent);
     if (data.topic) topics.add(data.topic);
@@ -37,14 +48,13 @@ export function getNoteTopics(): string[] {
   return Array.from(topics).sort();
 }
 
-// Get all notes across all topics
 export function getAllNotes(): NoteMeta[] {
   if (!fs.existsSync(NOTES_PATH)) return [];
-  const files = fs.readdirSync(NOTES_PATH).filter((file) => file.endsWith(".mdx") || file.endsWith(".md"));
+  const files = getAllFiles(NOTES_PATH).filter((file) => file.endsWith(".mdx") || file.endsWith(".md"));
 
-  const notes = files.map((file) => {
-    const slug = file.replace(/\.mdx?$/, "");
-    const filePath = path.join(NOTES_PATH, file);
+  const notes = files.map((filePath) => {
+    const fileName = path.basename(filePath);
+    const slug = fileName.replace(/\.mdx?$/, "");
     const fileContent = fs.readFileSync(filePath, "utf-8");
     const { data, content } = matter(fileContent);
 
@@ -64,38 +74,29 @@ export function getAllNotes(): NoteMeta[] {
     };
   });
 
-  // Filter out drafts in production mode
   let finalNotes = process.env.NODE_ENV === "production" ? notes.filter(n => !n.draft) : notes;
-
-  // Sort by date ascending
   return finalNotes.sort((a, b) => (a.date > b.date ? 1 : -1));
 }
 
-// Get all notes for a specific topic
 export function getNotesByTopic(topic: string): NoteMeta[] {
   return getAllNotes().filter(note => note.topic === topic);
 }
 
-// Get a specific note by topic and slug
 export function getNoteBySlug(topic: string, slug: string): Note | null {
-  const mdxPath = path.join(NOTES_PATH, `${slug}.mdx`);
-  const mdPath = path.join(NOTES_PATH, `${slug}.md`);
+  // We need to find the file that has this slug, since it might be in a subfolder now
+  const allFiles = getAllFiles(NOTES_PATH).filter((file) => file.endsWith(".mdx") || file.endsWith(".md"));
+  const filePath = allFiles.find(f => path.basename(f).replace(/\.mdx?$/, '') === slug);
   
-  let filePath = "";
-  if (fs.existsSync(mdxPath)) filePath = mdxPath;
-  else if (fs.existsSync(mdPath)) filePath = mdPath;
-  else return null;
+  if (!filePath) return null;
 
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
 
-  // Validate topic matches
   if (data.topic !== topic && topic !== "general") return null;
 
   const wordCount = content.split(/\s+/).length;
   const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
-  // Prevent direct URL access to drafts in production
   if (data.draft && process.env.NODE_ENV === "production") return null;
 
   return {
@@ -114,7 +115,6 @@ export function getNoteBySlug(topic: string, slug: string): Note | null {
   };
 }
 
-// Get all unique tags across all notes
 export function getAllTags(): string[] {
   const notes = getAllNotes();
   const tags = new Set<string>();
@@ -126,7 +126,6 @@ export function getAllTags(): string[] {
   return Array.from(tags).sort();
 }
 
-// Get notes by a specific tag
 export function getNotesByTag(tag: string): NoteMeta[] {
   const notes = getAllNotes();
   return notes.filter((note) => 

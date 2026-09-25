@@ -94,7 +94,7 @@ export default config({
       label: 'Digital Notes',
       slugField: 'title',
       columns: ['title', 'topic', 'draft', 'date'],
-      path: 'src/content/notes/*',
+      path: 'src/content/notes/{topic}/*',
       format: { contentField: 'content' },
       schema: {
         title: fields.slug({ name: { label: 'Title' } }),
@@ -132,3 +132,4 @@ export default config({
 // Cache bust: 1790180505.6265287
 
 // BUST CACHE 1790281666544
+

@@ -229,7 +229,7 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
         {/* Edit on GitHub */}
         <div className="mt-12 pt-8 border-t border-border text-center print:hidden">
           <a
-            href={`https://github.com/PRAHLADINALA/prahlad-portfolio/edit/main/src/content/notes/${topic}/${slug}.mdx`}
+            href={`https://github.com/prahladinala/prahladinala-portfolio/edit/master/src/content/notes/${topic}/${slug}.mdx`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
@@ -247,3 +247,4 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
     </div>
   );
 }
+
