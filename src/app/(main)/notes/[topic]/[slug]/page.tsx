@@ -15,6 +15,7 @@ import { ShareButtons } from "@/components/notes/share-buttons";
 import { GiscusComments } from "@/components/notes/giscus-comments";
 import { Edit3 } from "lucide-react";
 import { getRelatedNotes } from "@/lib/mdx";
+import { ReadingProgress } from "@/components/reading-progress";
 
 export async function generateStaticParams() {
   const topics = getNoteTopics();
@@ -256,6 +257,7 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
       
       <TableOfContents />
     </div>
+    </>
   );
 }
 
