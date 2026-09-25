@@ -16,6 +16,7 @@ import { GiscusComments } from "@/components/notes/giscus-comments";
 import { Edit3 } from "lucide-react";
 import { getRelatedNotes } from "@/lib/mdx";
 import { ReadingProgress } from "@/components/reading-progress";
+import { ScrollToTop } from "@/components/scroll-to-top";
 
 export async function generateStaticParams() {
   const topics = getNoteTopics();
@@ -186,6 +187,35 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
             )}
           </header>
 
+        {/* Series Navigation (Only show if there are multiple notes in this topic) */}
+        {topicNotes.length > 1 && (
+          <div className="mb-10 p-4 rounded-xl border border-border bg-muted/20 flex flex-col sm:flex-row items-center justify-between gap-4 print:hidden">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                <span className="text-primary font-bold text-sm">{currentIndex + 1}</span>
+              </div>
+              <div>
+                <p className="text-sm font-semibold capitalize text-foreground">{topic} Series</p>
+                <p className="text-xs text-muted-foreground">Part {currentIndex + 1} of {topicNotes.length}</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              {prevNote && (
+                <Link href={`/notes/${topic}/${prevNote.slug}`} className="p-2 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors" title={`Previous: ${prevNote.title}`}>
+                  <ArrowLeft className="w-4 h-4" />
+                </Link>
+              )}
+              <span className="text-xs text-muted-foreground px-2">Navigate</span>
+              {nextNote && (
+                <Link href={`/notes/${topic}/${nextNote.slug}`} className="p-2 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors" title={`Next: ${nextNote.title}`}>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              )}
+            </div>
+          </div>
+        )}
+
           {/* Main Content */}
           <div 
             id="note-content"
@@ -259,6 +289,7 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
       
       <TableOfContents />
     </div>
+    <ScrollToTop />
     </>
   );
 }

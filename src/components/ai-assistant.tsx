@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { MessageSquare, X, Send, Bot } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import knowledgeData from "@/data/ai-knowledge.json";
@@ -12,6 +13,8 @@ type Message = {
 };
 
 export function AIAssistant() {
+  const pathname = usePathname();
+
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -56,6 +59,8 @@ export function AIAssistant() {
       setMessages(prev => [...prev, { id: Date.now().toString(), text: responseText, sender: "ai" }]);
     }, 600);
   };
+
+  if (pathname.startsWith("/notes")) return null;
 
   return (
     <>

@@ -2,29 +2,10 @@
 
 import { Heart, Mail } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Github, Linkedin, Twitter, Medium } from "@/components/icons";
 import type { Socials } from "@/lib/keystatic-data";
 
 export function Footer({ socials }: { socials?: Socials | null }) {
-  const pathname = usePathname();
-  const isNotesPage = pathname?.startsWith("/notes");
-
-  if (isNotesPage) {
-    return (
-      <footer className="w-full border-t border-border/40 bg-background py-8 mt-auto print:hidden">
-        <div className="container mx-auto px-4 md:px-6 flex flex-col items-center justify-center text-sm text-muted-foreground gap-2">
-          <p className="flex items-center gap-1.5">
-            With <Heart className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" /> from
-            <Link href="https://prahladinala.in" className="font-medium text-foreground hover:text-primary transition-colors">
-              prahladinala.in
-            </Link>
-          </p>
-        </div>
-      </footer>
-    );
-  }
-
   // Default to empty strings if socials is undefined
   const safeSocials = socials || { github: '', linkedin: '', twitter: '', email: '', medium: '' };
 
@@ -46,31 +27,32 @@ export function Footer({ socials }: { socials?: Socials | null }) {
               <li><Link href="/#experience" className="hover:text-primary transition-colors">Experience</Link></li>
               <li><Link href="/#projects" className="hover:text-primary transition-colors">Projects</Link></li>
               <li><Link href="/#skills" className="hover:text-primary transition-colors">Skills</Link></li>
+              <li><Link href="/notes" className="hover:text-primary transition-colors">Notes</Link></li>
             </ul>
           </div>
           <div className="space-y-4">
             <h4 className="font-semibold text-foreground">Connect</h4>
             <div className="flex gap-4 text-muted-foreground">
               {safeSocials.github && (
-                <Link href={safeSocials.github} className="hover:text-primary transition-colors">
+                <Link href={safeSocials.github} className="hover:text-primary transition-colors" target="_blank" rel="noopener noreferrer">
                   <Github className="w-5 h-5" />
                   <span className="sr-only">GitHub</span>
                 </Link>
               )}
               {safeSocials.linkedin && (
-                <Link href={safeSocials.linkedin} className="hover:text-primary transition-colors">
+                <Link href={safeSocials.linkedin} className="hover:text-primary transition-colors" target="_blank" rel="noopener noreferrer">
                   <Linkedin className="w-5 h-5" />
                   <span className="sr-only">LinkedIn</span>
                 </Link>
               )}
               {safeSocials.twitter && (
-                <Link href={safeSocials.twitter} className="hover:text-primary transition-colors">
+                <Link href={safeSocials.twitter} className="hover:text-primary transition-colors" target="_blank" rel="noopener noreferrer">
                   <Twitter className="w-5 h-5" />
                   <span className="sr-only">Twitter</span>
                 </Link>
               )}
               {safeSocials.medium && (
-                <Link href={safeSocials.medium} className="hover:text-primary transition-colors">
+                <Link href={safeSocials.medium} className="hover:text-primary transition-colors" target="_blank" rel="noopener noreferrer">
                   <Medium className="w-5 h-5" />
                   <span className="sr-only">Medium</span>
                 </Link>
@@ -86,7 +68,7 @@ export function Footer({ socials }: { socials?: Socials | null }) {
         </div>
         
         <div className="border-t border-border/40 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} Prahlad Inala. All rights reserved.</p>
+          <p>c {new Date().getFullYear()} Prahlad Inala. All rights reserved.</p>
           <p>Designed & Built by Prahlad <span className="mx-2">|</span> Built with Next.js</p>
         </div>
       </div>
