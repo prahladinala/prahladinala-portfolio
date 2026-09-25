@@ -8,6 +8,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, ChevronRight, Clock } from "lucide-react";
 import { ReadingToolbar } from "@/components/reading-toolbar-v2";
 import { Pre } from "@/components/mdx/pre";
+import { MdxImage } from "@/components/mdx/image";
 import { TableOfContents } from "@/components/table-of-contents";
 import { Callout } from "@/components/mdx/callout";
 import { ShareButtons } from "@/components/notes/share-buttons";
@@ -95,6 +96,7 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
     "@context": "https://schema.org",
     "@type": "Article",
     headline: note.meta.title,
+    image: [`https://prahladinala.in/api/og?title=${encodeURIComponent(note.meta.title)}&topic=${encodeURIComponent(topic)}&date=${encodeURIComponent(note.meta.date)}`],
     description: note.meta.description,
     author: {
       "@type": "Person",
@@ -102,6 +104,15 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
       url: "https://prahladinala.in",
     },
     datePublished: note.meta.date,
+    dateModified: note.meta.updatedAt || note.meta.date,
+    publisher: {
+      "@type": "Organization",
+      name: "Prahlad Inala",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://prahladinala.in/logo.png"
+      }
+    },
     url: `https://prahladinala.in/notes/${topic}/${slug}`,
   };
 
@@ -177,7 +188,7 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
             id="note-content"
             className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-bold prose-h2:mt-12 prose-h3:mt-8 prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-border rounded-xl print:text-black print:prose-pre:border-gray-300 print:prose-a:text-blue-600 print:prose-headings:text-black print:prose-strong:text-black transition-all duration-300 ease-out"
           >
-            <MDXRemote source={note.content} options={options} components={{ pre: Pre, Callout }} />
+            <MDXRemote source={note.content} options={options} components={{ pre: Pre, Callout, img: MdxImage }} />
           </div>
         </div>
 
@@ -247,4 +258,8 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
     </div>
   );
 }
+
+
+
+
 
