@@ -95,8 +95,7 @@ export default function MainLayout({
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} h-full antialiased scroll-smooth`}>
       <head>
-        <script
-          id="schema-jsonld"
+        <Script id="schema-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
@@ -126,4 +125,5 @@ export default function MainLayout({
     </html>
   );
 }
+
 
