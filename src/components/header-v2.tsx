@@ -9,10 +9,11 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { Menu, ArrowLeft, ArrowRight } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export function Header() {
   const router = useRouter();
+  const pathname = usePathname();
   const [activeSection, setActiveSection] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,7 @@ export function Header() {
       setIsScrolled(window.scrollY > 50);
 
       // Determine active section based on scroll position
-      if (window.location.pathname === "/") {
+      if (pathname === "/") {
         const sections = navLinks
           .map((link) => link.href.split("#")[1])
           .filter(Boolean);
@@ -37,22 +38,22 @@ export function Header() {
         setActiveSection(current);
       } else {
         // If not on homepage, base it on the pathname
-        const path = window.location.pathname;
-        if (path.startsWith("/notes")) setActiveSection("notes");
+        if (pathname.startsWith("/notes")) setActiveSection("notes");
         else setActiveSection("");
       }
     };
 
+    // Run once on path change to update immediately
+    handleScroll();
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    // Only smooth scroll if we are already on the home page and clicking a hash link
-    const isHomePage = window.location.pathname === "/";
     const isHashLink = href.startsWith("/#") || href.startsWith("#");
 
-    if (isHomePage && isHashLink) {
+    if (pathname === "/" && isHashLink) {
       e.preventDefault();
       const targetId = href.split("#")[1];
       const elem = document.getElementById(targetId);
@@ -62,6 +63,8 @@ export function Header() {
           behavior: "smooth",
         });
       }
+    } else if (!pathname.startsWith("/") && isHashLink) {
+      // Allow next/link to handle cross-page navigation naturally
     }
     setIsOpen(false);
   };
@@ -77,7 +80,7 @@ export function Header() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
-          <Link href="#home" className="text-xl font-bold tracking-tight z-50" onClick={(e) => handleLinkClick(e, "#home")}>
+          <Link href="/#home" className="text-xl font-bold tracking-tight z-50" onClick={(e) => handleLinkClick(e, "/")}>
             Prahlad<span className="text-primary">.</span>
           </Link>
 
@@ -181,3 +184,4 @@ export function Header() {
     </header>
   );
 }
+

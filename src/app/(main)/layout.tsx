@@ -80,7 +80,7 @@ export default function MainLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Prahlad",
+    name: "Prahlad Inala",
     jobTitle: "Software Engineer",
     url: "https://prahladinala.in",
     sameAs: [
@@ -89,7 +89,7 @@ export default function MainLayout({
       socials?.twitter,
       socials?.medium
     ].filter(Boolean),
-    alumniOf: "Your University",
+    
     knowsAbout: ["React", "Next.js", "TypeScript", "Guidewire Jutro", "Frontend Development"]
   };
   return (
@@ -126,3 +126,4 @@ export default function MainLayout({
     </html>
   );
 }
+

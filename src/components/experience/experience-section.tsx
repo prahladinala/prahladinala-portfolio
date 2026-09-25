@@ -3,7 +3,7 @@ import type { Experience } from "@/lib/keystatic-data";
 
 export function ExperienceSection({ experiences }: { experiences: Experience[] }) {
   return (
-    <section id="experience" className="py-24 bg-muted/30 w-full relative">
+    <section id="experience" aria-label="Professional Work Experience" className="py-24 bg-muted/30 w-full relative">
       <div className="container px-4 md:px-6 mx-auto">
         <div className="mb-16 text-center md:text-left">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">Experience</h2>
@@ -30,3 +30,4 @@ export function ExperienceSection({ experiences }: { experiences: Experience[] }
     </section>
   );
 }
+

@@ -3,7 +3,7 @@ import { SkillCloud } from "./skill-cloud";
 
 export function SkillsSection({ categories }: { categories: SkillCategory[] }) {
   return (
-    <section id="skills" className="py-24 bg-muted/30 w-full relative">
+    <section id="skills" aria-label="Technical Skills and Technologies" className="py-24 bg-muted/30 w-full relative">
       <div className="container px-4 md:px-6 mx-auto">
         <div className="mb-16 text-center md:text-left">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">Technical Skills</h2>
@@ -28,3 +28,4 @@ export function SkillsSection({ categories }: { categories: SkillCategory[] }) {
     </section>
   );
 }
+

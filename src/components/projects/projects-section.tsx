@@ -24,7 +24,7 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
   );
 
   return (
-    <section id="projects" className="py-24 w-full relative">
+    <section id="projects" aria-label="Featured Software Projects" className="py-24 w-full relative">
       <div className="container px-4 md:px-6 mx-auto">
         <div className="mb-16">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
@@ -87,3 +87,4 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
     </section>
   );
 }
+
