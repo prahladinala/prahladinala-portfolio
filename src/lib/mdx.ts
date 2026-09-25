@@ -133,3 +133,19 @@ export function getNotesByTag(tag: string): NoteMeta[] {
     note.tags?.some((t) => t.toLowerCase() === tag.toLowerCase())
   );
 }
+
+export function getRelatedNotes(currentMeta: NoteMeta, limit = 3) {
+  const all = getAllNotes().filter(n => n.slug !== currentMeta.slug);
+  
+  const scored = all.map(note => {
+    let score = 0;
+    if (note.topic === currentMeta.topic) score += 2;
+    if (note.tags && currentMeta.tags) {
+      const common = note.tags.filter(t => currentMeta.tags?.includes(t));
+      score += common.length;
+    }
+    return { note, score };
+  });
+  
+  return scored.filter(s => s.score > 0).sort((a, b) => b.score - a.score).slice(0, limit).map(s => s.note);
+}

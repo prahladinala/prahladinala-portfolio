@@ -9,6 +9,11 @@ import { ArrowLeft, ArrowRight, ChevronRight, Clock } from "lucide-react";
 import { ReadingToolbar } from "@/components/reading-toolbar-v2";
 import { Pre } from "@/components/mdx/pre";
 import { TableOfContents } from "@/components/table-of-contents";
+import { Callout } from "@/components/mdx/callout";
+import { ShareButtons } from "@/components/notes/share-buttons";
+import { GiscusComments } from "@/components/notes/giscus-comments";
+import { Edit3 } from "lucide-react";
+import { getRelatedNotes } from "@/lib/mdx";
 
 export async function generateStaticParams() {
   const topics = getNoteTopics();
@@ -172,7 +177,7 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
             id="note-content"
             className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-bold prose-h2:mt-12 prose-h3:mt-8 prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-border rounded-xl print:text-black print:prose-pre:border-gray-300 print:prose-a:text-blue-600 print:prose-headings:text-black print:prose-strong:text-black transition-all duration-300 ease-out"
           >
-            <MDXRemote source={note.content} options={options} components={{ pre: Pre }} />
+            <MDXRemote source={note.content} options={options} components={{ pre: Pre, Callout }} />
           </div>
         </div>
 
@@ -198,6 +203,44 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
             )}
           </footer>
         )}
+
+        {/* Related Notes */}
+        {(() => {
+          const related = getRelatedNotes(note.meta);
+          if (related.length === 0) return null;
+          return (
+            <div className="mt-16 pt-8 border-t border-border print:hidden">
+              <h3 className="text-xl font-bold mb-6">Related Notes</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {related.map(r => (
+                  <Link key={r.slug} href={`/notes/${r.topic}/${r.slug}`} className="p-4 rounded-xl border border-border hover:border-primary/50 bg-muted/20 hover:bg-muted/50 transition-colors group">
+                    <div className="text-xs font-semibold text-muted-foreground mb-2 flex items-center gap-2">
+                      <span className="capitalize text-primary/80">{r.topic}</span>
+                      {r.date && <span>• {dayjs(r.date).format("MMM D, YYYY")}</span>}
+                    </div>
+                    <h4 className="font-medium group-hover:text-primary transition-colors">{r.title}</h4>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* Edit on GitHub */}
+        <div className="mt-12 pt-8 border-t border-border text-center print:hidden">
+          <a
+            href={`https://github.com/PRAHLADINALA/prahlad-portfolio/edit/main/src/content/notes/${topic}/${slug}.mdx`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+          >
+            <Edit3 className="w-4 h-4" />
+            Spot a typo? Edit this page on GitHub
+          </a>
+        </div>
+
+        {/* Comments */}
+        <GiscusComments />
       </article>
       
       <TableOfContents />

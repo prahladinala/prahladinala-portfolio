@@ -1,14 +1,7 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
 
 export default config({
-  storage: {
-    // In production, you would switch this to 'github' and set your repo
-    kind: process.env.NODE_ENV === 'production' ? 'github' : 'local',
-    repo: {
-      owner: 'prahladinala',
-      name: 'prahladinala-portfolio'
-    }
-  },
+  storage: { kind: 'github', repo: { owner: 'prahladinala', name: 'prahladinala-portfolio' } },
   ui: {
     brand: {
       name: 'Prahlad Portfolio CMS',
@@ -137,3 +130,5 @@ export default config({
 });
 
 // Cache bust: 1790180505.6265287
+
+// BUST CACHE 1790281666544
