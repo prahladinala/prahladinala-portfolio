@@ -9,17 +9,22 @@ import knowledgeData from "@/content/ai-knowledge-base.json";
 import Link from "next/link";
 import { useSectionTitle } from "@/hooks/use-section-title";
 import { Experience, Project } from "@/lib/keystatic-data";
+import { TicTacToeGame, RockPaperScissorsGame, MemoryMatchGame } from "./ai-games";
+
+type GameType = "tictactoe" | "rps" | "memory";
 
 type Message = {
   id: string;
   text: string;
   sender: "user" | "ai";
   actionLink?: { label: string; url: string };
+  game?: GameType;
 };
 
 type AIResponse = {
   text: string;
   actionLink?: { label: string; url: string };
+  game?: GameType;
 };
 
 const QUICK_ACTIONS = ["View Resume", "Tech Stack", "Recent Projects"];
@@ -31,6 +36,9 @@ const SLASH_COMMANDS = [
   { command: "/projects", label: "Projects", desc: "Scroll to projects" },
   { command: "/experience", label: "Experience", desc: "Scroll to experience" },
   { command: "/contact", label: "Contact", desc: "Scroll to contact info" },
+  { command: "/tictactoe", label: "Tic-Tac-Toe", desc: "Play a quick game" },
+  { command: "/rps", label: "Rock Paper Scissors", desc: "Play against AI" },
+  { command: "/memory", label: "Memory Match", desc: "Test your brain" },
   { command: "/clear", label: "Clear Chat", desc: "Wipe history" },
   { command: "/print", label: "Print Resume", desc: "Open print dialog" }
 ];
@@ -219,6 +227,16 @@ export function AIAssistant({
     const queryWords = lowerQuery.split(/[^a-z0-9]+/);
 
     // 1. Easter Egg Commands
+    if (lowerQuery === "/tictactoe" || lowerQuery.includes("tic tac toe") || lowerQuery.includes("tictactoe")) {
+      return { text: "Let's play Tic-Tac-Toe! You go first (X).", game: "tictactoe" };
+    }
+    if (lowerQuery === "/rps" || lowerQuery.includes("rock paper scissors")) {
+      return { text: "Rock, Paper, Scissors! Make your choice:", game: "rps" };
+    }
+    if (lowerQuery === "/memory" || lowerQuery.includes("memory match") || lowerQuery.includes("memory game")) {
+      return { text: "Tech Memory Match! Can you find all the pairs?", game: "memory" };
+    }
+    
     if (lowerQuery === "dark" || lowerQuery.includes("dark mode") || lowerQuery.includes("make it dark") || lowerQuery === "/dark") {
       setTheme("dark");
       return { text: "Turning off the lights! Dark mode activated." };
@@ -349,8 +367,8 @@ export function AIAssistant({
     if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
     
     typingTimeoutRef.current = setTimeout(() => {
-      const { text, actionLink } = generateResponse(textToSend);
-      setMessages(prev => [...prev, { id: Date.now().toString(), text, actionLink, sender: "ai" }]);
+      const { text, actionLink, game } = generateResponse(textToSend);
+      setMessages(prev => [...prev, { id: Date.now().toString(), text, actionLink, game, sender: "ai" }]);
       setIsTyping(false);
       typingTimeoutRef.current = null;
       
@@ -468,6 +486,9 @@ export function AIAssistant({
                         </Link>
                       </div>
                     )}
+                    {msg.game === "tictactoe" && <TicTacToeGame />}
+                    {msg.game === "rps" && <RockPaperScissorsGame />}
+                    {msg.game === "memory" && <MemoryMatchGame />}
                   </div>
                   
                   {/* Quick Action Pills */}
