@@ -155,7 +155,15 @@ export default config({
           defaultValue: { kind: 'today' },
           description: 'Optional. Show when you last updated this note.' 
         }),
-        topic: fields.text({ label: 'Topic (e.g., react, nextjs)', validation: { isRequired: true } }),
+        topic: fields.select({
+            label: 'Topic',
+            options: [
+              { label: 'React', value: 'react' },
+              { label: 'Next.js', value: 'nextjs' },
+              { label: 'Node.js', value: 'node' },
+            ],
+            defaultValue: 'react',
+          }),
         tags: fields.array(
           fields.text({ label: 'Tag' }),
           { label: 'Tags', itemLabel: props => props.value }
