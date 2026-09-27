@@ -100,7 +100,7 @@ export const generateResponse = (query: string, lastTopic: string | null, experi
 
     if (isMatch) {
       return {
-        text: `${proj.title} is a project where I ${proj.shortDescription}. It uses ${proj.tags.slice(0, 3).join(', ')}.`,
+        text: `${proj.title} is a project where I ${proj.description}. It uses ${proj.tags.slice(0, 3).join(', ')}.`,
         actionLink: { label: "View Project details", url: `/#projects` }
       };
     }
