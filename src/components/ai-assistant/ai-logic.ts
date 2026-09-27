@@ -77,7 +77,8 @@ export const generateResponse = (query: string, lastTopic: string | null, experi
     }
     if (lowerQuery.includes("link") || lowerQuery.includes("visit") || lowerQuery.includes("url")) {
       const proj = projects.find(p => p.id.toLowerCase() === lastTopic);
-      if (proj && proj.link) return { text: `You can visit it here:`, actionLink: { label: "Visit Project", url: proj.link } };
+      const url = proj?.liveUrl || proj?.githubUrl;
+      if (proj && url) return { text: `You can visit it here:`, actionLink: { label: "Visit Project", url: url } };
     }
   }
 
