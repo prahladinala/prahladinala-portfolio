@@ -256,7 +256,8 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
           const related = getRelatedNotes(note.meta);
           if (related.length === 0) return null;
           return (
-            {settings.showRelatedNotes && (
+            <>
+              {settings.showRelatedNotes && (
           <div className="mt-16 pt-8 border-t border-border print:hidden">
               <h3 className="text-xl font-bold mb-6">Related Notes</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -271,6 +272,8 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
                 ))}
               </div>
             </div>
+              )}
+            </>
           );
         })()}
 
