@@ -1,0 +1,25 @@
+{
+  "topics": [
+    {
+      "topic": {
+        "name": "React",
+        "slug": "react"
+      },
+      "description": "React development"
+    },
+    {
+      "topic": {
+        "name": "Next.js",
+        "slug": "nextjs"
+      },
+      "description": "Next.js framework"
+    },
+    {
+      "topic": {
+        "name": "Node.js",
+        "slug": "node"
+      },
+      "description": "Backend JavaScript"
+    }
+  ]
+}
