@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
+    "@codesandbox/sandpack-react": "^2.20.0",
     "@emailjs/browser": "^4.4.1",
     "@giscus/react": "^3.1.0",
     "@keystatic/core": "^0.6.9",

@@ -11,6 +11,7 @@ import { Pre } from "@/components/mdx/pre";
 import { MdxImage } from "@/components/mdx/image";
 import { TableOfContents } from "@/components/table-of-contents";
 import { Callout } from "@/components/mdx/callout";
+import { SandpackRunner } from "@/components/mdx/sandpack-runner";
 import { ShareButtons } from "@/components/notes/share-buttons";
 import { GiscusComments } from "@/components/notes/giscus-comments";
 import { Edit3 } from "lucide-react";
@@ -279,7 +280,12 @@ export default async function NotePage({
               <MDXRemote
                 source={note.content}
                 options={options}
-                components={{ pre: Pre, Callout, img: MdxImage }}
+                components={{
+                  pre: Pre,
+                  Callout,
+                  img: MdxImage,
+                  SandpackRunner,
+                }}
               />
             </div>
           </div>

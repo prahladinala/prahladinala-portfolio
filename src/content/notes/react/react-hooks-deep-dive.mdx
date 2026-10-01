@@ -1,11 +1,12 @@
 ---
 topic: react
 title: React Hooks Deep Dive
-date: '2024-03-12'
+date: "2024-03-12"
 description: >-
   Understanding the lifecycle and performance implications of useEffect and
   useMemo.
 ---
+
 topic: react
 
 # React Hooks Deep Dive
@@ -17,7 +18,7 @@ React Hooks completely revolutionized how we write components. Let's look closel
 The most common mistake with `useEffect` is omitting dependencies or recreating them constantly on every render.
 
 ```jsx
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export function UserProfile({ userId }) {
   const [user, setUser] = useState(null);
@@ -25,14 +26,41 @@ export function UserProfile({ userId }) {
   useEffect(() => {
     // Only runs when userId changes!
     fetch(`/api/users/${userId}`)
-      .then(res => res.json())
-      .then(data => setUser(data));
-  }, [userId]); 
+      .then((res) => res.json())
+      .then((data) => setUser(data));
+  }, [userId]);
 
   if (!user) return <div>Loading...</div>;
   return <div>{user.name}</div>;
 }
 ```
+
+<SandpackRunner 
+  template="react" 
+  files={{
+    "/App.js": `import { useState, useEffect } from 'react';
+
+export default function App() {
+  const [count, setCount] = useState(0);
+  const [color, setColor] = useState('blue');
+
+useEffect(() => {
+document.body.style.backgroundColor = color;
+}, [color]);
+
+return (
+<div style={{ padding: 20, fontFamily: 'sans-serif', background: 'white', borderRadius: 8 }}>
+<h2>Interactive useEffect Demo</h2>
+<p>Count: {count}</p>
+<button onClick={() => setCount(c => c + 1)} style={{ marginRight: 10 }}>Increment</button>
+<button onClick={() => setColor(color === 'blue' ? 'lightgreen' : 'blue')}>
+Toggle Background
+</button>
+</div>
+);
+}`
+}}
+/>
 
 ## Performance with `useMemo`
 
