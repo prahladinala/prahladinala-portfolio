@@ -1,4 +1,12 @@
 import { config, fields, collection, singleton } from "@keystatic/core";
+import topicsData from "./src/content/topics/topics.json";
+
+// Dynamically build dropdown options from src/content/topics/topics.json
+const topicOptions =
+  topicsData?.topics?.map((item: any) => ({
+    label: item.topic?.name || item.name || "Untitled",
+    value: item.topic?.slug || item.slug || "untitled",
+  })) || [];
 
 export default config({
   storage:
@@ -105,7 +113,6 @@ export default config({
       schema: {
         topics: fields.array(
           fields.object({
-            // This single field creates BOTH the "Topic Name" and auto-generated "Slug" inputs
             topic: fields.slug({
               name: {
                 label: "Topic Name",
@@ -225,12 +232,8 @@ export default config({
         }),
         topic: fields.select({
           label: "Topic",
-          options: [
-            { label: "React", value: "react" },
-            { label: "Next.js", value: "nextjs" },
-            { label: "Node.js", value: "node" },
-          ],
-          defaultValue: "react",
+          options: topicOptions,
+          defaultValue: topicOptions[0]?.value || "react",
         }),
         tags: fields.array(fields.text({ label: "Tag" }), {
           label: "Tags",
