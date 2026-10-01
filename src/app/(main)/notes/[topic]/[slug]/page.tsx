@@ -15,6 +15,7 @@ import { ShareButtons } from "@/components/notes/share-buttons";
 import { GiscusComments } from "@/components/notes/giscus-comments";
 import { Edit3 } from "lucide-react";
 import { getRelatedNotes } from "@/lib/mdx";
+import { getSettings } from "@/lib/keystatic-data";
 import { ReadingProgress } from "@/components/reading-progress";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { ViewCounter } from "@/components/view-counter";
@@ -160,11 +161,12 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
   </div>
 )}
               {note.meta.readingTime && (
-                <span className="flex items-center gap-1.5 text-sm print:hidden">
-                  <span className="w-1 h-1 rounded-full bg-muted-foreground/50 hidden sm:block"></span>
-                  <Clock className="w-4 h-4" /> {note.meta.readingTime} min read
-                </span>
-              )}
+                  <span className="flex items-center gap-1.5 text-sm print:hidden">
+                    <span className="w-1 h-1 rounded-full bg-muted-foreground/50 hidden sm:block"></span>
+                    <Clock className="w-4 h-4" /> {note.meta.readingTime} min read
+                  </span>
+                )}
+                {settings.showViews && <ViewCounter slug={note.slug} />}
             </div>
             
             {note.meta.tags && note.meta.tags.length > 0 && (
@@ -254,7 +256,8 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
           const related = getRelatedNotes(note.meta);
           if (related.length === 0) return null;
           return (
-            <div className="mt-16 pt-8 border-t border-border print:hidden">
+            {settings.showRelatedNotes && (
+          <div className="mt-16 pt-8 border-t border-border print:hidden">
               <h3 className="text-xl font-bold mb-6">Related Notes</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {related.map(r => (
@@ -285,10 +288,10 @@ export default async function NotePage({ params }: { params: Promise<{ topic: st
         </div>
 
         {/* Comments */}
-        <GiscusComments />
+        {settings.showComments && <GiscusComments />}
       </article>
       
-      <TableOfContents />
+      {settings.showTableOfContents && <TableOfContents />}
     </div>
     <ScrollToTop />
     </>

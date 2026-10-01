@@ -22,6 +22,18 @@ export default config({
     },
   },
   singletons: {
+    settings: singleton({
+      label: "Site Settings",
+      path: "src/content/settings",
+      format: { data: "json" },
+      schema: {
+        showComments: fields.checkbox({ label: "Show Comments", defaultValue: true, description: "Enable or disable Giscus comments on notes." }),
+        showViews: fields.checkbox({ label: "Show View Counters", defaultValue: true, description: "Enable or disable view counters on notes." }),
+        showTableOfContents: fields.checkbox({ label: "Show Table of Contents", defaultValue: true, description: "Enable or disable the sticky table of contents on notes." }),
+        showShareButtons: fields.checkbox({ label: "Show Share Buttons", defaultValue: true, description: "Enable or disable share buttons on notes." }),
+        showRelatedNotes: fields.checkbox({ label: "Show Related Notes", defaultValue: true, description: "Enable or disable the related notes section at the bottom of notes." }),
+      }
+    }),
     aiKnowledgeBase: singleton({
       label: "AI Knowledge Base",
       path: "src/content/ai-knowledge-base",
