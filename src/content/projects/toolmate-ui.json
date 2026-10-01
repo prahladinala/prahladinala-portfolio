@@ -1,8 +1,6 @@
 {
-  "title": "toolmate-ui",
+  "title": "ToolMate UI",
   "description": "A modern and responsive portfolio website built with Next.js, showcasing my projects, skills, and experience.",
-  "longDescription": "",
-  "image": "/placeholder-project.svg",
   "tags": [
     "Next.js",
     "Tailwind CSS",
