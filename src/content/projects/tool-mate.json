@@ -1,8 +1,7 @@
 {
-  "title": "tool-mate",
+  "title": "ToolMate",
   "description": "Fast browser tools. Built for devs - friendly for everyone.",
   "longDescription": "Fast browser tools. Built for devs - friendly for everyone.",
-  "image": "/placeholder-project.svg",
   "tags": [
     "Next.js",
     "AI",
