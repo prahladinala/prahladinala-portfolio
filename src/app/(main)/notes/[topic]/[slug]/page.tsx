@@ -17,6 +17,7 @@ import { Edit3 } from "lucide-react";
 import { getRelatedNotes } from "@/lib/mdx";
 import { ReadingProgress } from "@/components/reading-progress";
 import { ScrollToTop } from "@/components/scroll-to-top";
+import { ViewCounter } from "@/components/view-counter";
 
 export async function generateStaticParams() {
   const topics = getNoteTopics();
