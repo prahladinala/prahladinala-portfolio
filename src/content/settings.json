@@ -7,7 +7,7 @@
   "showOpenSource": true,
   "showTestimonials": true,
   "enableNotes": true,
-  "showAvailableBanner": false,
+  "showAvailableBanner": true,
   "availableForOpportunity": true,
   "maintenanceMode": false,
   "enableAiAssistant": true,
