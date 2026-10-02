@@ -3,12 +3,7 @@
 import { motion } from "framer-motion";
 import {
   Rocket,
-  Wrench,
   ArrowLeft,
-  Github,
-  Twitter,
-  Linkedin,
-  Mail,
 } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
