@@ -99,6 +99,10 @@ export type Settings = {
   showRelatedNotes: boolean;
   showOpenSource: boolean;
   showTestimonials: boolean;
+  showHireMeBanner: boolean;
+  maintenanceMode: boolean;
+  enableAiAssistant: boolean;
+  defaultTheme: "system" | "dark" | "light";
 };
 
 export const getSettings = cache((): Settings => {
@@ -112,6 +116,10 @@ export const getSettings = cache((): Settings => {
     showRelatedNotes: true,
     showOpenSource: false,
     showTestimonials: false,
+    showHireMeBanner: false,
+    maintenanceMode: false,
+    enableAiAssistant: true,
+    defaultTheme: "system",
   };
 
   if (!fs.existsSync(filePath)) return defaultSettings;

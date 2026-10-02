@@ -30,7 +30,9 @@ export function levenshtein(a: string, b: string): number {
   return matrix[b.length][a.length];
 }
 
-export const generateResponse = (query: string, lastTopic: string | null, experiences: Experience[], projects: Project[]): AIResponse => {
+import Fuse from "fuse.js";
+
+export const generateResponse = (query: string, lastTopic: string | null, experiences: Experience[], projects: Project[], notes: any[] = []): AIResponse => {
   const lowerQuery = query.toLowerCase();
   const queryWords = lowerQuery.split(/[^a-z0-9]+/);
 

@@ -28,6 +28,13 @@ export function AIAssistant({ experiences, projects }: AIAssistantProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
+  const [notes, setNotes] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (isOpen && notes.length === 0) {
+      fetch("/api/search").then(r => r.json()).then(setNotes).catch(() => {});
+    }
+  }, [isOpen, notes.length]);
   const [isTyping, setIsTyping] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);

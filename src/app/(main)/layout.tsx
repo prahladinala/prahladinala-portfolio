@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header-v2";
-import { getSocials, getExperiences, getProjects } from "@/lib/keystatic-data";
+import { getSocials, getExperiences, getProjects, getSettings } from "@/lib/keystatic-data";
 import { SITE_CONFIG } from "@/config/constants";
 
 const inter = Inter({
@@ -79,6 +79,7 @@ export default function MainLayout({
   const socials = getSocials();
   const experiences = getExperiences();
   const projects = getProjects();
+  const settings = getSettings();
   
   const jsonLd = {
     "@context": "https://schema.org",
@@ -129,13 +130,19 @@ export default function MainLayout({
       <body suppressHydrationWarning className="min-h-full flex flex-col font-sans">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme={settings.defaultTheme}
           themes={['light', 'dark', 'focus', 'system']}
           enableSystem
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <Header />
+            {settings.showHireMeBanner && (
+                <div className="w-full bg-primary text-primary-foreground py-2 px-4 text-center text-sm font-medium flex items-center justify-center gap-2 z-[60] relative">
+                  <span>🚀 I am currently open to new opportunities!</span>
+                  <a href="/contact" className="underline underline-offset-2 hover:text-primary-foreground/80">Hire me</a>
+                </div>
+              )}
+              <Header />
             <main className="flex-1 flex flex-col">
               {children}
             </main>
@@ -145,7 +152,7 @@ export default function MainLayout({
           <CustomContextMenu />
           <CommandPalette socials={socials} />
           <TerminalWidget />
-          <AIAssistant experiences={experiences} projects={projects} />
+          {settings.enableAiAssistant && <AIAssistant experiences={experiences} projects={projects} />}
         </ThemeProvider>
       </body>
     </html>
