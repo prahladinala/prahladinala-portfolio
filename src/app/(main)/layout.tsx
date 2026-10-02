@@ -189,13 +189,15 @@ export default function MainLayout({
                 <main className="flex-1 flex flex-col">{children}</main>
                 <Footer socials={socials} />
               </TooltipProvider>
-              <TextSelectionMenu />
-              <CustomContextMenu />
-              <CommandPalette socials={socials} />
-              <TerminalWidget />
-              {settings.enableAiAssistant && (
-                <AIAssistant experiences={experiences} projects={projects} />
-              )}
+              <div className="print:hidden">
+                <TextSelectionMenu />
+                <CustomContextMenu />
+                <CommandPalette socials={socials} />
+                <TerminalWidget />
+                {settings.enableAiAssistant && (
+                  <AIAssistant experiences={experiences} projects={projects} />
+                )}
+              </div>
             </>
           )}
         </ThemeProvider>
