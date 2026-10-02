@@ -7,7 +7,7 @@
   "showOpenSource": true,
   "showTestimonials": true,
   "showHireMeBanner": true,
-  "maintenanceMode": true,
+  "maintenanceMode": false,
   "enableAiAssistant": true,
   "defaultTheme": "system"
 }
