@@ -53,6 +53,7 @@ export async function generateMetadata({
   return {
     title: `${note.meta.title} | ${topic} Notes`,
     description: note.meta.description,
+    keywords: note.meta.tags?.join(", "), // Injected tags for SEO
     openGraph: {
       title: note.meta.title,
       description: note.meta.description,
@@ -134,6 +135,37 @@ export default async function NotePage({
       },
     },
     url: `https://prahladinala.in/notes/${topic}/${slug}`,
+  };
+
+  const breadcrumbList = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://prahladinala.in/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Notes",
+        item: "https://prahladinala.in/notes",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: topic.charAt(0).toUpperCase() + topic.slice(1),
+        item: `https://prahladinala.in/notes/${topic}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: note.meta.title,
+        item: `https://prahladinala.in/notes/${topic}/${slug}`,
+      },
+    ],
   };
 
   return (
