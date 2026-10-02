@@ -35,10 +35,9 @@ export default function ResumeRootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
-          themes={["light", "dark", "system"]}
+          themes={["light", "dark", "focus"]}
           enableSystem
-          disableTransitionOnChange
-        >
+                  >
           {/* Extremely Simple NavBar specifically for Resume */}
           <div className="container mx-auto px-4 py-4 flex justify-between items-center print:hidden border-b border-border mb-8 max-w-[850px]">
             <Link
