@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { cache } from "react";
+import settingsData from "@/content/settings.json";
 
 // Define the types (mirroring the old hardcoded ones)
 export type Experience = {
@@ -36,14 +37,14 @@ export type SkillCategory = {
 export const getExperiences = cache((): Experience[] => {
   const dir = path.join(process.cwd(), "src/content/experience");
   if (!fs.existsSync(dir)) return [];
-  
-  const files = fs.readdirSync(dir).filter(f => f.endsWith('.json'));
-  return files.map(file => {
+
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
+  return files.map((file) => {
     const filePath = path.join(dir, file);
     const content = fs.readFileSync(filePath, "utf8");
     const data = JSON.parse(content);
     return {
-      id: file.replace('.json', ''),
+      id: file.replace(".json", ""),
       ...data,
     } as Experience;
   });
@@ -52,14 +53,14 @@ export const getExperiences = cache((): Experience[] => {
 export const getProjects = cache((): Project[] => {
   const dir = path.join(process.cwd(), "src/content/projects");
   if (!fs.existsSync(dir)) return [];
-  
-  const files = fs.readdirSync(dir).filter(f => f.endsWith('.json'));
-  return files.map(file => {
+
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
+  return files.map((file) => {
     const filePath = path.join(dir, file);
     const content = fs.readFileSync(filePath, "utf8");
     const data = JSON.parse(content);
     return {
-      id: file.replace('.json', ''),
+      id: file.replace(".json", ""),
       ...data,
     } as Project;
   });
@@ -68,7 +69,7 @@ export const getProjects = cache((): Project[] => {
 export const getSkills = cache((): SkillCategory[] => {
   const filePath = path.join(process.cwd(), "src/content/skills/skills.json");
   if (!fs.existsSync(filePath)) return [];
-  
+
   const content = fs.readFileSync(filePath, "utf8");
   const data = JSON.parse(content);
   return data.categories || [];
@@ -85,11 +86,10 @@ export type Socials = {
 export const getSocials = cache((): Socials | null => {
   const filePath = path.join(process.cwd(), "src/content/socials/socials.json");
   if (!fs.existsSync(filePath)) return null;
-  
+
   const content = fs.readFileSync(filePath, "utf8");
   return JSON.parse(content) as Socials;
 });
-
 
 export type Settings = {
   showComments: boolean;
@@ -108,8 +108,6 @@ export type Settings = {
 };
 
 export const getSettings = cache((): Settings => {
-  const filePath = path.join(process.cwd(), "src/content/settings.json");
-  
   const defaultSettings: Settings = {
     showComments: true,
     showViews: true,
@@ -126,16 +124,12 @@ export const getSettings = cache((): Settings => {
     defaultTheme: "system",
   };
 
-  if (!fs.existsSync(filePath)) return defaultSettings;
-  
   try {
-    const content = fs.readFileSync(filePath, "utf8");
-    return { ...defaultSettings, ...JSON.parse(content) };
+    return { ...defaultSettings, ...settingsData } as Settings;
   } catch (_e) {
     return defaultSettings;
   }
 });
-
 
 export type OpenSourceProject = {
   title: string;
@@ -162,25 +156,31 @@ export type Testimonial = {
 export const getOpenSourceProjects = cache((): OpenSourceProject[] => {
   const dirPath = path.join(process.cwd(), "src/content/open-source");
   if (!fs.existsSync(dirPath)) return [];
-  
+
   const files = fs.readdirSync(dirPath);
   return files
-    .filter(file => file.endsWith(".json"))
-    .map(file => {
+    .filter((file) => file.endsWith(".json"))
+    .map((file) => {
       const content = fs.readFileSync(path.join(dirPath, file), "utf8");
-      return { ...JSON.parse(content), slug: file.replace(".json", "") } as OpenSourceProject;
+      return {
+        ...JSON.parse(content),
+        slug: file.replace(".json", ""),
+      } as OpenSourceProject;
     });
 });
 
 export const getTestimonials = cache((): Testimonial[] => {
   const dirPath = path.join(process.cwd(), "src/content/testimonials");
   if (!fs.existsSync(dirPath)) return [];
-  
+
   const files = fs.readdirSync(dirPath);
   return files
-    .filter(file => file.endsWith(".json"))
-    .map(file => {
+    .filter((file) => file.endsWith(".json"))
+    .map((file) => {
       const content = fs.readFileSync(path.join(dirPath, file), "utf8");
-      return { ...JSON.parse(content), slug: file.replace(".json", "") } as Testimonial;
+      return {
+        ...JSON.parse(content),
+        slug: file.replace(".json", ""),
+      } as Testimonial;
     });
 });
