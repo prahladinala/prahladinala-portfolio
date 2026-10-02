@@ -1,21 +1,6 @@
-import {
-  getExperiences,
-  getProjects,
-  getSkills,
-  getSocials,
-} from "@/lib/keystatic-data";
-import { PrintButton } from "@/components/print-button";
+import { getExperiences, getProjects, getSkills, getSocials } from "@/lib/keystatic-data";
 import { Mail, MapPin } from "lucide-react";
 import { Github, Linkedin } from "@/components/icons";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-
-export const metadata = {
-  title: "Resume | Prahlad Inala",
-  description: "Printable professional resume of Prahlad Inala.",
-};
 
 export default function ResumePage() {
   const experiences = getExperiences();
@@ -32,21 +17,9 @@ export default function ResumePage() {
   };
 
   return (
-    <div className="min-h-screen bg-background print:bg-white text-foreground print:text-black">
+    <div className="bg-background print:bg-white text-foreground print:text-black">
       {/* Web Only Controls */}
-      <div className="container mx-auto px-4 py-8 flex justify-between items-center print:hidden border-b border-border mb-8">
-        <Link
-          href="/"
-          className={cn(
-            buttonVariants({ variant: "ghost" }),
-            "gap-2 rounded-full",
-          )}
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Home
-        </Link>
-        <PrintButton />
-      </div>
+      
 
       {/* Resume Document (A4 Constraints for Print) */}
       <div className="max-w-[850px] mx-auto px-4 md:px-8 pb-20 print:p-0 print:max-w-none">
