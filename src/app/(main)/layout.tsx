@@ -172,11 +172,11 @@ export default function MainLayout({
           disableTransitionOnChange
         >
           {settings.maintenanceMode ? (
-            <div className="flex-1 flex flex-col items-center justify-center min-h-screen text-center px-4">
-              <h1 className="text-5xl font-bold mb-4">Coming Soon</h1>
-              <p className="text-muted-foreground text-xl max-w-md">
-                I am currently updating my portfolio. Please check back soon!
-              </p>
+            <div className="flex-1 flex flex-col min-h-screen">
+              <ComingSoon
+                title="Under Maintenance"
+                description="I am currently making some exciting upgrades to my portfolio. Please check back shortly!"
+              />
             </div>
           ) : (
             <>
