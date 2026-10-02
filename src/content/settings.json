@@ -6,7 +6,7 @@
   "showRelatedNotes": true,
   "showOpenSource": true,
   "showTestimonials": true,
-  "showHireMeBanner": false,
+  "showHireMeBanner": true,
   "maintenanceMode": true,
   "enableAiAssistant": true,
   "defaultTheme": "system"
