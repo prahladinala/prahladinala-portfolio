@@ -15,6 +15,7 @@ import {
   getSettings,
 } from "@/lib/keystatic-data";
 import { SITE_CONFIG } from "@/config/constants";
+import { ComingSoon } from "@/components/coming-soon";
 
 const inter = Inter({
   variable: "--font-sans",
