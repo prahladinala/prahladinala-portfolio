@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   keywords: SITE_CONFIG.keywords,
   authors: [{ name: SITE_CONFIG.name }],
   creator: SITE_CONFIG.name,
-  applicationName: SITE_CONFIG.name + " Portfolio",
+  applicationName: SITE_CONFIG.name,
   robots: {
     index: true,
     follow: true,
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     url: SITE_CONFIG.url,
     title: `${SITE_CONFIG.name} | Software Engineer & Frontend Developer`,
     description: SITE_CONFIG.description,
-    siteName: SITE_CONFIG.name + " Portfolio",
+    siteName: SITE_CONFIG.name,
   },
   twitter: {
     card: "summary_large_image",
@@ -109,6 +109,7 @@ export default function MainLayout({
         "@id": `${SITE_CONFIG.url}/#website`,
         url: SITE_CONFIG.url,
         name: SITE_CONFIG.name,
+        alternateName: ["Prahlad Inala", "Prahlad Portfolio", "prahladinala.in"],
         description: SITE_CONFIG.description,
         inLanguage: "en-US",
       },

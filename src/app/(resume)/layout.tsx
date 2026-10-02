@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   title: "Resume | Prahlad Inala",
   description: "Printable professional resume of Prahlad Inala.",
   alternates: { canonical: "/resume" },
+  applicationName: "Prahlad Inala",
+  openGraph: {
+    siteName: "Prahlad Inala",
+  },
 };
 
 export default function ResumeRootLayout({
