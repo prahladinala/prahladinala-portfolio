@@ -5,5 +5,9 @@
   "showShareButtons": true,
   "showRelatedNotes": true,
   "showOpenSource": true,
-  "showTestimonials": true
+  "showTestimonials": true,
+  "showHireMeBanner": false,
+  "maintenanceMode": true,
+  "enableAiAssistant": true,
+  "defaultTheme": "system"
 }
