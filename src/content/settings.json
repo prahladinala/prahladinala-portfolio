@@ -4,6 +4,6 @@
   "showTableOfContents": true,
   "showShareButtons": true,
   "showRelatedNotes": true,
-  "showOpenSource": false,
+  "showOpenSource": true,
   "showTestimonials": true
 }
