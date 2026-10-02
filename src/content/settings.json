@@ -9,7 +9,7 @@
   "enableNotes": true,
   "showAvailableBanner": true,
   "availableForOpportunity": true,
-  "maintenanceMode": false,
+  "maintenanceMode": true,
   "enableAiAssistant": true,
   "defaultTheme": "system"
 }
