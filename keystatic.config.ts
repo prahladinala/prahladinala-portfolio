@@ -34,6 +34,7 @@ export default config({
         showRelatedNotes: fields.checkbox({ label: "Show Related Notes", defaultValue: true, description: "Enable or disable the related notes section at the bottom of notes." }),
         showOpenSource: fields.checkbox({ label: "Show Open Source Section", defaultValue: false, description: "Enable or disable the Open Source section." }),
         showTestimonials: fields.checkbox({ label: "Show Testimonials Section", defaultValue: false, description: "Enable or disable the Testimonials section." }),
+        enableNotes: fields.checkbox({ label: "Enable Digital Notes", defaultValue: true, description: "Show the Notes section in the navbar and enable the routes." }),
         showHireMeBanner: fields.checkbox({ label: "Show 'Available for Work' Banner", defaultValue: false, description: "Displays a sticky banner at the top." }),
         maintenanceMode: fields.checkbox({ label: "Maintenance Mode", defaultValue: false, description: "Replaces the site with a 'Coming Soon' screen." }),
         enableAiAssistant: fields.checkbox({ label: "Enable AI Assistant", defaultValue: true, description: "Shows the AI Chatbot floating button." }),

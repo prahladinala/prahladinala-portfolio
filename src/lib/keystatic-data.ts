@@ -99,6 +99,7 @@ export type Settings = {
   showRelatedNotes: boolean;
   showOpenSource: boolean;
   showTestimonials: boolean;
+  enableNotes: boolean;
   showHireMeBanner: boolean;
   maintenanceMode: boolean;
   enableAiAssistant: boolean;
@@ -116,6 +117,7 @@ export const getSettings = cache((): Settings => {
     showRelatedNotes: true,
     showOpenSource: false,
     showTestimonials: false,
+    enableNotes: true,
     showHireMeBanner: false,
     maintenanceMode: false,
     enableAiAssistant: true,

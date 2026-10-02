@@ -11,12 +11,14 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/s
 import { Menu, ArrowLeft, ArrowRight } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 
-export function Header() {
+export function Header({ enableNotes = true }: { enableNotes?: boolean }) {
   const router = useRouter();
   const pathname = usePathname();
   const [activeSection, setActiveSection] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  const navLinks = NAV_LINKS.filter(l => enableNotes || l.title !== "Notes");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,7 +26,7 @@ export function Header() {
 
       // Determine active section based on scroll position
       if (pathname === "/") {
-        const sections = NAV_LINKS
+        const sections = navLinks
           .map((link) => link.href.split("#")[1])
           .filter(Boolean);
         
@@ -86,7 +88,7 @@ export function Header() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center space-x-1 lg:space-x-4">
-            {NAV_LINKS.map((link) => {
+            {navLinks.map((link) => {
               const isActive = 
                 (link.href === "/" && activeSection === "home") || 
                 (link.href.includes("#") && activeSection === link.href.split("#")[1]) ||
@@ -149,7 +151,7 @@ export function Header() {
               <SheetContent side="right" className="w-[80vw] sm:w-[350px] flex flex-col pt-16">
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <nav className="flex flex-col space-y-4">
-                  {NAV_LINKS.map((link) => {
+                  {navLinks.map((link) => {
                     const isActive = 
                       (link.href === "/" && activeSection === "home") || 
                       (link.href.includes("#") && activeSection === link.href.split("#")[1]) ||

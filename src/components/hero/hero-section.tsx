@@ -4,12 +4,14 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { TypingEffect } from "./typing-effect";
 import { ArrowRight, Download } from "lucide-react";
+import { getSettings } from "@/lib/keystatic-data";
 
 const FloatingBlobs = dynamic(() =>
   import("./floating-blobs").then((mod) => mod.FloatingBlobs),
 );
 
 export function HeroSection() {
+  const settings = getSettings();
   return (
     <section
       id="home"
@@ -18,15 +20,17 @@ export function HeroSection() {
       <FloatingBlobs />
 
       <div className="container px-4 md:px-6 z-10 flex flex-col items-center text-center">
-        <div className="inline-block rounded-full border border-border bg-background/50 backdrop-blur-sm px-3 py-1 text-sm mb-6">
-          <span className="text-muted-foreground flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+        {settings.showHireMeBanner && (
+          <div className="inline-block rounded-full border border-border bg-background/50 backdrop-blur-sm px-3 py-1 text-sm mb-6">
+            <span className="text-muted-foreground flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              Available for new opportunities
             </span>
-            Available for new opportunities
-          </span>
-        </div>
+          </div>
+        )}
 
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl">
           Hi, I&apos;m Prahlad <br className="hidden sm:block" />

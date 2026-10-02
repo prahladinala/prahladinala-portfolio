@@ -1,8 +1,20 @@
 import { getNoteTopics, getNotesByTopic } from "@/lib/mdx";
 import { NotesSidebar } from "@/components/notes-sidebar-v3";
 import { ProgressBar } from "@/components/progress-bar";
+import { getSettings } from "@/lib/keystatic-data";
 
 export default function NotesLayout({ children }: { children: React.ReactNode }) {
+  const settings = getSettings();
+  if (!settings.enableNotes) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4 w-full">
+        <h1 className="text-4xl font-bold mb-4">Notes Coming Soon</h1>
+        <p className="text-muted-foreground text-lg max-w-md">
+          I am currently writing and organizing my digital notes. Check back later!
+        </p>
+      </div>
+    );
+  }
   const topicNames = getNoteTopics();
   const topics = topicNames.map(name => ({
     name,

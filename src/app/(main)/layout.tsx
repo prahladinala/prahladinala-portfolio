@@ -135,24 +135,29 @@ export default function MainLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <TooltipProvider>
-            {settings.showHireMeBanner && (
-                <div className="w-full bg-primary text-primary-foreground py-2 px-4 text-center text-sm font-medium flex items-center justify-center gap-2 z-[60] relative">
-                  <span>🚀 I am currently open to new opportunities!</span>
-                  <a href="/contact" className="underline underline-offset-2 hover:text-primary-foreground/80">Hire me</a>
-                </div>
-              )}
-              <Header />
-            <main className="flex-1 flex flex-col">
-              {children}
-            </main>
-            <Footer socials={socials} />
-          </TooltipProvider>
-          <TextSelectionMenu />
-          <CustomContextMenu />
-          <CommandPalette socials={socials} />
-          <TerminalWidget />
-          {settings.enableAiAssistant && <AIAssistant experiences={experiences} projects={projects} />}
+          {settings.maintenanceMode ? (
+            <div className="flex-1 flex flex-col items-center justify-center min-h-screen text-center px-4">
+              <h1 className="text-5xl font-bold mb-4">Coming Soon</h1>
+              <p className="text-muted-foreground text-xl max-w-md">
+                I am currently updating my portfolio. Please check back soon!
+              </p>
+            </div>
+          ) : (
+            <>
+              <TooltipProvider>
+                <Header enableNotes={settings.enableNotes} />
+                <main className="flex-1 flex flex-col">
+                  {children}
+                </main>
+                <Footer socials={socials} />
+              </TooltipProvider>
+              <TextSelectionMenu />
+              <CustomContextMenu />
+              <CommandPalette socials={socials} />
+              <TerminalWidget />
+              {settings.enableAiAssistant && <AIAssistant experiences={experiences} projects={projects} />}
+            </>
+          )}
         </ThemeProvider>
       </body>
     </html>
