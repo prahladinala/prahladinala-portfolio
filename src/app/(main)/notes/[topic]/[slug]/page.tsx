@@ -17,6 +17,7 @@ import { GiscusComments } from "@/components/notes/giscus-comments";
 import { Edit3 } from "lucide-react";
 import { getRelatedNotes } from "@/lib/mdx";
 import { getSettings } from "@/lib/keystatic-data";
+import { SITE_CONFIG } from "@/config/constants";
 import { ReadingProgress } from "@/components/reading-progress";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { ViewCounter } from "@/components/view-counter";
@@ -362,6 +363,16 @@ export default async function NotePage({
               </>
             );
           })()}
+
+          {/* Share Buttons */}
+          {settings.showShareButtons && (
+            <div className="mt-12 pt-8 border-t border-border flex items-center justify-between print:hidden">
+              <ShareButtons
+                title={note.meta.title}
+                url={`${SITE_CONFIG.url}/notes/${topic}/${slug}`}
+              />
+            </div>
+          )}
 
           {/* Edit on GitHub */}
           <div className="mt-12 pt-8 border-t border-border text-center print:hidden">
