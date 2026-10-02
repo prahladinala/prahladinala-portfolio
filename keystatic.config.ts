@@ -174,7 +174,18 @@ export default config({
       schema: {
         title: fields.slug({ name: { label: "Project Title" } }),
         description: fields.text({ label: "Description", multiline: true }),
-        type: fields.text({ label: "Type (e.g., Library, Extension)" }),
+        type: fields.select({
+          label: "Type",
+          defaultValue: "Library",
+          options: [
+            { label: "Library", value: "Library" },
+            { label: "VS Code Extension", value: "VS Code Extension" },
+            { label: "Theme", value: "Theme" },
+            { label: "Framework", value: "Framework" },
+            { label: "CLI Tool", value: "CLI Tool" }
+          ],
+          description: "Select the type of project (this determines the icon shown on the UI)."
+        }),
         url: fields.text({ label: "URL" }),
         metrics: fields.object({
           downloads: fields.text({ label: "Downloads" }),

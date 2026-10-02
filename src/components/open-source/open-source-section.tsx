@@ -1,11 +1,13 @@
 import { getOpenSourceProjects } from "@/lib/keystatic-data";
-import { Download, Star, Users, ExternalLink, Package, Terminal, Palette } from "lucide-react";
+import { Download, Star, Users, ExternalLink, Package, Terminal, Palette, Component, Command } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const typeIconMap: Record<string, React.ReactNode> = {
   "VS Code Extension": <Terminal className="w-5 h-5 text-blue-500" />,
   "Library": <Package className="w-5 h-5 text-orange-500" />,
   "Theme": <Palette className="w-5 h-5 text-purple-500" />,
+  "Framework": <Component className="w-5 h-5 text-emerald-500" />,
+  "CLI Tool": <Command className="w-5 h-5 text-red-500" />,
 };
 
 export function OpenSourceSection() {
