@@ -20,7 +20,7 @@ export function HeroSection() {
       <FloatingBlobs />
 
       <div className="container px-4 md:px-6 z-10 flex flex-col items-center text-center">
-        {settings.showHireMeBanner && (
+        {settings.availableForOpportunity && (
           <div className="inline-block rounded-full border border-border bg-background/50 backdrop-blur-sm px-3 py-1 text-sm mb-6">
             <span className="text-muted-foreground flex items-center gap-2">
               <span className="relative flex h-2 w-2">

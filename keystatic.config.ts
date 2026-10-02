@@ -35,7 +35,8 @@ export default config({
         showOpenSource: fields.checkbox({ label: "Show Open Source Section", defaultValue: false, description: "Enable or disable the Open Source section." }),
         showTestimonials: fields.checkbox({ label: "Show Testimonials Section", defaultValue: false, description: "Enable or disable the Testimonials section." }),
         enableNotes: fields.checkbox({ label: "Enable Digital Notes", defaultValue: true, description: "Show the Notes section in the navbar and enable the routes." }),
-        showHireMeBanner: fields.checkbox({ label: "Show 'Available for Work' Banner", defaultValue: false, description: "Displays a sticky banner at the top." }),
+        showAvailableBanner: fields.checkbox({ label: "Show Top Banner", defaultValue: false, description: "Displays a banner above the navbar." }),
+        availableForOpportunity: fields.checkbox({ label: "Available for Opportunity (Hero)", defaultValue: false, description: "Shows the badge in the Hero section." }),
         maintenanceMode: fields.checkbox({ label: "Maintenance Mode", defaultValue: false, description: "Replaces the site with a 'Coming Soon' screen." }),
         enableAiAssistant: fields.checkbox({ label: "Enable AI Assistant", defaultValue: true, description: "Shows the AI Chatbot floating button." }),
         defaultTheme: fields.select({

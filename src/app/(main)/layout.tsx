@@ -8,7 +8,12 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header-v2";
-import { getSocials, getExperiences, getProjects, getSettings } from "@/lib/keystatic-data";
+import {
+  getSocials,
+  getExperiences,
+  getProjects,
+  getSettings,
+} from "@/lib/keystatic-data";
 import { SITE_CONFIG } from "@/config/constants";
 
 const inter = Inter({
@@ -17,11 +22,25 @@ const inter = Inter({
 });
 
 // Lazy load heavy client components
-const CommandPalette = dynamic(() => import("@/components/command-palette").then(mod => mod.CommandPalette));
-const TerminalWidget = dynamic(() => import("@/components/terminal-widget").then(mod => mod.TerminalWidget));
-const AIAssistant = dynamic(() => import("@/components/ai-assistant").then(mod => mod.AIAssistant));
-const TextSelectionMenu = dynamic(() => import("@/components/text-selection-menu").then(mod => mod.TextSelectionMenu));
-const CustomContextMenu = dynamic(() => import("@/components/custom-context-menu").then(mod => mod.CustomContextMenu));
+const CommandPalette = dynamic(() =>
+  import("@/components/command-palette").then((mod) => mod.CommandPalette),
+);
+const TerminalWidget = dynamic(() =>
+  import("@/components/terminal-widget").then((mod) => mod.TerminalWidget),
+);
+const AIAssistant = dynamic(() =>
+  import("@/components/ai-assistant").then((mod) => mod.AIAssistant),
+);
+const TextSelectionMenu = dynamic(() =>
+  import("@/components/text-selection-menu").then(
+    (mod) => mod.TextSelectionMenu,
+  ),
+);
+const CustomContextMenu = dynamic(() =>
+  import("@/components/custom-context-menu").then(
+    (mod) => mod.CustomContextMenu,
+  ),
+);
 
 export const viewport = {
   themeColor: [
@@ -37,7 +56,7 @@ export const metadata: Metadata = {
   },
   title: {
     default: `${SITE_CONFIG.name} | Software Engineer & Frontend Developer`,
-    template: `%s | ${SITE_CONFIG.name}`
+    template: `%s | ${SITE_CONFIG.name}`,
   },
   description: SITE_CONFIG.description,
   keywords: SITE_CONFIG.keywords,
@@ -50,9 +69,9 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   openGraph: {
@@ -80,7 +99,7 @@ export default function MainLayout({
   const experiences = getExperiences();
   const projects = getProjects();
   const settings = getSettings();
-  
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -90,7 +109,7 @@ export default function MainLayout({
         url: SITE_CONFIG.url,
         name: SITE_CONFIG.name,
         description: SITE_CONFIG.description,
-        inLanguage: "en-US"
+        inLanguage: "en-US",
       },
       {
         "@type": "ProfilePage",
@@ -98,7 +117,7 @@ export default function MainLayout({
         url: SITE_CONFIG.url,
         name: `${SITE_CONFIG.name} - Software Engineer`,
         isPartOf: {
-          "@id": `${SITE_CONFIG.url}/#website`
+          "@id": `${SITE_CONFIG.url}/#website`,
         },
         mainEntity: {
           "@type": "Person",
@@ -110,28 +129,45 @@ export default function MainLayout({
             socials?.github,
             socials?.linkedin,
             socials?.twitter,
-            socials?.medium
+            socials?.medium,
           ].filter(Boolean),
-          knowsAbout: ["React", "Next.js", "TypeScript", "Frontend Development"]
-        }
-      }
-    ]
+          knowsAbout: [
+            "React",
+            "Next.js",
+            "TypeScript",
+            "Frontend Development",
+          ],
+        },
+      },
+    ],
   };
 
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} h-full antialiased scroll-smooth`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} h-full antialiased scroll-smooth`}
+    >
       <head>
-        <Script id="schema-jsonld"
+        <Script
+          id="schema-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <link rel="preconnect" href="https://giscus.app" crossOrigin="anonymous" />
-        </head>
-      <body suppressHydrationWarning className="min-h-full flex flex-col font-sans">
+        <link
+          rel="preconnect"
+          href="https://giscus.app"
+          crossOrigin="anonymous"
+        />
+      </head>
+      <body
+        suppressHydrationWarning
+        className="min-h-full flex flex-col font-sans"
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme={settings.defaultTheme}
-          themes={['light', 'dark', 'focus', 'system']}
+          themes={["light", "dark", "focus", "system"]}
           enableSystem
           disableTransitionOnChange
         >
@@ -145,17 +181,20 @@ export default function MainLayout({
           ) : (
             <>
               <TooltipProvider>
-                <Header enableNotes={settings.enableNotes} />
-                <main className="flex-1 flex flex-col">
-                  {children}
-                </main>
+                <Header
+                  enableNotes={settings.enableNotes}
+                  showAvailableBanner={settings.showAvailableBanner}
+                />
+                <main className="flex-1 flex flex-col">{children}</main>
                 <Footer socials={socials} />
               </TooltipProvider>
               <TextSelectionMenu />
               <CustomContextMenu />
               <CommandPalette socials={socials} />
               <TerminalWidget />
-              {settings.enableAiAssistant && <AIAssistant experiences={experiences} projects={projects} />}
+              {settings.enableAiAssistant && (
+                <AIAssistant experiences={experiences} projects={projects} />
+              )}
             </>
           )}
         </ThemeProvider>
@@ -163,10 +202,3 @@ export default function MainLayout({
     </html>
   );
 }
-
-
-
-
-
-
-

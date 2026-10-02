@@ -100,7 +100,8 @@ export type Settings = {
   showOpenSource: boolean;
   showTestimonials: boolean;
   enableNotes: boolean;
-  showHireMeBanner: boolean;
+  showAvailableBanner: boolean;
+  availableForOpportunity: boolean;
   maintenanceMode: boolean;
   enableAiAssistant: boolean;
   defaultTheme: "system" | "dark" | "light";
@@ -118,7 +119,8 @@ export const getSettings = cache((): Settings => {
     showOpenSource: false,
     showTestimonials: false,
     enableNotes: true,
-    showHireMeBanner: false,
+    showAvailableBanner: false,
+    availableForOpportunity: false,
     maintenanceMode: false,
     enableAiAssistant: true,
     defaultTheme: "system",
