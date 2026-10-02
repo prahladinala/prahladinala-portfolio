@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  allowedDevOrigins: ['127.0.0.1', 'localhost'],
+  allowedDevOrigins: ["127.0.0.1", "localhost"],
   async headers() {
     return [
       {
@@ -22,7 +22,8 @@ const nextConfig: NextConfig = {
           },
           {
             key: "Content-Security-Policy",
-            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.youtube.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://github-readme-stats.vercel.app https://avatars.githubusercontent.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://api.emailjs.com https://gql.hashnode.com; frame-src 'self' blob: data: https://www.youtube.com https://giscus.app;",
+            value:
+              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.youtube.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://github-readme-stats.vercel.app https://avatars.githubusercontent.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://api.emailjs.com https://gql.hashnode.com; frame-src 'self' blob: data: https://www.youtube.com https://giscus.app;",
           },
         ],
       },
@@ -30,6 +31,11 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      {
+        source: "/contact",
+        destination: "/#contact",
+        permanent: true,
+      },
       {
         source: "/admin/:path*",
         destination: "/keystatic/:path*",
@@ -39,12 +45,9 @@ const nextConfig: NextConfig = {
         source: "/admin",
         destination: "/keystatic",
         permanent: false,
-      }
+      },
     ];
   },
 };
 
 export default nextConfig;
-
-
-
