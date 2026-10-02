@@ -69,18 +69,21 @@ export function Header({
   ) => {
     const isHashLink = href.startsWith("/#") || href.startsWith("#");
 
-    if (pathname === "/" && isHashLink) {
-      e.preventDefault();
-      const targetId = href.split("#")[1];
-      const elem = document.getElementById(targetId);
-      if (elem) {
-        window.scrollTo({
-          top: elem.offsetTop - 80,
-          behavior: "smooth",
-        });
+    if (pathname === "/") {
+      if (href === "/") {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (isHashLink) {
+        e.preventDefault();
+        const targetId = href.split("#")[1];
+        const elem = document.getElementById(targetId);
+        if (elem) {
+          window.scrollTo({
+            top: elem.offsetTop - 80,
+            behavior: "smooth",
+          });
+        }
       }
-    } else if (!pathname.startsWith("/") && isHashLink) {
-      // Allow next/link to handle cross-page navigation naturally
     }
     setIsOpen(false);
   };
@@ -108,7 +111,7 @@ export function Header({
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <Link
-            href="/#home"
+            href="/"
             className="text-xl font-bold tracking-tight z-50"
             onClick={(e) => handleLinkClick(e, "/")}
           >
