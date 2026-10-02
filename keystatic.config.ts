@@ -32,6 +32,8 @@ export default config({
         showTableOfContents: fields.checkbox({ label: "Show Table of Contents", defaultValue: true, description: "Enable or disable the sticky table of contents on notes." }),
         showShareButtons: fields.checkbox({ label: "Show Share Buttons", defaultValue: true, description: "Enable or disable share buttons on notes." }),
         showRelatedNotes: fields.checkbox({ label: "Show Related Notes", defaultValue: true, description: "Enable or disable the related notes section at the bottom of notes." }),
+        showOpenSource: fields.checkbox({ label: "Show Open Source Section", defaultValue: false, description: "Enable or disable the Open Source section." }),
+        showTestimonials: fields.checkbox({ label: "Show Testimonials Section", defaultValue: false, description: "Enable or disable the Testimonials section." }),
       }
     }),
     aiKnowledgeBase: singleton({
@@ -78,7 +80,7 @@ export default config({
             itemLabel: (props) => {
               try {
                 return props.fields.keywords.elements[0].value || "Item";
-              } catch (e) {
+              } catch (_e) {
                 return "Item";
               }
             },
@@ -151,6 +153,36 @@ export default config({
     }),
   },
   collections: {
+    openSource: collection({
+      label: "Open Source Projects",
+      slugField: "title",
+      path: "src/content/open-source/*",
+      format: { data: "json" },
+      schema: {
+        title: fields.slug({ name: { label: "Project Title" } }),
+        description: fields.text({ label: "Description", multiline: true }),
+        type: fields.text({ label: "Type (e.g., Library, Extension)" }),
+        url: fields.text({ label: "URL" }),
+        metrics: fields.object({
+          downloads: fields.text({ label: "Downloads" }),
+          stars: fields.text({ label: "Stars" }),
+          users: fields.text({ label: "Users" }),
+        }, { label: "Metrics" })
+      }
+    }),
+    testimonials: collection({
+      label: "Testimonials",
+      slugField: "name",
+      path: "src/content/testimonials/*",
+      format: { data: "json" },
+      schema: {
+        name: fields.slug({ name: { label: "Name" } }),
+        role: fields.text({ label: "Role" }),
+        company: fields.text({ label: "Company" }),
+        content: fields.text({ label: "Testimonial Content", multiline: true }),
+        image: fields.text({ label: "Image URL" })
+      }
+    }),
     experience: collection({
       label: "Experience",
       slugField: "company",

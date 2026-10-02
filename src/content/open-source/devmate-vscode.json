@@ -1,0 +1,11 @@
+{
+  "title": "DevMate",
+  "description": "A comprehensive VS Code extension providing intelligent code snippets and scaffolding for React and Next.js developers.",
+  "type": "VS Code Extension",
+  "url": "https://marketplace.visualstudio.com/",
+  "metrics": {
+    "downloads": "15k+",
+    "stars": "120",
+    "users": ""
+  }
+}

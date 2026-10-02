@@ -1,7 +1,9 @@
-import { testimonials } from "@/data/testimonials";
+import { getTestimonials } from "@/lib/keystatic-data";
 import { Quote } from "lucide-react";
 
 export function TestimonialsSection() {
+  const testimonials = getTestimonials();
+  if (testimonials.length === 0) return null;
   return (
     <section id="testimonials" className="py-24 w-full relative overflow-hidden">
       <div className="container px-4 md:px-6 mx-auto">
@@ -13,7 +15,7 @@ export function TestimonialsSection() {
         <div className="flex overflow-x-auto pb-8 -mx-4 px-4 snap-x snap-mandatory hide-scrollbar gap-6">
           {testimonials.map((testimonial) => (
             <div 
-              key={testimonial.id} 
+              key={testimonial.slug} 
               className="snap-center shrink-0 w-[85vw] sm:w-[400px] bg-card border border-border rounded-2xl p-8 relative hover:border-primary/50 transition-colors"
             >
               <Quote className="absolute top-6 right-6 w-8 h-8 text-primary/20" />

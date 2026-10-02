@@ -97,6 +97,8 @@ export type Settings = {
   showTableOfContents: boolean;
   showShareButtons: boolean;
   showRelatedNotes: boolean;
+  showOpenSource: boolean;
+  showTestimonials: boolean;
 };
 
 export const getSettings = cache((): Settings => {
@@ -108,6 +110,8 @@ export const getSettings = cache((): Settings => {
     showTableOfContents: true,
     showShareButtons: true,
     showRelatedNotes: true,
+    showOpenSource: false,
+    showTestimonials: false,
   };
 
   if (!fs.existsSync(filePath)) return defaultSettings;
@@ -115,7 +119,56 @@ export const getSettings = cache((): Settings => {
   try {
     const content = fs.readFileSync(filePath, "utf8");
     return { ...defaultSettings, ...JSON.parse(content) };
-  } catch (e) {
+  } catch (_e) {
     return defaultSettings;
   }
+});
+
+
+export type OpenSourceProject = {
+  title: string;
+  description: string;
+  type: string;
+  url: string;
+  metrics: {
+    downloads?: string;
+    stars?: string;
+    users?: string;
+  };
+  slug: string;
+};
+
+export type Testimonial = {
+  name: string;
+  role: string;
+  company: string;
+  content: string;
+  image: string;
+  slug: string;
+};
+
+export const getOpenSourceProjects = cache((): OpenSourceProject[] => {
+  const dirPath = path.join(process.cwd(), "src/content/open-source");
+  if (!fs.existsSync(dirPath)) return [];
+  
+  const files = fs.readdirSync(dirPath);
+  return files
+    .filter(file => file.endsWith(".json"))
+    .map(file => {
+      const content = fs.readFileSync(path.join(dirPath, file), "utf8");
+      return { ...JSON.parse(content), slug: file.replace(".json", "") } as OpenSourceProject;
+    });
+});
+
+export const getTestimonials = cache((): Testimonial[] => {
+  const dirPath = path.join(process.cwd(), "src/content/testimonials");
+  if (!fs.existsSync(dirPath)) return [];
+  
+  const files = fs.readdirSync(dirPath);
+  return files
+    .filter(file => file.endsWith(".json"))
+    .map(file => {
+      const content = fs.readFileSync(path.join(dirPath, file), "utf8");
+      return { ...JSON.parse(content), slug: file.replace(".json", "") } as Testimonial;
+    });
 });

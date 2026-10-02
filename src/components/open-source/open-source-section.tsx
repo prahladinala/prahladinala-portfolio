@@ -1,4 +1,4 @@
-import { openSourceProjects } from "@/data/open-source";
+import { getOpenSourceProjects } from "@/lib/keystatic-data";
 import { Download, Star, Users, ExternalLink, Package, Terminal, Palette } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -9,6 +9,8 @@ const typeIconMap: Record<string, React.ReactNode> = {
 };
 
 export function OpenSourceSection() {
+  const openSourceProjects = getOpenSourceProjects();
+  if (openSourceProjects.length === 0) return null;
   return (
     <section id="open-source" className="py-24 bg-muted/30 w-full relative">
       <div className="container px-4 md:px-6 mx-auto">
@@ -22,7 +24,7 @@ export function OpenSourceSection() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {openSourceProjects.map((project) => (
-            <Card key={project.id} className="bg-background/50 border-border/50 hover:border-primary/50 transition-colors group">
+            <Card key={project.slug} className="bg-background/50 border-border/50 hover:border-primary/50 transition-colors group">
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-start mb-2">
                   <div className="p-2 bg-muted rounded-lg">

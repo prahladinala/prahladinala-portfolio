@@ -8,12 +8,16 @@ import { ProjectsSection } from "@/components/projects/projects-section";
 import { SkillsSection } from "@/components/skills/skills-section";
 import { DeveloperInsights } from "@/components/insights/developer-insights";
 import { ContactSection } from "@/components/contact/contact-section";
+import { OpenSourceSection } from "@/components/open-source/open-source-section";
+import { TestimonialsSection } from "@/components/testimonials/testimonials-section";
+import { getSettings } from "@/lib/keystatic-data";
 
 export default function Home() {
   const experiences = getExperiences();
   const projects = getProjects();
   const skills = getSkills();
   const socials = getSocials();
+  const settings = getSettings();
 
   const profileSchema = {
     "@context": "https://schema.org",
@@ -60,6 +64,8 @@ export default function Home() {
         <ProjectsSection projects={projects} />
         <SkillsSection categories={skills} />
         <DeveloperInsights />
+        {settings.showOpenSource && <OpenSourceSection />}
+        {settings.showTestimonials && <TestimonialsSection />}
         <ContactSection socials={socials} />
       </main>
     </>
