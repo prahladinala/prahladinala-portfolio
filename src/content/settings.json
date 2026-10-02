@@ -6,10 +6,10 @@
   "showRelatedNotes": true,
   "showOpenSource": true,
   "showTestimonials": true,
+  "enableNotes": true,
+  "showAvailableBanner": false,
+  "availableForOpportunity": true,
   "maintenanceMode": false,
   "enableAiAssistant": true,
-  "defaultTheme": "system",
-  "showAvailableBanner": false,
-  "availableForOpportunity": false,
-  "enableNotes": true
+  "defaultTheme": "system"
 }
