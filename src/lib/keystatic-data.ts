@@ -184,3 +184,25 @@ export const getTestimonials = cache((): Testimonial[] => {
       } as Testimonial;
     });
 });
+
+export type Topic = {
+  name: string;
+  description?: string;
+  slug: string;
+};
+
+export const getTopics = cache((): Topic[] => {
+  const dirPath = path.join(process.cwd(), "src/content/topics");
+  if (!fs.existsSync(dirPath)) return [];
+
+  const files = fs.readdirSync(dirPath);
+  return files
+    .filter((file) => file.endsWith(".json"))
+    .map((file) => {
+      const content = fs.readFileSync(path.join(dirPath, file), "utf8");
+      return {
+        ...JSON.parse(content),
+        slug: file.replace(".json", ""),
+      } as Topic;
+    });
+});
