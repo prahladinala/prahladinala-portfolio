@@ -16,10 +16,10 @@ export async function generateMetadata({
 }) {
   const { topic } = await params;
   const topicName = getTopicName(topic);
-  const canonicalUrl = `https://prahladinala.in/notes/${topic}`;
+  const canonicalUrl = `${SITE_CONFIG.url}/notes/${topic}`;
   const title = `${topicName} Notes & Tutorials | Prahlad Inala`;
   const description = `Read my technical notes, documentation, and deep dives specifically focused on ${topicName}.`;
-  const ogImage = `https://prahladinala.in/api/og?title=${encodeURIComponent(topicName + " Notes")}&topic=${encodeURIComponent(topicName)}`;
+  const ogImage = `${SITE_CONFIG.url}/api/og?title=${encodeURIComponent(topicName + " Notes")}&topic=${encodeURIComponent(topicName)}`;
 
   return {
     metadataBase: new URL(SITE_CONFIG.url),
@@ -70,10 +70,10 @@ export default async function TopicPage({
     "@type": "CollectionPage",
     name: `${topicName} Notes`,
     description: `Technical notes and documentation focused on ${topicName}.`,
-    url: `https://prahladinala.in/notes/${topic}`,
+    url: `${SITE_CONFIG.url}/notes/${topic}`,
     isPartOf: {
       "@type": "WebSite",
-      url: "https://prahladinala.in",
+      url: SITE_CONFIG.url,
     },
   };
 

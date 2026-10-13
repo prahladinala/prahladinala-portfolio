@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 import { getAllNotes, getNoteTopics } from "@/lib/mdx";
+import { SITE_CONFIG } from "@/config/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://prahladinala.in";
+  const baseUrl = SITE_CONFIG.url;
   
   // Base Routes
   const routes: MetadataRoute.Sitemap = [

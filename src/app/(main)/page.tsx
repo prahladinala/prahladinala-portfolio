@@ -11,6 +11,7 @@ import { ContactSection } from "@/components/contact/contact-section";
 import { OpenSourceSection } from "@/components/open-source/open-source-section";
 import { TestimonialsSection } from "@/components/testimonials/testimonials-section";
 import { getSettings } from "@/lib/keystatic-data";
+import { SITE_CONFIG } from "@/config/constants";
 
 export default function Home() {
   const experiences = getExperiences();
@@ -29,7 +30,7 @@ export default function Home() {
       "name": "Prahlad Inala",
       "jobTitle": "Software Engineer",
       "description": "Frontend Developer specializing in React, Next.js, and Guidewire Jutro.",
-      "url": "https://prahladinala.in",
+      "url": SITE_CONFIG.url,
       "sameAs": [
         socials?.github,
         socials?.linkedin,

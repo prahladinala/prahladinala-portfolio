@@ -7,16 +7,16 @@ export const metadata = {
   title: "Reading Stats & Learning Streak | Digital Notes",
   description: "Track your personal reading streak, completed notes, bookmarks, and learning activity heatmap.",
   alternates: {
-    canonical: "https://prahladinala.in/notes/stats",
+    canonical: `${SITE_CONFIG.url}/notes/stats`,
   },
   openGraph: {
     title: "Reading Stats & Learning Streak | Digital Notes",
     description: "Track your personal reading streak, completed notes, bookmarks, and learning activity heatmap.",
-    url: "https://prahladinala.in/notes/stats",
+    url: `${SITE_CONFIG.url}/notes/stats`,
     type: "website",
     images: [
       {
-        url: "https://prahladinala.in/api/og?title=Learning%20Stats%20%26%20Streaks&topic=Digital%20Notes",
+        url: `${SITE_CONFIG.url}/api/og?title=Learning%20Stats%20%26%20Streaks&topic=Digital%20Notes`,
         width: 1200,
         height: 630,
         type: "image/png",
@@ -28,7 +28,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Reading Stats & Learning Streak | Digital Notes",
     description: "Track your personal reading streak, completed notes, bookmarks, and learning activity heatmap.",
-    images: ["https://prahladinala.in/api/og?title=Learning%20Stats%20%26%20Streaks&topic=Digital%20Notes"],
+    images: [`${SITE_CONFIG.url}/api/og?title=Learning%20Stats%20%26%20Streaks&topic=Digital%20Notes`],
   },
 };
 

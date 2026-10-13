@@ -1,9 +1,10 @@
 import { getAllNotes } from "@/lib/mdx";
 import RSS from "rss";
+import { SITE_CONFIG } from "@/config/constants";
 
 export async function GET() {
   const notes = getAllNotes();
-  const site_url = "https://prahladinala.in";
+  const site_url = SITE_CONFIG.url;
 
   const feedOptions = {
     title: "Prahlad Inala | Digital Notes",

@@ -1,6 +1,6 @@
 export const SITE_CONFIG = {
   name: "Prahlad Inala",
-  url: "https://prahladinala.in",
+  url: "https://www.prahladinala.in",
   description: "Modern portfolio for Prahlad, specializing in React, Next.js, and Guidewire.",
   keywords: ["Software Engineer", "Frontend Developer", "Guidewire Jutro", "React", "Next.js", "TypeScript", "Prahlad"],
   twitterHandle: "@prahladinala",

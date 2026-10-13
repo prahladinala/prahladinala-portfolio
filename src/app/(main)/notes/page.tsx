@@ -10,16 +10,16 @@ export const metadata = {
   title: "Digital Notes & Tutorials",
   description: "A comprehensive collection of my technical notes, coding tutorials, and deep dives into web development, React, and Next.js.",
   alternates: {
-    canonical: "https://prahladinala.in/notes",
+    canonical: `${SITE_CONFIG.url}/notes`,
   },
   openGraph: {
     title: "Digital Notes & Tutorials | Prahlad Inala",
     description: "A comprehensive collection of my technical notes, coding tutorials, and deep dives into web development, React, and Next.js.",
-    url: "https://prahladinala.in/notes",
+    url: `${SITE_CONFIG.url}/notes`,
     type: "website",
     images: [
       {
-        url: "https://prahladinala.in/api/og?title=Digital%20Notes%20%26%20Tutorials&topic=Software%20Engineering",
+        url: `${SITE_CONFIG.url}/api/og?title=Digital%20Notes%20%26%20Tutorials&topic=Software%20Engineering`,
         width: 1200,
         height: 630,
         type: "image/png",
@@ -31,7 +31,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Digital Notes & Tutorials | Prahlad Inala",
     description: "A comprehensive collection of my technical notes, coding tutorials, and deep dives into web development, React, and Next.js.",
-    images: ["https://prahladinala.in/api/og?title=Digital%20Notes%20%26%20Tutorials&topic=Software%20Engineering"],
+    images: [`${SITE_CONFIG.url}/api/og?title=Digital%20Notes%20%26%20Tutorials&topic=Software%20Engineering`],
   },
 };
 
@@ -43,10 +43,10 @@ export default function NotesIndexPage() {
     "@type": "CollectionPage",
     "name": "Digital Notes & Tutorials",
     "description": "A comprehensive collection of technical notes, coding tutorials, and deep dives into web development.",
-    "url": "https://prahladinala.in/notes",
+    "url": `${SITE_CONFIG.url}/notes`,
     "isPartOf": {
       "@type": "WebSite",
-      "url": "https://prahladinala.in"
+      "url": SITE_CONFIG.url
     }
   };
 

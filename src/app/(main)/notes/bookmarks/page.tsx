@@ -7,16 +7,16 @@ export const metadata = {
   title: "Bookmarked Notes | Digital Notes",
   description: "View all your saved and bookmarked notes in one place.",
   alternates: {
-    canonical: "https://prahladinala.in/notes/bookmarks",
+    canonical: `${SITE_CONFIG.url}/notes/bookmarks`,
   },
   openGraph: {
     title: "Bookmarked Notes | Digital Notes",
     description: "View all your saved and bookmarked notes in one place.",
-    url: "https://prahladinala.in/notes/bookmarks",
+    url: `${SITE_CONFIG.url}/notes/bookmarks`,
     type: "website",
     images: [
       {
-        url: "https://prahladinala.in/api/og?title=Bookmarked%20Notes&topic=Digital%20Notes",
+        url: `${SITE_CONFIG.url}/api/og?title=Bookmarked%20Notes&topic=Digital%20Notes`,
         width: 1200,
         height: 630,
         type: "image/png",
@@ -28,7 +28,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Bookmarked Notes | Digital Notes",
     description: "View all your saved and bookmarked notes in one place.",
-    images: ["https://prahladinala.in/api/og?title=Bookmarked%20Notes&topic=Digital%20Notes"],
+    images: [`${SITE_CONFIG.url}/api/og?title=Bookmarked%20Notes&topic=Digital%20Notes`],
   },
 };
 

@@ -55,10 +55,10 @@ export async function generateMetadata({
   if (!note) return {};
 
   const topicName = getTopicName(topic);
-  const ogUrl = `https://prahladinala.in/notes/${topic}/${slug}`;
+  const ogUrl = `${SITE_CONFIG.url}/notes/${topic}/${slug}`;
 
   // Create the dynamic OG Image URL
-  const ogImage = `https://prahladinala.in/api/og?title=${encodeURIComponent(note.meta.title)}&topic=${encodeURIComponent(topicName)}&date=${encodeURIComponent(note.meta.date)}`;
+  const ogImage = `${SITE_CONFIG.url}/api/og?title=${encodeURIComponent(note.meta.title)}&topic=${encodeURIComponent(topicName)}&date=${encodeURIComponent(note.meta.date)}`;
 
   return {
     metadataBase: new URL(SITE_CONFIG.url),
@@ -129,13 +129,13 @@ export default async function NotePage({
     "@type": "Article",
     headline: note.meta.title,
     image: [
-      `https://prahladinala.in/api/og?title=${encodeURIComponent(note.meta.title)}&topic=${encodeURIComponent(topicName)}&date=${encodeURIComponent(note.meta.date)}`,
+      `${SITE_CONFIG.url}/api/og?title=${encodeURIComponent(note.meta.title)}&topic=${encodeURIComponent(topicName)}&date=${encodeURIComponent(note.meta.date)}`,
     ],
     description: note.meta.description,
     author: {
       "@type": "Person",
       name: "Prahlad Inala",
-      url: "https://prahladinala.in",
+      url: SITE_CONFIG.url,
     },
     datePublished: note.meta.date,
     dateModified: note.meta.updatedAt || note.meta.date,
@@ -144,10 +144,10 @@ export default async function NotePage({
       name: "Prahlad Inala",
       logo: {
         "@type": "ImageObject",
-        url: "https://prahladinala.in/logo.png",
+        url: `${SITE_CONFIG.url}/logo.png`,
       },
     },
-    url: `https://prahladinala.in/notes/${topic}/${slug}`,
+    url: `${SITE_CONFIG.url}/notes/${topic}/${slug}`,
   };
 
   const breadcrumbList = {
@@ -158,25 +158,25 @@ export default async function NotePage({
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://prahladinala.in/",
+        item: `${SITE_CONFIG.url}/`,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Notes",
-        item: "https://prahladinala.in/notes",
+        item: `${SITE_CONFIG.url}/notes`,
       },
       {
         "@type": "ListItem",
         position: 3,
         name: topicName,
-        item: `https://prahladinala.in/notes/${topic}`,
+        item: `${SITE_CONFIG.url}/notes/${topic}`,
       },
       {
         "@type": "ListItem",
         position: 4,
         name: note.meta.title,
-        item: `https://prahladinala.in/notes/${topic}/${slug}`,
+        item: `${SITE_CONFIG.url}/notes/${topic}/${slug}`,
       },
     ],
   };
