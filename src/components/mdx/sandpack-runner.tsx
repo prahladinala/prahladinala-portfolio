@@ -38,6 +38,10 @@ export function SandpackRunner({
           showTabs: true,
           editorHeight: 400,
           editorWidthPercentage: 55,
+          recompileMode: "delayed",
+          recompileDelay: 500,
+          bundlerTimeOut: 60000,
+          initMode: "user-visible",
         }}
         customSetup={{
           dependencies: {
