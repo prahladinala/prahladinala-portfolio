@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, ReactNode, isValidElement } from "react";
 import { Check, Copy, ExternalLink, Hash, Link as LinkIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { STORAGE_KEYS } from "@/config/constants";
+import LZString from "lz-string";
 
 type PackageManager = "npm" | "pnpm" | "yarn" | "bun";
 
@@ -164,24 +165,46 @@ export function Pre({ children, className, ...props }: React.HTMLAttributes<HTML
       form.action = "https://codesandbox.io/api/v1/sandboxes/define";
       form.target = "_blank";
 
-      const files = {
-        "package.json": {
-          content: {
-            dependencies: {
-              react: "latest",
-              "react-dom": "latest",
+      const hasExportDefault = rawText.includes("export default");
+      const appContent = hasExportDefault
+        ? rawText
+        : `import React from 'react';\n\n${rawText}\n\nexport default function App() {\n  return (\n    <div style={{ padding: 24, fontFamily: 'system-ui, sans-serif' }}>\n      <h2>Code Preview</h2>\n      <p>Snippet loaded from Prahlad Inala Notes</p>\n    </div>\n  );\n}`;
+
+      const parameters = {
+        files: {
+          "package.json": {
+            content: {
+              name: "prahlad-code-snippet",
+              main: "src/index.js",
+              dependencies: {
+                react: "^18.2.0",
+                "react-dom": "^18.2.0",
+                "react-scripts": "^5.0.1",
+              },
             },
           },
-        },
-        "index.tsx": {
-          content: rawText,
+          "public/index.html": {
+            content: '<!DOCTYPE html><html><body><div id="root"></div></body></html>',
+          },
+          "src/App.js": {
+            content: appContent,
+          },
+          "src/index.js": {
+            content:
+              'import React from "react";\nimport { createRoot } from "react-dom/client";\nimport App from "./App";\n\nconst root = createRoot(document.getElementById("root"));\nroot.render(<App />);',
+          },
         },
       };
+
+      const compressed = LZString.compressToBase64(JSON.stringify(parameters))
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=+$/, "");
 
       const hiddenField = document.createElement("input");
       hiddenField.type = "hidden";
       hiddenField.name = "parameters";
-      hiddenField.value = btoa(unescape(encodeURIComponent(JSON.stringify({ files }))));
+      hiddenField.value = compressed;
 
       form.appendChild(hiddenField);
       document.body.appendChild(form);
