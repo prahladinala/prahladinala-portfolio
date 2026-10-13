@@ -16,9 +16,13 @@ export function TextSelectionMenu() {
   const [stickyNoteText, setStickyNoteText] = useState("");
   const [selectedColor, setSelectedColor] = useState<HighlightItem["color"]>("yellow");
 
+  const [placement, setPlacement] = useState<"top" | "bottom">("top");
+
   useEffect(() => {
-    const handleSelection = () => {
-      // Small delay to allow the DOM selection to settle
+    const handleSelection = (e?: Event) => {
+      // If clicking inside menu or input, do not dismiss
+      if ((e?.target as HTMLElement)?.closest("#custom-selection-menu")) return;
+
       setTimeout(() => {
         const activeSelection = window.getSelection();
         if (!activeSelection || activeSelection.isCollapsed) {
@@ -32,18 +36,24 @@ export function TextSelectionMenu() {
           return;
         }
 
-        const range = activeSelection.getRangeAt(0);
-        const rect = range.getBoundingClientRect();
+        try {
+          const range = activeSelection.getRangeAt(0);
+          const rect = range.getBoundingClientRect();
 
-        if (rect.width === 0 && rect.height === 0) return;
+          if (rect.width === 0 && rect.height === 0) return;
 
-        setSelection(text);
-        setPosition({
-          top: Math.max(10, rect.top - 54),
-          left: rect.left + rect.width / 2,
-        });
-        setShow(true);
-        setCopied(false);
+          setSelection(text);
+          const isNearTop = rect.top < 80;
+          setPlacement(isNearTop ? "bottom" : "top");
+          setPosition({
+            top: isNearTop ? rect.bottom + 10 : rect.top - 10,
+            left: Math.max(140, Math.min(window.innerWidth - 140, rect.left + rect.width / 2)),
+          });
+          setShow(true);
+          setCopied(false);
+        } catch (err) {
+          console.error(err);
+        }
       }, 50);
     };
 
@@ -92,7 +102,7 @@ export function TextSelectionMenu() {
 
   const handleHighlight = (color: HighlightItem["color"]) => {
     try {
-      const path = window.location.pathname;
+      const path = window.location.pathname.replace(/\/$/, "") || "/";
       const allHighlights: Record<string, HighlightItem[]> = JSON.parse(
         localStorage.getItem(STORAGE_KEYS.noteHighlights) || "{}"
       );
@@ -126,11 +136,17 @@ export function TextSelectionMenu() {
       {show && (
         <div
           id="custom-selection-menu"
+          onMouseDown={(e) => {
+            // Prevent toolbar clicks from collapsing browser selection
+            if ((e.target as HTMLElement).tagName !== "TEXTAREA" && (e.target as HTMLElement).tagName !== "INPUT") {
+              e.preventDefault();
+            }
+          }}
           className="fixed z-[9999] flex flex-col items-center bg-zinc-950 dark:bg-white text-zinc-100 dark:text-zinc-900 rounded-xl shadow-2xl animate-in fade-in zoom-in-95 duration-150 pointer-events-auto border border-zinc-800 dark:border-zinc-200 print:hidden p-1"
           style={{
             top: `${position.top}px`,
             left: `${position.left}px`,
-            transform: "translate(-50%, -100%)",
+            transform: placement === "bottom" ? "translate(-50%, 0)" : "translate(-50%, -100%)",
           }}
         >
           {showNoteInput ? (
@@ -255,7 +271,11 @@ export function TextSelectionMenu() {
           )}
 
           {/* Decorative pointer arrow */}
-          <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-zinc-950 dark:bg-white rotate-45 border-r border-b border-zinc-800 dark:border-zinc-200 pointer-events-none" />
+          {placement === "top" ? (
+            <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-zinc-950 dark:bg-white rotate-45 border-r border-b border-zinc-800 dark:border-zinc-200 pointer-events-none" />
+          ) : (
+            <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-zinc-950 dark:bg-white rotate-45 border-l border-t border-zinc-800 dark:border-zinc-200 pointer-events-none" />
+          )}
         </div>
       )}
 

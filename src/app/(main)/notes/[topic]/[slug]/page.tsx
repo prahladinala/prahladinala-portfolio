@@ -227,6 +227,8 @@ export default async function NotePage({
             title={note.meta.title}
           />
 
+          <NoteHighlighter />
+
           <div
             id="pdf-content"
             className="rounded-xl transition-all duration-300"
