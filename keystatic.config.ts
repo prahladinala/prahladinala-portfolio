@@ -367,9 +367,19 @@ export default config({
             SandpackRunner: block({
               label: "Sandpack Runner",
               schema: {
-                template: fields.text({
+                template: fields.select({
                   label: "Template",
+                  options: [
+                    { label: "React", value: "react" },
+                    { label: "React TypeScript", value: "react-ts" },
+                    { label: "Vanilla", value: "vanilla" },
+                    { label: "Vanilla TypeScript", value: "vanilla-ts" },
+                  ],
                   defaultValue: "react",
+                }),
+                code: fields.text({
+                  label: "Code",
+                  multiline: true,
                 }),
               },
             }),

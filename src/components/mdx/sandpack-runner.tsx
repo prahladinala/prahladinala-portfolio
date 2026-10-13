@@ -7,11 +7,13 @@ import { useEffect, useState } from "react";
 type SandpackRunnerProps = {
   template?: "react" | "react-ts" | "vanilla" | "vanilla-ts";
   files?: Record<string, string>;
+  code?: string;
 };
 
 export function SandpackRunner({
   template = "react",
   files,
+  code,
 }: SandpackRunnerProps) {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -27,12 +29,20 @@ export function SandpackRunner({
     );
   }
 
+  const sandpackFiles =
+    files ||
+    (code
+      ? {
+          [template.startsWith("react") ? "/App.js" : "/index.js"]: code,
+        }
+      : undefined);
+
   return (
     <div className="my-8 rounded-xl overflow-hidden border border-border shadow-md print:hidden">
       <Sandpack
         template={template}
         theme={resolvedTheme === "dark" ? "dark" : "light"}
-        files={files}
+        files={sandpackFiles}
         options={{
           showNavigator: false,
           showTabs: true,
