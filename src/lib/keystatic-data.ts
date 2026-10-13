@@ -206,3 +206,30 @@ export const getTopics = cache((): Topic[] => {
       } as Topic;
     });
 });
+
+export const getTopicBySlug = cache((slug: string): Topic | null => {
+  const filePath = path.join(
+    process.cwd(),
+    "src/content/topics",
+    `${slug}.json`,
+  );
+  if (!fs.existsSync(filePath)) return null;
+  try {
+    const content = fs.readFileSync(filePath, "utf8");
+    return {
+      ...JSON.parse(content),
+      slug,
+    } as Topic;
+  } catch (_e) {
+    return null;
+  }
+});
+
+export const getTopicName = cache((slug: string): string => {
+  const topic = getTopicBySlug(slug);
+  if (topic?.name) return topic.name;
+  return slug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+});

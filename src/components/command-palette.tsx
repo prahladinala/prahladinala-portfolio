@@ -3,7 +3,15 @@
 import { useEffect, useState, useMemo } from "react";
 import { Command } from "cmdk";
 import { useRouter } from "next/navigation";
-import { FileText, Mail, Briefcase, PenTool, Search, BookOpen, Hash } from "lucide-react";
+import {
+  FileText,
+  Mail,
+  Briefcase,
+  PenTool,
+  Search,
+  BookOpen,
+  Hash,
+} from "lucide-react";
 import { Linkedin, Github, Twitter, Medium } from "@/components/icons";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
@@ -15,11 +23,13 @@ type NoteIndex = {
   description: string;
   slug: string;
   topic: string;
+  topicName?: string;
   tags?: string[];
 };
 
 export function CommandPalette({ socials }: { socials: Socials | null }) {
-  if (!socials) socials = { email: '', github: '', linkedin: '', twitter: '', medium: '' };
+  if (!socials)
+    socials = { email: "", github: "", linkedin: "", twitter: "", medium: "" };
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [notes, setNotes] = useState<NoteIndex[]>([]);
@@ -35,19 +45,24 @@ export function CommandPalette({ socials }: { socials: Socials | null }) {
     }
   }, [open, notes.length]);
 
-  const fuse = useMemo(() => new Fuse(notes, {
-    keys: [
-      { name: 'title', weight: 3 },
-      { name: 'topic', weight: 2 },
-      { name: 'tags', weight: 2 },
-      { name: 'description', weight: 1 }
-    ],
-    threshold: 0.4,
-  }), [notes]);
+  const fuse = useMemo(
+    () =>
+      new Fuse(notes, {
+        keys: [
+          { name: "title", weight: 3 },
+          { name: "topicName", weight: 2 },
+          { name: "topic", weight: 2 },
+          { name: "tags", weight: 2 },
+          { name: "description", weight: 1 },
+        ],
+        threshold: 0.4,
+      }),
+    [notes],
+  );
 
   const searchResults = useMemo(() => {
     if (!query) return notes;
-    return fuse.search(query).map(result => result.item);
+    return fuse.search(query).map((result) => result.item);
   }, [query, fuse, notes]);
 
   // Toggle the menu when ⌘K is pressed
@@ -87,16 +102,19 @@ export function CommandPalette({ socials }: { socials: Socials | null }) {
         <VisuallyHidden>
           <DialogTitle>Command Palette</DialogTitle>
         </VisuallyHidden>
-        <Command 
+        <Command
           className="w-full flex flex-col overflow-hidden bg-background"
           shouldFilter={false} // Disable cmdk default filter to use Fuse.js
         >
-          <div className="flex items-center border-b border-border px-3" cmdk-input-wrapper="">
+          <div
+            className="flex items-center border-b border-border px-3"
+            cmdk-input-wrapper=""
+          >
             <Search className="mr-2 h-5 w-5 shrink-0 opacity-50" />
-            <Command.Input 
+            <Command.Input
               value={query}
               onValueChange={setQuery}
-              placeholder="Type a command or search notes..." 
+              placeholder="Type a command or search notes..."
               className="flex h-12 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 border-none ring-0 focus:ring-0"
             />
           </div>
@@ -106,21 +124,28 @@ export function CommandPalette({ socials }: { socials: Socials | null }) {
                 No results found.
               </Command.Empty>
             )}
-            
+
             {/* Notes Search Results */}
             {searchResults.length > 0 && (
-              <Command.Group heading={query ? "Search Results" : "All Notes"} className="text-xs font-medium text-muted-foreground px-2 py-1.5 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground">
+              <Command.Group
+                heading={query ? "Search Results" : "All Notes"}
+                className="text-xs font-medium text-muted-foreground px-2 py-1.5 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground"
+              >
                 {searchResults.map((note) => (
-                  <Command.Item 
+                  <Command.Item
                     key={note.slug}
-                    onSelect={() => runCommand(() => handleNavigate(`/notes/${note.topic}/${note.slug}`))}
+                    onSelect={() =>
+                      runCommand(() =>
+                        handleNavigate(`/notes/${note.topic}/${note.slug}`),
+                      )
+                    }
                     className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                   >
                     <FileText className="mr-2 h-4 w-4 text-muted-foreground" />
                     <div className="flex flex-col flex-1 truncate">
                       <span className="truncate">{note.title}</span>
                       <span className="text-xs text-muted-foreground truncate flex items-center gap-2">
-                        <span className="capitalize">{note.topic}</span>
+                        <span>{note.topicName || note.topic}</span>
                       </span>
                     </div>
                   </Command.Item>
@@ -131,63 +156,81 @@ export function CommandPalette({ socials }: { socials: Socials | null }) {
             {query.length === 0 && (
               <>
                 <Command.Separator className="h-px bg-border my-1" />
-                <Command.Group heading="Navigation" className="text-xs font-medium text-muted-foreground px-2 py-1.5 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground">
-                  <Command.Item 
-                    onSelect={() => runCommand(() => handleNavigate("#projects"))}
+                <Command.Group
+                  heading="Navigation"
+                  className="text-xs font-medium text-muted-foreground px-2 py-1.5 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground"
+                >
+                  <Command.Item
+                    onSelect={() =>
+                      runCommand(() => handleNavigate("#projects"))
+                    }
                     className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                   >
                     <Briefcase className="mr-2 h-4 w-4" />
                     <span>Projects</span>
                   </Command.Item>
-                  <Command.Item 
+                  <Command.Item
                     onSelect={() => runCommand(() => handleNavigate("#blog"))}
                     className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                   >
                     <PenTool className="mr-2 h-4 w-4" />
                     <span>Blogs</span>
                   </Command.Item>
-                  <Command.Item 
-                    onSelect={() => runCommand(() => handleNavigate("#contact"))}
+                  <Command.Item
+                    onSelect={() =>
+                      runCommand(() => handleNavigate("#contact"))
+                    }
                     className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                   >
                     <Mail className="mr-2 h-4 w-4" />
                     <span>Contact</span>
                   </Command.Item>
                 </Command.Group>
-                
+
                 <Command.Separator className="h-px bg-border my-1" />
-                
-                <Command.Group heading="Links" className="text-xs font-medium text-muted-foreground px-2 py-1.5 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground">
-                  <Command.Item 
+
+                <Command.Group
+                  heading="Links"
+                  className="text-xs font-medium text-muted-foreground px-2 py-1.5 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground"
+                >
+                  <Command.Item
                     onSelect={() => runCommand(() => handleNavigate("/resume"))}
                     className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                   >
                     <FileText className="mr-2 h-4 w-4" />
                     <span>Download Resume</span>
                   </Command.Item>
-                  <Command.Item 
-                    onSelect={() => runCommand(() => handleNavigate(socials.github))}
+                  <Command.Item
+                    onSelect={() =>
+                      runCommand(() => handleNavigate(socials.github))
+                    }
                     className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                   >
                     <Github className="mr-2 h-4 w-4" />
                     <span>GitHub Profile</span>
                   </Command.Item>
-                  <Command.Item 
-                    onSelect={() => runCommand(() => handleNavigate(socials.linkedin))}
+                  <Command.Item
+                    onSelect={() =>
+                      runCommand(() => handleNavigate(socials.linkedin))
+                    }
                     className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                   >
                     <Linkedin className="mr-2 h-4 w-4" />
                     <span>LinkedIn Profile</span>
                   </Command.Item>
-                  <Command.Item 
-                    onSelect={() => runCommand(() => handleNavigate(socials.twitter))}
+                  <Command.Item
+                    onSelect={() =>
+                      runCommand(() => handleNavigate(socials.twitter))
+                    }
                     className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                   >
                     <Twitter className="mr-2 h-4 w-4" />
                     <span>Twitter Profile</span>
                   </Command.Item>
-                  <Command.Item 
-                    onSelect={() => runCommand(() => handleNavigate(socials.medium))}
+                  <Command.Item
+                    onSelect={() =>
+                      runCommand(() => handleNavigate(socials.medium))
+                    }
                     className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                   >
                     <Medium className="mr-2 h-4 w-4" />
@@ -202,4 +245,3 @@ export function CommandPalette({ socials }: { socials: Socials | null }) {
     </Dialog>
   );
 }
-

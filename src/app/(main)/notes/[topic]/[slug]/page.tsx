@@ -1,4 +1,9 @@
-import { getNoteBySlug, getNotesByTopic, getNoteTopics } from "@/lib/mdx";
+import {
+  getNoteBySlug,
+  getNotesByTopic,
+  getNoteTopics,
+  getTopicName,
+} from "@/lib/mdx";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeHighlight from "rehype-highlight";
@@ -45,13 +50,14 @@ export async function generateMetadata({
   const note = getNoteBySlug(topic, slug);
   if (!note) return {};
 
+  const topicName = getTopicName(topic);
   const ogUrl = `https://prahladinala.in/notes/${topic}/${slug}`;
 
   // Create the dynamic OG Image URL
-  const ogImage = `https://prahladinala.in/api/og?title=${encodeURIComponent(note.meta.title)}&topic=${encodeURIComponent(topic)}&date=${encodeURIComponent(note.meta.date)}`;
+  const ogImage = `https://prahladinala.in/api/og?title=${encodeURIComponent(note.meta.title)}&topic=${encodeURIComponent(topicName)}&date=${encodeURIComponent(note.meta.date)}`;
 
   return {
-    title: `${note.meta.title} | ${topic} Notes`,
+    title: `${note.meta.title} | ${topicName} Notes`,
     description: note.meta.description,
     keywords: note.meta.tags?.join(", "), // Injected tags for SEO
     openGraph: {
@@ -94,6 +100,7 @@ export default async function NotePage({
     notFound();
   }
 
+  const topicName = getTopicName(topic);
   const topicNotes = getNotesByTopic(topic);
   const currentIndex = topicNotes.findIndex((n) => n.slug === slug);
   // With ascending order, next means mathematically forward (index + 1)
@@ -116,7 +123,7 @@ export default async function NotePage({
     "@type": "Article",
     headline: note.meta.title,
     image: [
-      `https://prahladinala.in/api/og?title=${encodeURIComponent(note.meta.title)}&topic=${encodeURIComponent(topic)}&date=${encodeURIComponent(note.meta.date)}`,
+      `https://prahladinala.in/api/og?title=${encodeURIComponent(note.meta.title)}&topic=${encodeURIComponent(topicName)}&date=${encodeURIComponent(note.meta.date)}`,
     ],
     description: note.meta.description,
     author: {
@@ -156,7 +163,7 @@ export default async function NotePage({
       {
         "@type": "ListItem",
         position: 3,
-        name: topic.charAt(0).toUpperCase() + topic.slice(1),
+        name: topicName,
         item: `https://prahladinala.in/notes/${topic}`,
       },
       {
@@ -177,6 +184,10 @@ export default async function NotePage({
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbList) }}
+          />
 
           {/* Breadcrumbs */}
           <nav className="flex items-center text-sm font-medium text-muted-foreground mb-6 overflow-x-auto whitespace-nowrap print:hidden">
@@ -189,9 +200,9 @@ export default async function NotePage({
             <ChevronRight className="w-4 h-4 mx-2 flex-shrink-0" />
             <Link
               href={`/notes/${topic}`}
-              className="hover:text-primary transition-colors capitalize"
+              className="hover:text-primary transition-colors"
             >
-              {topic}
+              {topicName}
             </Link>
             <ChevronRight className="w-4 h-4 mx-2 flex-shrink-0" />
             <span className="text-foreground truncate">{note.meta.title}</span>
@@ -214,10 +225,11 @@ export default async function NotePage({
               <div className="flex flex-wrap items-center gap-4 text-muted-foreground print:text-black">
                 <Link
                   href={`/notes/${topic}`}
-                  className="capitalize px-3 py-1 bg-primary/10 text-primary rounded-md text-xs font-semibold hover:bg-primary/20 transition-colors print:hidden"
+                  className="px-3 py-1 bg-primary/10 text-primary rounded-md text-xs font-semibold hover:bg-primary/20 transition-colors print:hidden"
                 >
-                  {note.meta.topic}
+                  {note.meta.topicName || topicName}
                 </Link>
+
                 {note.meta.date && (
                   <div className="flex flex-wrap items-center gap-2 text-sm">
                     <time>{dayjs(note.meta.date).format("MMMM D, YYYY")}</time>
@@ -270,8 +282,8 @@ export default async function NotePage({
                     </span>
                   </div>
                   <div>
-                    <p className="text-sm font-semibold capitalize text-foreground">
-                      {topic} Series
+                    <p className="text-sm font-semibold text-foreground">
+                      {topicName} Series
                     </p>
                     <p className="text-xs text-muted-foreground">
                       Part {currentIndex + 1} of {topicNotes.length}
@@ -375,9 +387,10 @@ export default async function NotePage({
                           className="p-4 rounded-xl border border-border hover:border-primary/50 bg-muted/20 hover:bg-muted/50 transition-colors group"
                         >
                           <div className="text-xs font-semibold text-muted-foreground mb-2 flex items-center gap-2">
-                            <span className="capitalize text-primary/80">
-                              {r.topic}
+                            <span className="text-primary/80">
+                              {r.topicName || getTopicName(r.topic)}
                             </span>
+
                             {r.date && (
                               <span>
                                 • {dayjs(r.date).format("MMM D, YYYY")}

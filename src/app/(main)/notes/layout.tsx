@@ -1,4 +1,4 @@
-import { getNoteTopics, getNotesByTopic } from "@/lib/mdx";
+import { getNoteTopics, getNotesByTopic, getTopicName } from "@/lib/mdx";
 import { NotesSidebar } from "@/components/notes-sidebar-v3";
 import { ProgressBar } from "@/components/progress-bar";
 import { getSettings } from "@/lib/keystatic-data";
@@ -21,10 +21,11 @@ export default function NotesLayout({
       </div>
     );
   }
-  const topicNames = getNoteTopics();
-  const topics = topicNames.map((name) => ({
-    name,
-    notes: getNotesByTopic(name).map((n) => ({ title: n.title, slug: n.slug })),
+  const topicSlugs = getNoteTopics();
+  const topics = topicSlugs.map((slug) => ({
+    name: getTopicName(slug),
+    slug,
+    notes: getNotesByTopic(slug).map((n) => ({ title: n.title, slug: n.slug })),
   }));
 
   return (
