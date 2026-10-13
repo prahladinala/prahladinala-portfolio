@@ -1,6 +1,8 @@
 import { getAllNotes } from "@/lib/mdx";
 import { NotesList } from "@/components/notes-list";
 import Script from "next/script";
+import { ResumeReadingBanner } from "@/components/notes/resume-reading-banner";
+import { NotesActionButtons } from "@/components/notes/notes-action-buttons";
 
 export const metadata = {
   title: "Digital Notes & Tutorials",
@@ -45,9 +47,12 @@ export default function NotesIndexPage() {
       </div>
 
       <h1 className="text-4xl font-bold mb-4">Digital Notes</h1>
-      <p className="text-lg text-muted-foreground mb-8">
+      <p className="text-lg text-muted-foreground mb-6">
         Welcome to my digital notes. Here you'll find a collection of my technical documentation and deep dives on various topics.
       </p>
+
+      <NotesActionButtons />
+      <ResumeReadingBanner />
 
       {notes.length === 0 ? (
         <div className="p-8 text-center bg-muted/50 rounded-2xl border border-border">

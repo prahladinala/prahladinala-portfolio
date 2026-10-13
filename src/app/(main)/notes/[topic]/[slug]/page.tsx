@@ -26,6 +26,10 @@ import { SITE_CONFIG } from "@/config/constants";
 import { ReadingProgress } from "@/components/reading-progress";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { ViewCounter } from "@/components/view-counter";
+import { NoteHighlighter } from "@/components/notes/note-highlighter";
+import { ReadingTracker } from "@/components/notes/reading-tracker";
+import { Checklist } from "@/components/mdx/checklist";
+import { Flashcard } from "@/components/mdx/flashcard";
 
 export async function generateStaticParams() {
   const topics = getNoteTopics();
@@ -178,6 +182,13 @@ export default async function NotePage({
   return (
     <>
       <ReadingProgress />
+      <NoteHighlighter />
+      <ReadingTracker
+        slug={slug}
+        topic={topic}
+        topicName={topicName}
+        title={note.meta.title}
+      />
       <div className="flex xl:gap-12 relative items-start">
         <article className="flex-1 min-w-0 max-w-3xl pb-24 print:pb-0">
           <script
@@ -294,9 +305,10 @@ export default async function NotePage({
                 <div className="flex items-center gap-2">
                   {prevNote && (
                     <Link
+                      id="prev-note-link"
                       href={`/notes/${topic}/${prevNote.slug}`}
                       className="p-2 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                      title={`Previous: ${prevNote.title}`}
+                      title={`Previous: ${prevNote.title} (Key: K)`}
                     >
                       <ArrowLeft className="w-4 h-4" />
                     </Link>
@@ -306,9 +318,10 @@ export default async function NotePage({
                   </span>
                   {nextNote && (
                     <Link
+                      id="next-note-link"
                       href={`/notes/${topic}/${nextNote.slug}`}
                       className="p-2 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                      title={`Next: ${nextNote.title}`}
+                      title={`Next: ${nextNote.title} (Key: J)`}
                     >
                       <ArrowRight className="w-4 h-4" />
                     </Link>
@@ -330,6 +343,8 @@ export default async function NotePage({
                   Callout,
                   img: MdxImage,
                   SandpackRunner,
+                  Checklist,
+                  Flashcard,
                 }}
               />
             </div>

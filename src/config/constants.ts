@@ -25,6 +25,11 @@ export const STORAGE_KEYS = {
   bookmarkedNotes: "prahlad-bookmarked-notes",
   oldBookmarks: "prahlad-bookmarks", // For migration
   completedNotes: "prahlad-completed-notes",
+  readingProgress: "prahlad-reading-progress",
+  noteHighlights: "prahlad-note-highlights",
+  readingStreaks: "prahlad-reading-streaks",
+  packageManagerPreference: "prahlad-pm-pref",
+  tutorialChecklists: "prahlad-tutorial-checklists",
 };
 
 export const AI_QUICK_ACTIONS = [

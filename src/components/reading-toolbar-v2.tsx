@@ -2,7 +2,7 @@
 import { STORAGE_KEYS } from "@/config/constants";
 
 import { useState, useEffect } from "react";
-import { Download, Type, Volume2, VolumeX, Minus, Plus, Loader2, AlertCircle, Share2, Bookmark, CheckCircle } from "lucide-react";
+import { Download, Type, Volume2, VolumeX, Minus, Plus, Loader2, AlertCircle, Share2, Bookmark, CheckCircle, Eye, Play, Pause, Radio } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
   Dialog,
@@ -23,6 +23,14 @@ type ReadingToolbarProps = {
 
 export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "document" }: ReadingToolbarProps) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [playbackRate, setPlaybackRate] = useState(1);
+  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [selectedVoiceIndex, setSelectedVoiceIndex] = useState(0);
+  const [currentSentence, setCurrentSentence] = useState("");
+  const [fullText, setFullText] = useState("");
+  const [currentWordCharIndex, setCurrentWordCharIndex] = useState(0);
+
   const [fontSize, setFontSize] = useState(16); // Base 16px
   const [speechSynthesisAvailable, setSpeechSynthesisAvailable] = useState(false);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
@@ -57,6 +65,14 @@ export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "docu
     
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       setSpeechSynthesisAvailable(true);
+      const updateVoices = () => {
+        const vList = window.speechSynthesis.getVoices();
+        const enVoices = vList.filter((v) => v.lang.startsWith("en"));
+        setVoices(enVoices.length > 0 ? enVoices : vList);
+      };
+      updateVoices();
+      window.speechSynthesis.onvoiceschanged = updateVoices;
+
       return () => {
         window.speechSynthesis.cancel();
         window.removeEventListener('prahlad-notes-updated', loadState);
@@ -246,23 +262,89 @@ export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "docu
     }
   }, [fontSize, targetId]);
 
-  const toggleAudio = () => {
+  const speakText = (startIndex = 0, speed = playbackRate, voiceIdx = selectedVoiceIndex) => {
     if (!speechSynthesisAvailable) return;
+    const target = document.getElementById(targetId);
+    if (!target) return;
 
+    window.speechSynthesis.cancel();
+
+    const text = target.innerText;
+    setFullText(text);
+
+    const textToSpeak = startIndex > 0 ? text.slice(startIndex) : text;
+    const utterance = new SpeechSynthesisUtterance(textToSpeak);
+
+    utterance.rate = speed;
+    if (voices[voiceIdx]) {
+      utterance.voice = voices[voiceIdx];
+    }
+
+    utterance.onboundary = (e) => {
+      const charIndex = startIndex + e.charIndex;
+      setCurrentWordCharIndex(charIndex);
+
+      const pre = text.slice(0, charIndex);
+      const post = text.slice(charIndex);
+      const startOfSentence = Math.max(pre.lastIndexOf("."), pre.lastIndexOf("!"), pre.lastIndexOf("?"), 0);
+      const endOfSentenceRelative = post.search(/[.!?\n]/);
+      const endOfSentence = endOfSentenceRelative === -1 ? text.length : charIndex + endOfSentenceRelative + 1;
+      const sentence = text.slice(startOfSentence === 0 ? 0 : startOfSentence + 1, endOfSentence).trim();
+      
+      if (sentence && sentence.length > 3) {
+        setCurrentSentence(sentence);
+      }
+    };
+
+    utterance.onend = () => {
+      setIsPlaying(false);
+      setIsPaused(false);
+      setCurrentSentence("");
+    };
+
+    utterance.onerror = () => {
+      setIsPlaying(false);
+      setIsPaused(false);
+    };
+
+    window.speechSynthesis.speak(utterance);
+    setIsPlaying(true);
+    setIsPaused(false);
+  };
+
+  const toggleAudio = () => {
     if (isPlaying) {
       window.speechSynthesis.cancel();
       setIsPlaying(false);
+      setIsPaused(false);
+      setCurrentSentence("");
     } else {
-      const target = document.getElementById(targetId);
-      if (target) {
-        window.speechSynthesis.cancel();
-        const text = target.innerText;
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.onend = () => setIsPlaying(false);
-        utterance.onerror = () => setIsPlaying(false);
-        window.speechSynthesis.speak(utterance);
-        setIsPlaying(true);
-      }
+      speakText(0, playbackRate, selectedVoiceIndex);
+    }
+  };
+
+  const handlePauseResume = () => {
+    if (!isPlaying) return;
+    if (isPaused) {
+      window.speechSynthesis.resume();
+      setIsPaused(false);
+    } else {
+      window.speechSynthesis.pause();
+      setIsPaused(true);
+    }
+  };
+
+  const handleSpeedChange = (newRate: number) => {
+    setPlaybackRate(newRate);
+    if (isPlaying) {
+      speakText(currentWordCharIndex, newRate, selectedVoiceIndex);
+    }
+  };
+
+  const handleVoiceChange = (newVoiceIdx: number) => {
+    setSelectedVoiceIndex(newVoiceIdx);
+    if (isPlaying) {
+      speakText(currentWordCharIndex, playbackRate, newVoiceIdx);
     }
   };
 
@@ -270,6 +352,32 @@ export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "docu
     <>
       <div className="flex flex-wrap items-center gap-1.5 mb-8 bg-muted/40 p-1.5 rounded-xl border border-border w-fit print:hidden shadow-sm backdrop-blur-sm">
         
+        {/* Zen / Focus Mode */}
+        {mounted && (
+          <div className="flex items-center gap-1 border-r border-border pr-2 mr-1">
+            <button
+              onClick={() => {
+                if (theme === "focus" || resolvedTheme === "focus") {
+                  const prev = localStorage.getItem("prahlad-last-theme") || "system";
+                  setTheme(prev === "focus" ? "system" : prev);
+                } else {
+                  localStorage.setItem("prahlad-last-theme", theme || "system");
+                  setTheme("focus");
+                }
+              }}
+              className={`p-2 rounded-lg transition-colors flex items-center gap-1.5 text-xs font-semibold ${
+                theme === "focus" || resolvedTheme === "focus"
+                  ? "bg-amber-500/20 text-amber-700 dark:text-amber-400"
+                  : "hover:bg-background hover:text-primary text-muted-foreground"
+              }`}
+              title="Toggle Zen / Focus Mode (Shortcut: Z)"
+            >
+              <Eye className="w-4 h-4" />
+              <span className="hidden sm:inline">Zen (Z)</span>
+            </button>
+          </div>
+        )}
+
         {/* Mark as Complete */}
         {mounted && (
           <div className="flex items-center gap-1 border-r border-border pr-2 mr-1">
@@ -405,6 +513,79 @@ export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "docu
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Floating Smart TTS Player Bar */}
+      {isPlaying && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[999] max-w-xl w-[92vw] sm:w-auto flex flex-col sm:flex-row items-center gap-3 p-3 px-4 bg-background/95 backdrop-blur-xl border border-border shadow-2xl rounded-2xl animate-in fade-in slide-in-from-bottom-5 duration-300 print:hidden">
+          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+            <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary shrink-0">
+              <Radio className="w-4 h-4 animate-pulse" />
+            </div>
+            
+            <div className="flex-1 min-w-0 pr-2">
+              <p className="text-[11px] font-medium text-muted-foreground flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-ping inline-block" />
+                Reading Aloud
+              </p>
+              <p className="text-xs font-semibold truncate max-w-[180px] sm:max-w-[240px] text-foreground">
+                {currentSentence || title}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-1">
+              <button
+                onClick={handlePauseResume}
+                className="p-1.5 rounded-lg hover:bg-muted text-foreground transition-colors"
+                title={isPaused ? "Resume" : "Pause"}
+              >
+                {isPaused ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
+              </button>
+              <button
+                onClick={toggleAudio}
+                className="p-1.5 rounded-lg hover:bg-destructive/10 text-destructive transition-colors"
+                title="Stop Audio"
+              >
+                <VolumeX className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between sm:justify-start gap-2 w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 sm:border-l border-border sm:pl-3">
+            {/* Speed Toggles */}
+            <div className="flex items-center gap-1 bg-muted/60 p-0.5 rounded-lg border border-border/50">
+              {[1, 1.25, 1.5, 2].map((spd) => (
+                <button
+                  key={spd}
+                  onClick={() => handleSpeedChange(spd)}
+                  className={`px-1.5 py-0.5 text-[11px] font-bold rounded-md transition-all ${
+                    playbackRate === spd
+                      ? "bg-primary text-primary-foreground shadow-xs"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {spd}x
+                </button>
+              ))}
+            </div>
+
+            {/* Voice Dropdown */}
+            {voices.length > 1 && (
+              <select
+                value={selectedVoiceIndex}
+                onChange={(e) => handleVoiceChange(Number(e.target.value))}
+                className="text-xs bg-muted/60 border border-border/50 text-foreground rounded-lg px-2 py-1 max-w-[120px] truncate focus:outline-hidden"
+                title="Select Voice"
+              >
+                {voices.slice(0, 8).map((v, idx) => (
+                  <option key={idx} value={idx}>
+                    {v.name.replace(/Microsoft|Google|Apple|English|Desktop/g, "").trim() || `Voice ${idx + 1}`}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 }

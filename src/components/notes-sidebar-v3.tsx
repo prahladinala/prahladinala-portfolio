@@ -14,9 +14,12 @@ import {
   ChevronDown,
   ChevronUp,
   Bookmark,
+  Network,
+  Trophy,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { KnowledgeGraphModal } from "./notes/knowledge-graph-modal";
 
 type SidebarProps = {
   topics: {
@@ -29,6 +32,7 @@ type SidebarProps = {
 export function NotesSidebar({ topics }: SidebarProps) {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [graphModalOpen, setGraphModalOpen] = useState(false);
   const [completedNotes, setCompletedNotes] = useState<string[]>([]);
   const [bookmarkedNotes, setBookmarkedNotes] = useState<string[]>([]);
   const [mounted, setMounted] = useState(false);
@@ -51,8 +55,13 @@ export function NotesSidebar({ topics }: SidebarProps) {
     };
 
     loadState();
+    const handleToggle = () => setIsCollapsed((prev) => !prev);
     window.addEventListener("prahlad-notes-updated", loadState);
-    return () => window.removeEventListener("prahlad-notes-updated", loadState);
+    window.addEventListener("prahlad-toggle-sidebar", handleToggle);
+    return () => {
+      window.removeEventListener("prahlad-notes-updated", loadState);
+      window.removeEventListener("prahlad-toggle-sidebar", handleToggle);
+    };
   }, []);
 
   return (
@@ -121,7 +130,7 @@ export function NotesSidebar({ topics }: SidebarProps) {
             <Link
               href="/notes/bookmarks"
               className={cn(
-                "font-semibold text-sm flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all mb-4",
+                "font-semibold text-sm flex items-center gap-3 px-3 py-2 rounded-lg transition-all",
                 pathname === "/notes/bookmarks"
                   ? "bg-primary/10 text-primary"
                   : "hover:bg-muted text-muted-foreground hover:text-foreground",
@@ -134,6 +143,27 @@ export function NotesSidebar({ topics }: SidebarProps) {
                 )}
               />
               Bookmarks
+            </Link>
+
+            <button
+              onClick={() => setGraphModalOpen(true)}
+              className="w-full font-semibold text-sm flex items-center gap-3 px-3 py-2 rounded-lg transition-all hover:bg-muted text-muted-foreground hover:text-foreground text-left"
+            >
+              <Network className="w-4 h-4 text-indigo-500" />
+              <span>Knowledge Graph</span>
+            </button>
+
+            <Link
+              href="/notes/stats"
+              className={cn(
+                "font-semibold text-sm flex items-center gap-3 px-3 py-2 rounded-lg transition-all mb-4",
+                pathname === "/notes/stats"
+                  ? "bg-primary/10 text-primary"
+                  : "hover:bg-muted text-muted-foreground hover:text-foreground",
+              )}
+            >
+              <Trophy className="w-4 h-4 text-amber-500" />
+              Stats & Streaks
             </Link>
 
             {topics.length === 0 ? (
@@ -228,6 +258,7 @@ export function NotesSidebar({ topics }: SidebarProps) {
           </div>
         </div>
       </div>
+      <KnowledgeGraphModal open={graphModalOpen} onOpenChange={setGraphModalOpen} />
     </aside>
   );
 }
