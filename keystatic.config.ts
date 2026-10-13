@@ -1,4 +1,5 @@
 import { config, fields, collection, singleton } from "@keystatic/core";
+import { block, wrapper } from "@keystatic/core/content-components";
 import { TopicSelectInput } from "./src/components/keystatic/topic-select-input";
 
 export default config({
@@ -362,6 +363,48 @@ export default config({
             },
           },
           label: "Content",
+          components: {
+            SandpackRunner: block({
+              label: "Sandpack Runner",
+              schema: {
+                template: fields.text({
+                  label: "Template",
+                  defaultValue: "react",
+                }),
+              },
+            }),
+            Callout: wrapper({
+              label: "Callout",
+              schema: {
+                type: fields.select({
+                  label: "Type",
+                  options: [
+                    { label: "Default", value: "default" },
+                    { label: "Info", value: "info" },
+                    { label: "Warning", value: "warning" },
+                    { label: "Danger", value: "danger" },
+                    { label: "Success", value: "success" },
+                  ],
+                  defaultValue: "default",
+                }),
+                title: fields.text({ label: "Title" }),
+              },
+            }),
+            Checklist: block({
+              label: "Checklist",
+              schema: {
+                title: fields.text({ label: "Title" }),
+              },
+            }),
+            Flashcard: block({
+              label: "Flashcard",
+              schema: {
+                question: fields.text({ label: "Question" }),
+                answer: fields.text({ label: "Answer" }),
+                hint: fields.text({ label: "Hint" }),
+              },
+            }),
+          },
         }),
       },
     }),
