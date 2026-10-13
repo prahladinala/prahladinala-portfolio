@@ -1,4 +1,5 @@
 import { config, fields, collection, singleton } from "@keystatic/core";
+import { TopicSelectInput } from "./src/components/keystatic/topic-select-input";
 
 export default config({
   storage:
@@ -340,11 +341,15 @@ export default config({
           defaultValue: { kind: "today" },
           description: "Optional. Show when you last updated this note.",
         }),
-        topic: fields.relationship({
-          label: "Topic",
-          collection: "topics",
-          validation: { isRequired: true },
-        }),
+        topic: {
+          ...fields.relationship({
+            label: "Topic",
+            collection: "topics",
+            validation: { isRequired: true },
+          }),
+          Input: TopicSelectInput,
+        },
+
         tags: fields.array(fields.text({ label: "Tag" }), {
           label: "Tags",
           itemLabel: (props) => props.value,
