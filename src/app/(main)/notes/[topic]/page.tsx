@@ -2,6 +2,7 @@ import { getNoteTopics, getNotesByTopic, getTopicName } from "@/lib/mdx";
 import { notFound } from "next/navigation";
 import { NotesList } from "@/components/notes-list";
 import Script from "next/script";
+import { SITE_CONFIG } from "@/config/constants";
 
 export async function generateStaticParams() {
   const topics = getNoteTopics();
@@ -18,8 +19,10 @@ export async function generateMetadata({
   const canonicalUrl = `https://prahladinala.in/notes/${topic}`;
   const title = `${topicName} Notes & Tutorials | Prahlad Inala`;
   const description = `Read my technical notes, documentation, and deep dives specifically focused on ${topicName}.`;
+  const ogImage = `https://prahladinala.in/api/og?title=${encodeURIComponent(topicName + " Notes")}&topic=${encodeURIComponent(topicName)}`;
 
   return {
+    metadataBase: new URL(SITE_CONFIG.url),
     title,
     description,
     alternates: {
@@ -30,6 +33,21 @@ export async function generateMetadata({
       description,
       url: canonicalUrl,
       type: "website",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          type: "image/png",
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
     },
   };
 }

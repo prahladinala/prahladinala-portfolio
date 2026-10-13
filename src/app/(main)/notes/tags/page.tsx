@@ -2,9 +2,37 @@ import { getAllTags } from "@/lib/mdx";
 import Link from "next/link";
 import { Hash } from "lucide-react";
 
+import { SITE_CONFIG } from "@/config/constants";
+
 export const metadata = {
+  metadataBase: new URL(SITE_CONFIG.url),
   title: "All Tags | Digital Notes",
   description: "Browse all tags across my digital notes",
+  openGraph: {
+    title: "All Tags | Digital Notes",
+    description: "Browse all tags across my digital notes",
+    url: `${SITE_CONFIG.url}/notes/tags`,
+    siteName: SITE_CONFIG.name,
+    images: [
+      {
+        url: `${SITE_CONFIG.url}/api/og?title=${encodeURIComponent("Topics & Tags")}&topic=${encodeURIComponent("Notes")}`,
+        width: 1200,
+        height: 630,
+        type: "image/png",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "All Tags | Digital Notes",
+    description: "Browse all tags across my digital notes",
+    creator: SITE_CONFIG.twitterHandle,
+    images: [
+      `${SITE_CONFIG.url}/api/og?title=${encodeURIComponent("Topics & Tags")}&topic=${encodeURIComponent("Notes")}`,
+    ],
+  },
 };
 
 export default function TagsPage() {

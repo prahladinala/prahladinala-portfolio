@@ -61,6 +61,7 @@ export async function generateMetadata({
   const ogImage = `https://prahladinala.in/api/og?title=${encodeURIComponent(note.meta.title)}&topic=${encodeURIComponent(topicName)}&date=${encodeURIComponent(note.meta.date)}`;
 
   return {
+    metadataBase: new URL(SITE_CONFIG.url),
     title: `${note.meta.title} | ${topicName} Notes`,
     description: note.meta.description,
     keywords: note.meta.tags?.join(", "), // Injected tags for SEO
@@ -76,6 +77,7 @@ export async function generateMetadata({
           url: ogImage,
           width: 1200,
           height: 630,
+          type: "image/png",
           alt: note.meta.title,
         },
       ],

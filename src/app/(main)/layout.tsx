@@ -82,12 +82,22 @@ export const metadata: Metadata = {
     title: `${SITE_CONFIG.name} | Software Engineer & Frontend Developer`,
     description: SITE_CONFIG.description,
     siteName: SITE_CONFIG.name,
+    images: [
+      {
+        url: `${SITE_CONFIG.url}/api/og`,
+        width: 1200,
+        height: 630,
+        type: "image/png",
+        alt: `${SITE_CONFIG.name} | Software Engineer & Frontend Developer`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE_CONFIG.name} | Software Engineer & Frontend Developer`,
     description: SITE_CONFIG.description,
     creator: SITE_CONFIG.twitterHandle,
+    images: [`${SITE_CONFIG.url}/api/og`],
   },
 };
 

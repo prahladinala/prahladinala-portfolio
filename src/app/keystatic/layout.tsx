@@ -3,6 +3,18 @@ import "../globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/header-v2";
 
+import { SITE_CONFIG } from "@/config/constants";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_CONFIG.url),
+  title: "Keystatic CMS | Admin",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
 const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],

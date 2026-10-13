@@ -14,7 +14,10 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+import { SITE_CONFIG } from "@/config/constants";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_CONFIG.url),
   title: "Resume | Prahlad Inala",
   description: "Printable professional resume of Prahlad Inala.",
   alternates: { canonical: "/resume" },

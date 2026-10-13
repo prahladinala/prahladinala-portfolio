@@ -3,8 +3,10 @@ import { NotesList } from "@/components/notes-list";
 import Script from "next/script";
 import { ResumeReadingBanner } from "@/components/notes/resume-reading-banner";
 import { NotesActionButtons } from "@/components/notes/notes-action-buttons";
+import { SITE_CONFIG } from "@/config/constants";
 
 export const metadata = {
+  metadataBase: new URL(SITE_CONFIG.url),
   title: "Digital Notes & Tutorials",
   description: "A comprehensive collection of my technical notes, coding tutorials, and deep dives into web development, React, and Next.js.",
   alternates: {
@@ -15,7 +17,22 @@ export const metadata = {
     description: "A comprehensive collection of my technical notes, coding tutorials, and deep dives into web development, React, and Next.js.",
     url: "https://prahladinala.in/notes",
     type: "website",
-  }
+    images: [
+      {
+        url: "https://prahladinala.in/api/og?title=Digital%20Notes%20%26%20Tutorials&topic=Software%20Engineering",
+        width: 1200,
+        height: 630,
+        type: "image/png",
+        alt: "Digital Notes & Tutorials | Prahlad Inala",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Digital Notes & Tutorials | Prahlad Inala",
+    description: "A comprehensive collection of my technical notes, coding tutorials, and deep dives into web development, React, and Next.js.",
+    images: ["https://prahladinala.in/api/og?title=Digital%20Notes%20%26%20Tutorials&topic=Software%20Engineering"],
+  },
 };
 
 export default function NotesIndexPage() {

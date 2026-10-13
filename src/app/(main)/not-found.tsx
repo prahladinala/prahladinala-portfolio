@@ -4,7 +4,10 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 
+import { SITE_CONFIG } from "@/config/constants";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_CONFIG.url),
   title: "404 - Page Not Found",
   description: "The page you are looking for does not exist or has been moved.",
   robots: {

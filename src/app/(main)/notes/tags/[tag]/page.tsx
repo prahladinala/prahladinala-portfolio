@@ -9,15 +9,46 @@ export async function generateStaticParams() {
   return tags.map((tag) => ({ tag }));
 }
 
+import { SITE_CONFIG } from "@/config/constants";
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ tag: string }>;
 }) {
   const { tag } = await params;
+  const decodedTag = decodeURIComponent(tag).toLowerCase();
+  const title = `#${decodedTag} Notes | Digital Notes`;
+  const description = `All notes tagged with ${decodedTag}`;
+  const ogImage = `${SITE_CONFIG.url}/api/og?title=${encodeURIComponent(`#${decodedTag}`)}&topic=${encodeURIComponent("Tagged Notes")}`;
+
   return {
-    title: `#${tag} Notes | Digital Notes`,
-    description: `All notes tagged with ${tag}`,
+    metadataBase: new URL(SITE_CONFIG.url),
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `${SITE_CONFIG.url}/notes/tags/${tag}`,
+      siteName: SITE_CONFIG.name,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          type: "image/png",
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      creator: SITE_CONFIG.twitterHandle,
+      images: [ogImage],
+    },
   };
 }
 
