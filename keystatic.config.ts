@@ -322,7 +322,7 @@ export default config({
       label: "Digital Notes",
       slugField: "title",
       columns: ["title", "topic", "draft", "date"],
-      path: "src/content/notes/**",
+      path: "src/content/notes/*",
       format: { contentField: "content" },
       schema: {
         title: fields.slug({ name: { label: "Title" } }),
