@@ -110,7 +110,7 @@ export type Settings = {
 export const getSettings = cache((): Settings => {
   const defaultSettings: Settings = {
     showComments: true,
-    showViews: true,
+    showViews: false,
     showTableOfContents: true,
     showShareButtons: true,
     showRelatedNotes: true,
