@@ -15,6 +15,7 @@ import {
   ChevronUp,
   Bookmark,
   Trophy,
+  Keyboard,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -145,7 +146,7 @@ export function NotesSidebar({ topics }: SidebarProps) {
             <Link
               href="/notes/stats"
               className={cn(
-                "font-semibold text-sm flex items-center gap-3 px-3 py-2 rounded-lg transition-all mb-4",
+                "font-semibold text-sm flex items-center gap-3 px-3 py-2 rounded-lg transition-all",
                 pathname === "/notes/stats"
                   ? "bg-primary/10 text-primary"
                   : "hover:bg-muted text-muted-foreground hover:text-foreground",
@@ -154,6 +155,21 @@ export function NotesSidebar({ topics }: SidebarProps) {
               <Trophy className="w-4 h-4 text-amber-500" />
               Stats & Streaks
             </Link>
+
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent("prahlad-open-shortcuts"))}
+              className="w-full font-semibold text-sm flex items-center justify-between px-3 py-2 rounded-lg transition-all hover:bg-muted text-muted-foreground hover:text-foreground group mb-4 cursor-pointer"
+              title="Keyboard Shortcuts (Press ?)"
+            >
+              <span className="flex items-center gap-3">
+                <Keyboard className="w-4 h-4 text-primary" />
+                Shortcuts
+              </span>
+              <kbd className="px-1.5 py-0.5 text-[10px] font-mono font-bold text-muted-foreground bg-muted group-hover:bg-background border border-border rounded shadow-2xs">
+                ?
+              </kbd>
+            </button>
 
             {topics.length === 0 ? (
               <p className="text-sm text-muted-foreground px-3">

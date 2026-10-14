@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import dayjs from "dayjs";
-import { Flame, CheckCircle, Bookmark, BookOpen, Trophy, Sparkles, ArrowLeft, Calendar } from "lucide-react";
+import { Flame, CheckCircle, Bookmark, BookOpen, Trophy, Sparkles, ArrowLeft, Calendar, Keyboard } from "lucide-react";
 import { STORAGE_KEYS } from "@/config/constants";
 import { NoteMeta } from "@/lib/mdx";
 
@@ -306,6 +306,103 @@ export function NotesStatsClient({ totalNotes }: { totalNotes: number }) {
               </div>
             );
           })}
+        </div>
+      </div>
+
+      {/* Keyboard Shortcuts Hub */}
+      <div className="p-6 rounded-2xl border border-border bg-muted/20 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-border/50">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+              <Keyboard className="w-4 h-4" />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-foreground">Keyboard Shortcuts Cheat Sheet</h3>
+              <p className="text-xs text-muted-foreground">Power-user keybindings active throughout all technical notes</p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent("prahlad-open-shortcuts"))}
+            className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary transition-colors flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
+          >
+            <span>Open Interactive Modal</span>
+            <kbd className="px-1 py-0.5 text-[10px] font-mono bg-background border border-border rounded">?</kbd>
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="space-y-2">
+            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-1">
+              Navigation
+            </span>
+            <div className="rounded-xl border border-border/60 bg-background/50 divide-y divide-border/40 overflow-hidden">
+              <div className="flex items-center justify-between px-3 py-2 text-xs">
+                <span className="text-muted-foreground">Next note</span>
+                <kbd className="px-2 py-0.5 font-mono font-bold bg-muted border border-border rounded">J</kbd>
+              </div>
+              <div className="flex items-center justify-between px-3 py-2 text-xs">
+                <span className="text-muted-foreground">Previous note</span>
+                <kbd className="px-2 py-0.5 font-mono font-bold bg-muted border border-border rounded">K</kbd>
+              </div>
+              <div className="flex items-center justify-between px-3 py-2 text-xs">
+                <span className="text-muted-foreground">Toggle sidebar</span>
+                <kbd className="px-2 py-0.5 font-mono font-bold bg-muted border border-border rounded">[ or ]</kbd>
+              </div>
+              <div className="flex items-center justify-between px-3 py-2 text-xs">
+                <span className="text-muted-foreground">Table of contents</span>
+                <kbd className="px-2 py-0.5 font-mono font-bold bg-muted border border-border rounded">T</kbd>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-1">
+              Reading & Focus
+            </span>
+            <div className="rounded-xl border border-border/60 bg-background/50 divide-y divide-border/40 overflow-hidden">
+              <div className="flex items-center justify-between px-3 py-2 text-xs">
+                <span className="text-muted-foreground">Zen / Focus Mode</span>
+                <kbd className="px-2 py-0.5 font-mono font-bold bg-muted border border-border rounded">Z</kbd>
+              </div>
+              <div className="flex items-center justify-between px-3 py-2 text-xs">
+                <span className="text-muted-foreground">Bookmark note</span>
+                <kbd className="px-2 py-0.5 font-mono font-bold bg-muted border border-border rounded">B</kbd>
+              </div>
+              <div className="flex items-center justify-between px-3 py-2 text-xs">
+                <span className="text-muted-foreground">Audio narration</span>
+                <span className="text-[11px] text-muted-foreground">Toolbar</span>
+              </div>
+              <div className="flex items-center justify-between px-3 py-2 text-xs">
+                <span className="text-muted-foreground">Font resize</span>
+                <span className="text-[11px] text-muted-foreground">Toolbar</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-1">
+              Actions & Modal
+            </span>
+            <div className="rounded-xl border border-border/60 bg-background/50 divide-y divide-border/40 overflow-hidden">
+              <div className="flex items-center justify-between px-3 py-2 text-xs">
+                <span className="text-muted-foreground">Shortcuts modal</span>
+                <kbd className="px-2 py-0.5 font-mono font-bold bg-muted border border-border rounded">?</kbd>
+              </div>
+              <div className="flex items-center justify-between px-3 py-2 text-xs">
+                <span className="text-muted-foreground">Close modal</span>
+                <kbd className="px-2 py-0.5 font-mono font-bold bg-muted border border-border rounded">Esc</kbd>
+              </div>
+              <div className="flex items-center justify-between px-3 py-2 text-xs">
+                <span className="text-muted-foreground">Command palette</span>
+                <kbd className="px-2 py-0.5 font-mono font-bold bg-muted border border-border rounded">⌘K</kbd>
+              </div>
+              <div className="flex items-center justify-between px-3 py-2 text-xs">
+                <span className="text-muted-foreground">Code range link</span>
+                <span className="text-[10px] text-muted-foreground font-mono">Shift+Click</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

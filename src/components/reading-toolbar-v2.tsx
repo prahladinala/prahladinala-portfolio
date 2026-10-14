@@ -2,7 +2,7 @@
 import { STORAGE_KEYS } from "@/config/constants";
 
 import { useState, useEffect } from "react";
-import { Download, Type, Volume2, VolumeX, Minus, Plus, Loader2, AlertCircle, Share2, Bookmark, CheckCircle, Eye, Play, Pause, Radio } from "lucide-react";
+import { Download, Type, Volume2, VolumeX, Minus, Plus, Loader2, AlertCircle, Share2, Bookmark, CheckCircle, Eye, Play, Pause, Radio, Keyboard } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
   Dialog,
@@ -451,6 +451,15 @@ export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "docu
             title="Download File as PDF"
           >
             {isGeneratingPdf ? <Loader2 className="w-4 h-4 animate-spin text-primary" /> : <Download className="w-4 h-4" />}
+          </button>
+
+          <button 
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent("prahlad-open-shortcuts"))} 
+            className="p-2 rounded-lg hover:bg-background hover:text-primary transition-colors text-muted-foreground flex items-center justify-center gap-2"
+            title="Keyboard Shortcuts (Press ?)"
+          >
+            <Keyboard className="w-4 h-4" />
           </button>
         </div>
       </div>

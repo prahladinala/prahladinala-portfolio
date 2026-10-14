@@ -100,8 +100,14 @@ export function NotesKeyboardShortcuts() {
       }
     };
 
+    const openHandler = () => setModalOpen(true);
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener("prahlad-open-shortcuts", openHandler);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("prahlad-open-shortcuts", openHandler);
+    };
   }, [theme, resolvedTheme, setTheme, router]);
 
   return <KeyboardShortcutsModal open={modalOpen} onOpenChange={setModalOpen} />;
