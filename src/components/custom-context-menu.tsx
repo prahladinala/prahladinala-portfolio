@@ -4,6 +4,7 @@ import { STORAGE_KEYS } from "@/config/constants";
 import { useEffect, useState, useRef } from "react";
 import { Copy, Share2, ExternalLink, Check, CheckCircle, Bookmark } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { toast } from "@/components/ui/toast";
 
 export function CustomContextMenu() {
   const [show, setShow] = useState(false);
@@ -88,7 +89,8 @@ export function CustomContextMenu() {
     try {
       await navigator.clipboard.writeText(targetUrl);
       setCopied(true);
-      setTimeout(() => setShow(false), 1000);
+      toast.success("Link copied to clipboard", { icon: "🔗" });
+      setTimeout(() => setShow(false), 800);
     } catch (err) {
       console.error(err);
     }
@@ -105,8 +107,9 @@ export function CustomContextMenu() {
       } else {
         await navigator.clipboard.writeText(targetUrl);
         setCopied(true);
+        toast.success("Link copied to clipboard", { icon: "🔗" });
       }
-      setTimeout(() => setShow(false), 1000);
+      setTimeout(() => setShow(false), 800);
     } catch (err) {
       console.error(err);
     }
@@ -123,12 +126,18 @@ export function CustomContextMenu() {
     if (!notePath) return;
     try {
       const completed = JSON.parse(localStorage.getItem(STORAGE_KEYS.completedNotes) || "[]");
+      const willComplete = !isCompleted;
       const newCompleted = isCompleted 
         ? completed.filter((p: string) => p !== notePath)
         : [...completed, notePath];
       
       localStorage.setItem(STORAGE_KEYS.completedNotes, JSON.stringify(newCompleted));
       window.dispatchEvent(new Event("prahlad-notes-updated"));
+      if (willComplete) {
+        toast.success("Marked note as completed! 🎉");
+      } else {
+        toast.info("Marked note as incomplete");
+      }
       setShow(false);
     } catch (err) {
       console.error(err);
@@ -139,12 +148,18 @@ export function CustomContextMenu() {
     if (!notePath) return;
     try {
       const bookmarked = JSON.parse(localStorage.getItem(STORAGE_KEYS.bookmarkedNotes) || "[]");
+      const willBookmark = !isBookmarked;
       const newBookmarked = isBookmarked 
         ? bookmarked.filter((p: string) => p !== notePath)
         : [...bookmarked, notePath];
       
       localStorage.setItem(STORAGE_KEYS.bookmarkedNotes, JSON.stringify(newBookmarked));
       window.dispatchEvent(new Event("prahlad-notes-updated"));
+      if (willBookmark) {
+        toast.success("Saved to your bookmarks", { icon: "🔖" });
+      } else {
+        toast.info("Removed from bookmarks");
+      }
       setShow(false);
     } catch (err) {
       console.error(err);

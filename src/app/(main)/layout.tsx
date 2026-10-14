@@ -16,6 +16,7 @@ import {
 } from "@/lib/keystatic-data";
 import { SITE_CONFIG } from "@/config/constants";
 import { ComingSoon } from "@/components/coming-soon";
+import { Toaster } from "@/components/ui/toast";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -207,6 +208,7 @@ export default function MainLayout({
                 {settings.enableAiAssistant && (
                   <AIAssistant experiences={experiences} projects={projects} />
                 )}
+                <Toaster />
               </div>
             </>
           )}

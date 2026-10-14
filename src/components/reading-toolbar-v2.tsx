@@ -4,6 +4,7 @@ import { STORAGE_KEYS } from "@/config/constants";
 import { useState, useEffect } from "react";
 import { Download, Type, Volume2, VolumeX, Minus, Plus, Loader2, AlertCircle, Share2, Bookmark, CheckCircle, Eye, Play, Pause, Radio, Keyboard } from "lucide-react";
 import { useTheme } from "next-themes";
+import { toast } from "@/components/ui/toast";
 import {
   Dialog,
   DialogContent,
@@ -93,7 +94,7 @@ export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "docu
         });
       } else {
         await navigator.clipboard.writeText(window.location.href);
-        alert("Link copied to clipboard!");
+        toast.success("Link copied to clipboard", { icon: "🔗" });
       }
     } catch (err) {
       console.error("Error sharing:", err);
@@ -108,10 +109,12 @@ export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "docu
         const newBookmarks = bookmarks.filter((p: string) => p !== path);
         localStorage.setItem(STORAGE_KEYS.bookmarkedNotes, JSON.stringify(newBookmarks));
         setIsBookmarked(false);
+        toast.info("Removed from bookmarks");
       } else {
         bookmarks.push(path);
         localStorage.setItem(STORAGE_KEYS.bookmarkedNotes, JSON.stringify(bookmarks));
         setIsBookmarked(true);
+        toast.success("Saved to your bookmarks", { icon: "🔖" });
       }
       window.dispatchEvent(new Event('prahlad-notes-updated'));
     } catch (e) {
@@ -127,10 +130,12 @@ export function ReadingToolbar({ targetId, pdfTargetId = targetId, title = "docu
         const newCompleted = completed.filter((p: string) => p !== path);
         localStorage.setItem(STORAGE_KEYS.completedNotes, JSON.stringify(newCompleted));
         setIsCompleted(false);
+        toast.info("Marked note as incomplete");
       } else {
         completed.push(path);
         localStorage.setItem(STORAGE_KEYS.completedNotes, JSON.stringify(completed));
         setIsCompleted(true);
+        toast.success("Marked note as completed! 🎉");
       }
       window.dispatchEvent(new Event('prahlad-notes-updated'));
     } catch (e) {

@@ -25,6 +25,7 @@ import { Tabs } from "@/components/mdx/tabs";
 import { BeforeAfter } from "@/components/mdx/before-after";
 import { Steps } from "@/components/mdx/steps";
 import { Accordion } from "@/components/mdx/accordion";
+import { H1, H2, H3, H4 } from "@/components/mdx/heading";
 import { ShareButtons } from "@/components/notes/share-buttons";
 import { GiscusComments } from "@/components/notes/giscus-comments";
 import { Edit3 } from "lucide-react";
@@ -373,6 +374,10 @@ export default async function NotePage({
                   BeforeAfter,
                   Steps,
                   Accordion,
+                  h1: H1,
+                  h2: H2,
+                  h3: H3,
+                  h4: H4,
                 }}
               />
             </div>

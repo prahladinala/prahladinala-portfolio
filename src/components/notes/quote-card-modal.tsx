@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from "@/components/ui/button";
 import { Download, Copy, Check, Quote, Sparkles, Image as ImageIcon } from "lucide-react";
 import { SITE_CONFIG } from "@/config/constants";
+import { toast } from "@/components/ui/toast";
 
 export function QuoteCardModal({
   open,
@@ -35,8 +36,10 @@ export function QuoteCardModal({
       link.download = `quote-${Date.now()}.png`;
       link.href = dataUrl;
       link.click();
+      toast.success("Quote card downloaded", { icon: "📥" });
     } catch (e) {
       console.error("Failed to generate quote card image:", e);
+      toast.error("Failed to generate quote card image");
     } finally {
       setIsExporting(false);
     }
@@ -56,12 +59,14 @@ export function QuoteCardModal({
           new ClipboardItem({ "image/png": blob }),
         ]);
         setCopied(true);
+        toast.success("Quote card copied to clipboard", { icon: "🎨" });
         setTimeout(() => setCopied(false), 2000);
       } else {
         await handleDownload();
       }
     } catch (e) {
       console.error("Failed to copy quote card to clipboard:", e);
+      toast.error("Failed to copy quote card to clipboard");
     } finally {
       setIsExporting(false);
     }

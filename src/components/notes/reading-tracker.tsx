@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { STORAGE_KEYS } from "@/config/constants";
+import { toast } from "@/components/ui/toast";
 import dayjs from "dayjs";
 
 type ReadingTrackerProps = {
@@ -61,7 +62,11 @@ export function ReadingTracker({ slug, topic, topicName, title }: ReadingTracker
       // Check Night Owl condition (reading between 11 PM and 5 AM)
       const currentHour = new Date().getHours();
       if (currentHour >= 23 || currentHour < 5) {
-        localStorage.setItem("prahlad-night-owl", "true");
+        const alreadyAwarded = localStorage.getItem("prahlad-night-owl") === "true";
+        if (!alreadyAwarded) {
+          localStorage.setItem("prahlad-night-owl", "true");
+          toast.success("Night Owl badge unlocked! 🦉", { duration: 5000 });
+        }
       }
     } catch (e) {}
 
