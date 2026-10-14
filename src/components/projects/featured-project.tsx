@@ -59,11 +59,21 @@ export function FeaturedProject({ project }: { project: Project }) {
         {/* Image/Media Side */}
         <div className="flex-1 w-full lg:w-1/2 p-4 md:p-8 pt-0 lg:pt-8 flex items-center justify-center">
           <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-border/50 shadow-2xl group-hover:scale-[1.02] transition-transform duration-500 bg-muted flex items-center justify-center">
-            {/* Replace with actual video or Image component */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-muted to-background flex flex-col items-center justify-center">
-              <PlayCircle className="w-16 h-16 text-muted-foreground/50 mb-4" />
-              <p className="text-muted-foreground font-mono text-sm">project_demo.mp4</p>
-            </div>
+            {project.image ? (
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
+            ) : (
+              <div className="absolute inset-0 bg-gradient-to-tr from-muted to-background flex flex-col items-center justify-center">
+                <PlayCircle className="w-16 h-16 text-muted-foreground/50 mb-4" />
+                <p className="text-muted-foreground font-mono text-sm">project_demo.mp4</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

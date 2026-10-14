@@ -21,7 +21,7 @@ export type Project = {
   title: string;
   description: string;
   longDescription?: string;
-  image: string;
+  image?: string;
   tags: string[];
   githubUrl?: string;
   liveUrl?: string;

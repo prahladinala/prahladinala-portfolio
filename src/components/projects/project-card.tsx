@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 import { Github } from "@/components/icons";
 import type { Project } from "@/lib/keystatic-data";
@@ -6,10 +7,20 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <div className="group flex flex-col h-full bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/50 transition-colors">
       <div className="relative aspect-video bg-muted overflow-hidden border-b border-border">
-        {/* Placeholder for project image */}
-        <div className="absolute inset-0 bg-gradient-to-br from-muted to-background/50 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-           <span className="text-4xl opacity-20">🚀</span>
-        </div>
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        ) : (
+          /* Placeholder when no project image is uploaded */
+          <div className="absolute inset-0 bg-gradient-to-br from-muted to-background/50 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+            <span className="text-4xl opacity-20">🚀</span>
+          </div>
+        )}
         
         {/* Overlay actions */}
         <div className="absolute inset-0 bg-background/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
