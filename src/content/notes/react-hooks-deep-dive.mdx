@@ -1,12 +1,13 @@
 ---
-topic: react
 title: React Hooks Deep Dive
-date: "2024-03-12"
+draft: false
 description: >-
   Understanding the lifecycle and performance implications of useEffect and
   useMemo.
+date: 2024-03-12
+topic: react
+tags: []
 ---
-
 topic: react
 
 # React Hooks Deep Dive
@@ -16,10 +17,6 @@ React Hooks completely revolutionized how we write components. Let's look closel
 ## The `useEffect` Hook
 
 The most common mistake with `useEffect` is omitting dependencies or recreating them constantly on every render.
-
-<Callout type="info" title="Why Dependency Arrays Matter">
-Every reactive value (state, props, or variables derived from them) used inside `useEffect` must be listed in its dependencies array to prevent stale closure bugs.
-</Callout>
 
 ```jsx
 import { useEffect, useState } from "react";
@@ -39,17 +36,29 @@ export function UserProfile({ userId }) {
 }
 ```
 
-<Callout type="warning" title="Warning: Infinite Re-render Loop">
-Never update state unconditionally inside `useEffect` if that state variable is also in the dependency array, otherwise your component will continuously trigger re-renders indefinitely!
-</Callout>
+<SandpackRunner
+  template="react"
+  code="import { useState, useEffect } from 'react';
 
-### Live Interactive Demo
+export default function App() {
+const [count, setCount] = useState(0);
+const [color, setColor] = useState('blue');
 
-Here is a live playground demonstrating how `useEffect` responds to state changes:
+useEffect(() => {
+document.body.style.backgroundColor = color;
+}, [color]);
 
-<SandpackRunner 
-  template="react" 
-  code={"import { useState, useEffect } from 'react';\n\nexport default function App() {\n  const [count, setCount] = useState(0);\n  const [color, setColor] = useState('blue');\n\n  useEffect(() => {\n    document.body.style.backgroundColor = color;\n  }, [color]);\n\n  return (\n    <div style={{ padding: 20, fontFamily: 'sans-serif', background: 'white', borderRadius: 8 }}>\n      <h2>Interactive useEffect Demo</h2>\n      <p>Count: {count}</p>\n      <button onClick={() => setCount(c => c + 1)} style={{ marginRight: 10 }}>Increment</button>\n      <button onClick={() => setColor(color === 'blue' ? 'lightgreen' : 'blue')}>\n        Toggle Background\n      </button>\n    </div>\n  );\n}"}
+return (
+<div style={{ padding: 20, fontFamily: 'sans-serif', background: 'white', borderRadius: 8 }}>
+<h2>Interactive useEffect Demo</h2>
+<p>Count: {count}</p>
+<button onClick={() => setCount(c => c + 1)} style={{ marginRight: 10 }}>Increment</button>
+<button onClick={() => setColor(color === 'blue' ? 'lightgreen' : 'blue')}>
+Toggle Background
+</button>
+</div>
+);
+}"
 />
 
 ## Performance with `useMemo`
@@ -62,36 +71,10 @@ const expensiveResult = useMemo(() => {
 }, [data]);
 ```
 
-<Callout type="success" title="Rule of Thumb">
-Use `useEffect` for synchronization with external systems (APIs, DOM, localStorage). For calculating derived state from props or existing state, compute it directly during rendering instead!
-</Callout>
+> **Pro Tip**: Don't overuse `useMemo`! React is already incredibly fast. Only use it when the calculation actually causes a measurable performance bottleneck.\
+> \
+>
+>
+> <Flashcard question="What is Js" answer="JS is JavaScript" hint="JS" />
 
-## Interactive Knowledge Check
-
-Test your understanding of React Hooks with these interactive flashcards:
-
-<Flashcard 
-  question="What happens if you omit the dependency array in useEffect completely?" 
-  answer="The effect will execute after every single render of the component, which can lead to severe performance degradation or infinite render loops." 
-  hint="An omitted dependency array is NOT the same as an empty array []!"
-/>
-
-<Flashcard 
-  question="When should you reach for useMemo vs calculating during render?" 
-  answer="Reach for useMemo only when profiling proves an expensive calculation (e.g. processing thousands of records) or when preserving referential equality for child memoization." 
-  hint="React is usually fast enough without premature memoization."
-/>
-
-## Best Practices Checklist
-
-Track your learning progress with this interactive checklist:
-
-<Checklist 
-  title="React Hooks Mastery Checklist" 
-  items={[
-    "Declare all reactive dependencies inside the useEffect array",
-    "Return a cleanup function for timers, subscriptions, or WebSocket connections",
-    "Avoid using useMemo for lightweight computations",
-    "Keep hooks at the top-level of function components without wrapping in loops or conditions"
-  ]}
-/>
+<Checklist title="Check" items={[]} />
