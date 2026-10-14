@@ -5,6 +5,8 @@ import { MessageSquare } from "lucide-react";
 import { motion, AnimatePresence, useDragControls } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useSectionTitle } from "@/hooks/use-section-title";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 import { Experience, Project } from "@/lib/keystatic-data";
 import { AI_QUICK_ACTIONS, STORAGE_KEYS } from "@/config/constants";
 import knowledgeData from "@/content/ai-knowledge-base.json";
@@ -21,6 +23,8 @@ interface AIAssistantProps {
 }
 
 export function AIAssistant({ experiences, projects }: AIAssistantProps) {
+  const pathname = usePathname();
+  const isNotes = pathname?.startsWith("/notes");
   const activeSection = useSectionTitle();
   const { setTheme } = useTheme();
   const dragControls = useDragControls();
@@ -204,14 +208,22 @@ export function AIAssistant({ experiences, projects }: AIAssistantProps) {
 
   return (
     <>
-      <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2">
+      <div
+        className={cn(
+          "fixed bottom-6 z-40 flex flex-col gap-2 transition-all duration-300",
+          isNotes ? "left-6 items-start" : "right-6 items-end"
+        )}
+      >
         <AnimatePresence>
           {showTooltip && !isOpen && (
             <motion.div
               initial={{ opacity: 0, y: 10, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="bg-primary text-primary-foreground text-sm px-4 py-2 rounded-2xl rounded-br-sm shadow-lg whitespace-nowrap cursor-pointer"
+              className={cn(
+                "bg-primary text-primary-foreground text-sm px-4 py-2 rounded-2xl shadow-lg whitespace-nowrap cursor-pointer",
+                isNotes ? "rounded-bl-sm" : "rounded-br-sm"
+              )}
               onClick={() => setIsOpen(true)}
             >
               👋 Hi! I'm Prahlad's AI. Ask me anything!
@@ -226,7 +238,12 @@ export function AIAssistant({ experiences, projects }: AIAssistantProps) {
         >
           <MessageSquare className="w-6 h-6" />
           {showTooltip && !isOpen && (
-            <span className="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-background animate-pulse" />
+            <span
+              className={cn(
+                "absolute top-0 w-3 h-3 bg-red-500 rounded-full border-2 border-background animate-pulse",
+                isNotes ? "left-0" : "right-0"
+              )}
+            />
           )}
         </button>
       </div>
@@ -241,7 +258,10 @@ export function AIAssistant({ experiences, projects }: AIAssistantProps) {
             dragControls={dragControls}
             dragListener={false}
             dragMomentum={false}
-            className="fixed bottom-24 right-6 z-50 w-[calc(100vw-3rem)] sm:w-[380px] h-[500px] bg-card border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className={cn(
+              "fixed bottom-24 z-50 w-[calc(100vw-3rem)] sm:w-[380px] h-[500px] bg-card border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden",
+              isNotes ? "left-6" : "right-6"
+            )}
           >
             <ChatHeader dragControls={dragControls} onClear={clearChat} onClose={() => setIsOpen(false)} />
 

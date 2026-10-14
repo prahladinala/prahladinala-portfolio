@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Terminal, X, Maximize2, Minus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 type HistoryItem = {
   id: string;
@@ -12,6 +12,7 @@ type HistoryItem = {
 };
 
 export function TerminalWidget() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<HistoryItem[]>([
@@ -21,6 +22,10 @@ export function TerminalWidget() {
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  if (pathname?.startsWith("/notes")) {
+    return null;
+  }
 
   useEffect(() => {
     if (isOpen && inputRef.current) {

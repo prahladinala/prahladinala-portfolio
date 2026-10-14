@@ -57,6 +57,7 @@ export function Pre({ children, className, ...props }: React.HTMLAttributes<HTML
   const [isLineLinkCopied, setIsLineLinkCopied] = useState(false);
   const [activePm, setActivePm] = useState<PackageManager>("npm");
   const [activeHashLines, setActiveHashLines] = useState<number[]>([]);
+  const [isOpeningSandbox, setIsOpeningSandbox] = useState(false);
   const preRef = useRef<HTMLPreElement>(null);
 
   const extractText = (node: ReactNode): string => {
@@ -158,19 +159,35 @@ export function Pre({ children, className, ...props }: React.HTMLAttributes<HTML
     } catch (err) {}
   };
 
-  const openInCodeSandbox = () => {
-    try {
-      const form = document.createElement("form");
-      form.method = "POST";
-      form.action = "https://codesandbox.io/api/v1/sandboxes/define";
-      form.target = "_blank";
+  const openInCodeSandbox = async () => {
+    if (isOpeningSandbox) return;
+    setIsOpeningSandbox(true);
 
-      const hasExportDefault = rawText.includes("export default");
+    const newTab = window.open("about:blank", "_blank");
+    if (newTab) {
+      newTab.document.write(`
+        <!DOCTYPE html>
+        <html>
+          <head><title>Loading CodeSandbox...</title></head>
+          <body style="font-family:system-ui,-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#0d1117;color:#c9d1d9;">
+            <div style="text-align:center;">
+              <div style="font-size:22px;font-weight:600;margin-bottom:8px;">Preparing CodeSandbox...</div>
+              <p style="color:#8b949e;margin:0;font-size:14px;">Setting up environment and opening editor</p>
+            </div>
+          </body>
+        </html>
+      `);
+    }
+
+    try {
+      const codeToRun = preRef.current?.innerText || rawText;
+      const hasExportDefault = codeToRun.includes("export default");
       const appContent = hasExportDefault
-        ? rawText
-        : `import React from 'react';\n\n${rawText}\n\nexport default function App() {\n  return (\n    <div style={{ padding: 24, fontFamily: 'system-ui, sans-serif' }}>\n      <h2>Code Preview</h2>\n      <p>Snippet loaded from Prahlad Inala Notes</p>\n    </div>\n  );\n}`;
+        ? codeToRun
+        : `import React from 'react';\n\n${codeToRun}\n\nexport default function App() {\n  return (\n    <div style={{ padding: 24, fontFamily: 'system-ui, sans-serif' }}>\n      <h2>Code Preview</h2>\n      <p>Snippet loaded from Prahlad Inala Notes</p>\n    </div>\n  );\n}`;
 
       const parameters = {
+        template: "create-react-app",
         files: {
           "package.json": {
             content: {
@@ -201,17 +218,36 @@ export function Pre({ children, className, ...props }: React.HTMLAttributes<HTML
         .replace(/\//g, "_")
         .replace(/=+$/, "");
 
-      const hiddenField = document.createElement("input");
-      hiddenField.type = "hidden";
-      hiddenField.name = "parameters";
-      hiddenField.value = compressed;
+      const response = await fetch("https://codesandbox.io/api/v1/sandboxes/define?json=1", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({ parameters: compressed }),
+      });
 
-      form.appendChild(hiddenField);
-      document.body.appendChild(form);
-      form.submit();
-      document.body.removeChild(form);
+      if (!response.ok) {
+        throw new Error(`CodeSandbox API error status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (data?.sandbox_id) {
+        const targetUrl = `https://codesandbox.io/s/${data.sandbox_id}`;
+        if (newTab && !newTab.closed) {
+          newTab.location.href = targetUrl;
+        } else {
+          window.open(targetUrl, "_blank");
+        }
+      } else {
+        throw new Error("No sandbox_id received");
+      }
     } catch (e) {
       console.error("Failed to open in CodeSandbox", e);
+      if (newTab && !newTab.closed) {
+        newTab.close();
+      }
+    } finally {
+      setIsOpeningSandbox(false);
     }
   };
 
@@ -265,11 +301,14 @@ export function Pre({ children, className, ...props }: React.HTMLAttributes<HTML
             <button
               type="button"
               onClick={openInCodeSandbox}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-md bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 transition-colors text-[11px] font-medium"
+              disabled={isOpeningSandbox}
+              className="flex items-center gap-1 px-2.5 py-1 rounded-md bg-zinc-800/80 hover:bg-zinc-700 disabled:opacity-50 text-zinc-300 transition-colors text-[11px] font-medium"
               title="Open in CodeSandbox"
             >
               <ExternalLink className="w-3 h-3" />
-              <span className="hidden sm:inline">CodeSandbox</span>
+              <span className="hidden sm:inline">
+                {isOpeningSandbox ? "Opening..." : "CodeSandbox"}
+              </span>
             </button>
           )}
 

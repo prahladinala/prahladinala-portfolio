@@ -37,6 +37,10 @@ export function SandpackRunner({
         }
       : undefined);
 
+  const hasLucide =
+    Boolean(code?.includes("lucide-react")) ||
+    Object.values(files || {}).some((f) => f.includes("lucide-react"));
+
   return (
     <div className="my-8 rounded-xl overflow-hidden border border-border shadow-md print:hidden">
       <Sandpack
@@ -50,14 +54,18 @@ export function SandpackRunner({
           editorWidthPercentage: 55,
           recompileMode: "delayed",
           recompileDelay: 500,
-          bundlerTimeOut: 60000,
+          bundlerTimeOut: 120000,
           initMode: "user-visible",
         }}
-        customSetup={{
-          dependencies: {
-            "lucide-react": "^0.292.0",
-          },
-        }}
+        customSetup={
+          hasLucide
+            ? {
+                dependencies: {
+                  "lucide-react": "^0.292.0",
+                },
+              }
+            : undefined
+        }
       />
     </div>
   );
