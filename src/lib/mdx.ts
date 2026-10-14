@@ -7,6 +7,8 @@ export { getTopicName, getTopicBySlug };
 
 const NOTES_PATH = path.join(process.cwd(), "src/content/notes");
 
+export type DifficultyLevel = "Beginner" | "Intermediate" | "Advanced";
+
 export type NoteMeta = {
   title: string;
   date: string;
@@ -15,10 +17,49 @@ export type NoteMeta = {
   topic: string;
   topicName?: string;
   readingTime: number;
+  difficulty: DifficultyLevel;
   tags?: string[];
   draft?: boolean;
   updatedAt?: string;
 };
+
+export function calculateDifficulty(
+  content: string,
+  explicit?: string
+): DifficultyLevel {
+  if (explicit && ["Beginner", "Intermediate", "Advanced"].includes(explicit)) {
+    return explicit as DifficultyLevel;
+  }
+  const lower = content.toLowerCase();
+  const advancedKeywords = [
+    "fiber",
+    "reconciliation",
+    "concurrency",
+    "ast",
+    "internals",
+    "memory leak",
+    "race condition",
+    "microtask",
+    "profiling",
+    "optimization",
+  ];
+  const beginnerKeywords = [
+    "introduction",
+    "basics",
+    "getting started",
+    "what is",
+    "hello world",
+    "fundamental",
+    "quick start",
+  ];
+
+  const hasAdvanced = advancedKeywords.some((k) => lower.includes(k));
+  const hasBeginner = beginnerKeywords.some((k) => lower.includes(k));
+
+  if (hasAdvanced) return "Advanced";
+  if (hasBeginner) return "Beginner";
+  return "Intermediate";
+}
 
 export type Note = {
   meta: NoteMeta;
@@ -68,6 +109,7 @@ export function getAllNotes(): NoteMeta[] {
 
     const wordCount = content.split(/\s+/).length;
     const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+    const difficulty = calculateDifficulty(content, data.difficulty);
 
     const topicSlug = data.topic || "general";
     return {
@@ -78,6 +120,7 @@ export function getAllNotes(): NoteMeta[] {
       topic: topicSlug,
       topicName: getTopicName(topicSlug),
       readingTime,
+      difficulty,
       tags: data.tags || [],
       draft: data.draft === true,
       updatedAt: data.updatedAt || "",
@@ -113,6 +156,7 @@ export function getNoteBySlug(topic: string, slug: string): Note | null {
 
   const wordCount = content.split(/\s+/).length;
   const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+  const difficulty = calculateDifficulty(content, data.difficulty);
 
   if (data.draft && process.env.NODE_ENV === "production") return null;
 
@@ -126,6 +170,7 @@ export function getNoteBySlug(topic: string, slug: string): Note | null {
       topic: topicSlug,
       topicName: getTopicName(topicSlug),
       readingTime,
+      difficulty,
       tags: data.tags || [],
       draft: data.draft === true,
       updatedAt: data.updatedAt || "",

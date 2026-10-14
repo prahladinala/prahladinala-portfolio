@@ -57,6 +57,12 @@ export function ReadingTracker({ slug, topic, topicName, title }: ReadingTracker
 
         localStorage.setItem(STORAGE_KEYS.readingStreaks, JSON.stringify(streakData));
       }
+
+      // Check Night Owl condition (reading between 11 PM and 5 AM)
+      const currentHour = new Date().getHours();
+      if (currentHour >= 23 || currentHour < 5) {
+        localStorage.setItem("prahlad-night-owl", "true");
+      }
     } catch (e) {}
 
     // 3. Track scroll progress

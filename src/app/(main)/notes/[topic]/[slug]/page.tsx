@@ -10,7 +10,8 @@ import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 import dayjs from "dayjs";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, ChevronRight, Clock } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronRight, Clock, Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { ReadingToolbar } from "@/components/reading-toolbar-v2";
 import { Pre } from "@/components/mdx/pre";
 import { MdxImage } from "@/components/mdx/image";
@@ -262,10 +263,23 @@ export default async function NotePage({
                   </div>
                 )}
                 {note.meta.readingTime && (
-                  <span className="flex items-center gap-1.5 text-sm print:hidden">
-                    <span className="w-1 h-1 rounded-full bg-muted-foreground/50 hidden sm:block"></span>
-                    <Clock className="w-4 h-4" /> {note.meta.readingTime} min
-                    read
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-muted/60 text-muted-foreground border border-border/60 rounded-full text-xs font-semibold print:hidden">
+                    ⚡ {note.meta.readingTime} min read
+                  </span>
+                )}
+                {note.meta.difficulty && (
+                  <span
+                    className={cn(
+                      "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold border print:hidden",
+                      note.meta.difficulty === "Beginner" &&
+                        "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/25",
+                      note.meta.difficulty === "Intermediate" &&
+                        "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/25",
+                      note.meta.difficulty === "Advanced" &&
+                        "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/25"
+                    )}
+                  >
+                    <span>🎯</span> {note.meta.difficulty}
                   </span>
                 )}
                 {settings.showViews && <ViewCounter slug={slug} />}
@@ -399,7 +413,7 @@ export default async function NotePage({
             </footer>
           )}
 
-          {/* Related Notes */}
+          {/* Up Next / Recommended Notes */}
           {(() => {
             const related = getRelatedNotes(note.meta);
             if (related.length === 0) return null;
@@ -407,28 +421,53 @@ export default async function NotePage({
               <>
                 {settings.showRelatedNotes && (
                   <div className="mt-16 pt-8 border-t border-border print:hidden">
-                    <h3 className="text-xl font-bold mb-6">Related Notes</h3>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Sparkles className="w-5 h-5 text-primary" />
+                      <h3 className="text-xl sm:text-2xl font-bold tracking-tight m-0">
+                        Up Next: Recommended For You
+                      </h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-6">
+                      Readers who finished this note also explored these next:
+                    </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {related.map((r) => (
                         <Link
                           key={r.slug}
                           href={`/notes/${r.topic}/${r.slug}`}
-                          className="p-4 rounded-xl border border-border hover:border-primary/50 bg-muted/20 hover:bg-muted/50 transition-colors group"
+                          className="p-5 rounded-2xl border border-border hover:border-primary/50 bg-card hover:bg-muted/30 transition-all hover:-translate-y-1 group shadow-xs flex flex-col justify-between"
                         >
-                          <div className="text-xs font-semibold text-muted-foreground mb-2 flex items-center gap-2">
-                            <span className="text-primary/80">
-                              {r.topicName || getTopicName(r.topic)}
-                            </span>
-
-                            {r.date && (
-                              <span>
-                                • {dayjs(r.date).format("MMM D, YYYY")}
+                          <div>
+                            <div className="flex flex-wrap items-center gap-2 mb-3">
+                              <span className="px-2 py-0.5 bg-primary/10 text-primary rounded-md text-[11px] font-semibold">
+                                {r.topicName || getTopicName(r.topic)}
                               </span>
+                              <span className="text-[11px] font-medium text-muted-foreground">
+                                ⚡ {r.readingTime} min read
+                              </span>
+                              <span className={cn(
+                                "text-[10px] font-semibold px-2 py-0.5 rounded-full border",
+                                r.difficulty === "Beginner" && "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+                                r.difficulty === "Intermediate" && "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+                                r.difficulty === "Advanced" && "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20"
+                              )}>
+                                🎯 {r.difficulty}
+                              </span>
+                            </div>
+
+                            <h4 className="text-base font-bold text-foreground group-hover:text-primary transition-colors leading-snug mb-1.5 line-clamp-2">
+                              {r.title}
+                            </h4>
+                            {r.description && (
+                              <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                                {r.description}
+                              </p>
                             )}
                           </div>
-                          <h4 className="font-medium group-hover:text-primary transition-colors">
-                            {r.title}
-                          </h4>
+
+                          <div className="mt-4 pt-3 border-t border-border/40 flex items-center text-xs font-semibold text-primary gap-1 group-hover:gap-2 transition-all">
+                            Read Next <ArrowRight className="w-3.5 h-3.5" />
+                          </div>
                         </Link>
                       ))}
                     </div>

@@ -28,6 +28,10 @@ export function Quiz({
     if (submitted) return;
     setSelectedIndex(index);
     setSubmitted(true);
+    try {
+      const cur = parseInt(localStorage.getItem("prahlad-active-recall") || "0", 10);
+      localStorage.setItem("prahlad-active-recall", (cur + 1).toString());
+    } catch (e) {}
   };
 
   const handleReset = () => {

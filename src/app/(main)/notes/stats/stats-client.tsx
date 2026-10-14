@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import dayjs from "dayjs";
-import { Flame, CheckCircle, Bookmark, BookOpen, Trophy, Sparkles, ArrowLeft, Calendar, Keyboard } from "lucide-react";
+import { Flame, CheckCircle, Bookmark, BookOpen, Trophy, Sparkles, ArrowLeft, Calendar, Keyboard, Moon, Brain, Code2 } from "lucide-react";
 import { STORAGE_KEYS } from "@/config/constants";
 import { NoteMeta } from "@/lib/mdx";
 
@@ -31,6 +31,9 @@ export function NotesStatsClient({ totalNotes }: { totalNotes: number }) {
   const [completedCount, setCompletedCount] = useState(0);
   const [bookmarkedCount, setBookmarkedCount] = useState(0);
   const [readNotesCount, setReadNotesCount] = useState(0);
+  const [isNightOwl, setIsNightOwl] = useState(false);
+  const [activeRecallCount, setActiveRecallCount] = useState(0);
+  const [reactCompleted, setReactCompleted] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -52,6 +55,8 @@ export function NotesStatsClient({ totalNotes }: { totalNotes: number }) {
         localStorage.getItem(STORAGE_KEYS.completedNotes) || "[]"
       );
       setCompletedCount(completed.length);
+      const hasFinishedReact = completed.some((n) => n.includes("react-hooks") || n.includes("react"));
+      setReactCompleted(hasFinishedReact);
 
       // 3. Bookmarked notes
       const bookmarked: string[] = JSON.parse(
@@ -64,6 +69,15 @@ export function NotesStatsClient({ totalNotes }: { totalNotes: number }) {
         localStorage.getItem(STORAGE_KEYS.readingProgress) || "{}"
       );
       setReadNotesCount(Object.keys(progress).length);
+
+      // 5. Night Owl badge
+      const nightOwlSaved = localStorage.getItem("prahlad-night-owl") === "true";
+      const curHour = new Date().getHours();
+      setIsNightOwl(nightOwlSaved || curHour >= 23 || curHour < 5);
+
+      // 6. Active Recall badge (flashcards + quizzes)
+      const recallCount = parseInt(localStorage.getItem("prahlad-active-recall") || "0", 10);
+      setActiveRecallCount(recallCount);
     } catch (e) {}
   }, []);
 
@@ -87,6 +101,42 @@ export function NotesStatsClient({ totalNotes }: { totalNotes: number }) {
   // Achievements
   const achievements = [
     {
+      id: "night_owl",
+      title: "Night Owl 🦉",
+      description: "Read or study late after 11:00 PM",
+      unlocked: isNightOwl,
+      icon: Moon,
+      color: "text-purple-400",
+      progress: isNightOwl ? 100 : 0,
+    },
+    {
+      id: "streak_runner",
+      title: "Streak Runner 🔥",
+      description: "Maintain a 3-day active learning streak",
+      unlocked: stats.longestStreak >= 3 || stats.currentStreak >= 3,
+      icon: Flame,
+      color: "text-amber-500",
+      progress: Math.min(100, (Math.max(stats.longestStreak, stats.currentStreak) / 3) * 100),
+    },
+    {
+      id: "active_recaller",
+      title: "Active Recaller 🧠",
+      description: "Review 5+ flashcards or complete an interactive quiz",
+      unlocked: activeRecallCount >= 5,
+      icon: Brain,
+      color: "text-emerald-500",
+      progress: Math.min(100, (activeRecallCount / 5) * 100),
+    },
+    {
+      id: "hook_connoisseur",
+      title: "Hook Connoisseur 📚",
+      description: "Complete and master all React deep dive notes",
+      unlocked: reactCompleted,
+      icon: Code2,
+      color: "text-cyan-500",
+      progress: reactCompleted ? 100 : 0,
+    },
+    {
       id: "first_read",
       title: "First Steps",
       description: "Read your first digital note",
@@ -94,24 +144,6 @@ export function NotesStatsClient({ totalNotes }: { totalNotes: number }) {
       icon: BookOpen,
       color: "text-blue-500",
       progress: Math.min(100, ((readNotesCount || (completedCount > 0 ? 1 : 0)) / 1) * 100),
-    },
-    {
-      id: "streak_3",
-      title: "Streak Spark",
-      description: "Maintain a 3-day learning streak",
-      unlocked: stats.longestStreak >= 3 || stats.currentStreak >= 3,
-      icon: Flame,
-      color: "text-amber-500",
-      progress: Math.min(100, (Math.max(stats.longestStreak, stats.currentStreak) / 3) * 100),
-    },
-    {
-      id: "completed_3",
-      title: "Deep Learner",
-      description: "Complete 3 full technical notes",
-      unlocked: completedCount >= 3,
-      icon: CheckCircle,
-      color: "text-green-500",
-      progress: Math.min(100, (completedCount / 3) * 100),
     },
     {
       id: "curator",

@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { ArrowRight, Search, Clock } from "lucide-react";
 import Fuse from "fuse.js";
 import { NoteMeta } from "@/lib/mdx";
+import { cn } from "@/lib/utils";
 
 export function NotesList({ notes }: { notes: NoteMeta[] }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -52,19 +53,36 @@ export function NotesList({ notes }: { notes: NoteMeta[] }) {
               href={`/notes/${note.topic}/${note.slug}`}
             >
               <div className="p-6 rounded-2xl border border-border bg-card hover:border-primary/50 transition-all hover:-translate-y-1 group shadow-sm">
-                <div className="flex items-center gap-3 text-sm text-muted-foreground mb-3">
+                <div className="flex flex-wrap items-center gap-2.5 text-sm text-muted-foreground mb-3">
                   <span className="px-2.5 py-1 bg-primary/10 text-primary rounded-md text-xs font-semibold">
                     {note.topicName || note.topic}
                   </span>
 
-                  {note.date && (
-                    <time>{dayjs(note.date).format("MMM D, YYYY")}</time>
-                  )}
                   {note.readingTime && (
-                    <span className="flex items-center gap-1">
-                      <span className="w-1 h-1 rounded-full bg-muted-foreground/50 mx-1"></span>
-                      <Clock className="w-3.5 h-3.5" /> {note.readingTime} min
-                      read
+                    <span className="text-xs font-medium text-muted-foreground">
+                      ⚡ {note.readingTime} min read
+                    </span>
+                  )}
+
+                  {note.difficulty && (
+                    <span
+                      className={cn(
+                        "text-[10px] font-semibold px-2 py-0.5 rounded-full border",
+                        note.difficulty === "Beginner" &&
+                          "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+                        note.difficulty === "Intermediate" &&
+                          "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+                        note.difficulty === "Advanced" &&
+                          "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20"
+                      )}
+                    >
+                      🎯 {note.difficulty}
+                    </span>
+                  )}
+
+                  {note.date && (
+                    <span className="text-xs text-muted-foreground/70 hidden sm:inline ml-auto">
+                      {dayjs(note.date).format("MMM D, YYYY")}
                     </span>
                   )}
                 </div>

@@ -4,10 +4,12 @@ import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FeaturedProject } from "./featured-project";
 import { ProjectCard } from "./project-card";
+import { ProjectModal } from "./project-modal";
 import { Badge } from "@/components/ui/badge";
 import type { Project } from "@/lib/keystatic-data";
 
 export function ProjectsSection({ projects }: { projects: Project[] }) {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const projectCategories = useMemo(() => {
     const categories = new Set<string>();
     categories.add('All');
@@ -72,7 +74,10 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
               >
-                <ProjectCard project={project} />
+                <ProjectCard
+                  project={project}
+                  onSelect={() => setSelectedProject(project)}
+                />
               </motion.div>
             ))}
           </AnimatePresence>
@@ -83,6 +88,12 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
             No projects found in this category.
           </div>
         )}
+
+        {/* Quick View & Case Study Modal */}
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
       </div>
     </section>
   );

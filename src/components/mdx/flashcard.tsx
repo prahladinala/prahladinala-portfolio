@@ -14,10 +14,18 @@ export function Flashcard({ question, answer, hint }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [mastered, setMastered] = useState<boolean | null>(null);
 
+  const handleFlip = () => {
+    setIsFlipped((prev) => !prev);
+    try {
+      const cur = parseInt(localStorage.getItem("prahlad-active-recall") || "0", 10);
+      localStorage.setItem("prahlad-active-recall", (cur + 1).toString());
+    } catch (e) {}
+  };
+
   return (
     <div className="my-8 max-w-xl mx-auto select-none [perspective:1000px]">
       <div
-        onClick={() => setIsFlipped((prev) => !prev)}
+        onClick={handleFlip}
         className={cn(
           "relative w-full min-h-[220px] rounded-2xl border transition-all duration-500 cursor-pointer [transform-style:preserve-3d] shadow-md hover:shadow-xl",
           isFlipped ? "[transform:rotateY(180deg)]" : "",

@@ -3,9 +3,17 @@ import { ExternalLink } from "lucide-react";
 import { Github } from "@/components/icons";
 import type { Project } from "@/lib/keystatic-data";
 
-export function ProjectCard({ project }: { project: Project }) {
+type ProjectCardProps = {
+  project: Project;
+  onSelect?: () => void;
+};
+
+export function ProjectCard({ project, onSelect }: ProjectCardProps) {
   return (
-    <div className="group flex flex-col h-full bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/50 transition-colors">
+    <div
+      onClick={onSelect}
+      className="group flex flex-col h-full bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/50 transition-all hover:-translate-y-1 cursor-pointer shadow-xs"
+    >
       <div className="relative aspect-video bg-muted overflow-hidden border-b border-border">
         {project.image ? (
           <Image
@@ -23,15 +31,39 @@ export function ProjectCard({ project }: { project: Project }) {
         )}
         
         {/* Overlay actions */}
-        <div className="absolute inset-0 bg-background/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+        <div className="absolute inset-0 bg-background/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelect?.();
+            }}
+            className="px-3.5 py-1.5 bg-card/90 text-foreground border border-border rounded-full text-xs font-bold hover:bg-card hover:scale-105 transition-all shadow-sm"
+          >
+            Quick View
+          </button>
           {project.liveUrl && (
-            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="p-3 bg-primary text-primary-foreground rounded-full hover:scale-110 transition-transform">
-              <ExternalLink className="w-5 h-5" />
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="p-2.5 bg-primary text-primary-foreground rounded-full hover:scale-110 transition-transform shadow-sm"
+              title="View Live"
+            >
+              <ExternalLink className="w-4 h-4" />
             </a>
           )}
           {project.githubUrl && (
-            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="p-3 bg-secondary text-secondary-foreground rounded-full hover:scale-110 transition-transform">
-              <Github className="w-5 h-5" />
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="p-2.5 bg-secondary text-secondary-foreground rounded-full hover:scale-110 transition-transform shadow-sm"
+              title="GitHub Repo"
+            >
+              <Github className="w-4 h-4" />
             </a>
           )}
         </div>

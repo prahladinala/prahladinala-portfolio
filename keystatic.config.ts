@@ -350,6 +350,17 @@ export default config({
           }),
           Input: TopicSelectInput,
         },
+        difficulty: fields.select({
+          label: "Difficulty Level",
+          defaultValue: "auto",
+          options: [
+            { label: "Auto (Calculated)", value: "auto" },
+            { label: "Beginner", value: "Beginner" },
+            { label: "Intermediate", value: "Intermediate" },
+            { label: "Advanced", value: "Advanced" },
+          ],
+          description: "Select difficulty or leave as Auto to calculate from content.",
+        }),
 
         tags: fields.array(fields.text({ label: "Tag" }), {
           label: "Tags",
