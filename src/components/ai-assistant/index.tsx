@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { MessageSquare } from "lucide-react";
+import { MessageSquare, X } from "lucide-react";
 import { motion, AnimatePresence, useDragControls } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useSectionTitle } from "@/hooks/use-section-title";
@@ -83,9 +83,24 @@ export function AIAssistant({ experiences, projects }: AIAssistantProps) {
     }
   };
 
+  const handleDismissTooltip = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowTooltip(false);
+    try {
+      localStorage.setItem("prahlad-ai-tooltip-dismissed", "true");
+    } catch (err) {}
+  };
+
   useEffect(() => {
     if (!isLoaded) {
-      setTimeout(() => setShowTooltip(true), 2000);
+      try {
+        const isDismissed = localStorage.getItem("prahlad-ai-tooltip-dismissed") === "true";
+        if (!isDismissed) {
+          setTimeout(() => setShowTooltip(true), 2000);
+        }
+      } catch (e) {
+        setTimeout(() => setShowTooltip(true), 2000);
+      }
       try {
         const saved = localStorage.getItem(STORAGE_KEYS.aiChat);
         if (saved) {
@@ -221,12 +236,21 @@ export function AIAssistant({ experiences, projects }: AIAssistantProps) {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               className={cn(
-                "bg-primary text-primary-foreground text-sm px-4 py-2 rounded-2xl shadow-lg whitespace-nowrap cursor-pointer",
+                "group relative bg-primary text-primary-foreground text-sm pl-4 pr-2 py-2 rounded-2xl shadow-lg whitespace-nowrap cursor-pointer flex items-center gap-2",
                 isNotes ? "rounded-bl-sm" : "rounded-br-sm"
               )}
               onClick={() => setIsOpen(true)}
             >
-              👋 Hi! I'm Prahlad's AI. Ask me anything!
+              <span>👋 Hi! I'm Prahlad's AI. Ask me anything!</span>
+              <button
+                type="button"
+                onClick={handleDismissTooltip}
+                className="opacity-0 group-hover:opacity-100 transition-opacity p-0.5 rounded-full hover:bg-black/20 text-primary-foreground/80 hover:text-primary-foreground"
+                title="Dismiss message"
+                aria-label="Dismiss message"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
             </motion.div>
           )}
         </AnimatePresence>
