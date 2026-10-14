@@ -47,12 +47,12 @@ export function TypingEffect({ texts }: { texts: string[] }) {
   }, [subIndex, index, reverse, texts]);
 
   return (
-    <span className="inline-block min-h-[1.5em]">
+    <span className="inline-block min-h-[1.25em] whitespace-nowrap">
       {`${texts[index % texts.length].substring(0, subIndex)}`}
       <motion.span
         animate={{ opacity: blink ? 1 : 0 }}
         transition={{ duration: 0.1 }}
-        className="inline-block w-[3px] h-[1em] bg-primary ml-1 align-middle"
+        className="inline-block w-[3px] h-[0.9em] bg-primary ml-1 align-middle"
       />
     </span>
   );

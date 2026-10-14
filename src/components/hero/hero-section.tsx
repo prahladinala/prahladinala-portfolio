@@ -32,9 +32,9 @@ export function HeroSection() {
           </div>
         )}
 
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl">
-          Hi, I&apos;m Prahlad <br className="hidden sm:block" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">
+        <h1 className="text-2xl min-[360px]:text-[1.75rem] min-[420px]:text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl">
+          <span className="block">Hi, I&apos;m Prahlad</span>
+          <span className="block mt-1 sm:mt-2 text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500 whitespace-nowrap">
             <TypingEffect
               texts={[
                 "Software Engineer",
