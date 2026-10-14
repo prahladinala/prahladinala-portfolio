@@ -7,11 +7,11 @@ import { cn } from "@/lib/utils";
 
 type ChecklistProps = {
   title?: string;
-  items: string[];
+  items?: string[];
   id?: string;
 };
 
-export function Checklist({ title = "Interactive Tutorial Checklist", items, id }: ChecklistProps) {
+export function Checklist({ title = "Interactive Tutorial Checklist", items = [], id }: ChecklistProps) {
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const [mounted, setMounted] = useState(false);
   const checklistId = id || title.toLowerCase().replace(/[^a-z0-9]/g, "-");

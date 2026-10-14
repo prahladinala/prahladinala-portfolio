@@ -404,6 +404,10 @@ export default config({
               label: "Checklist",
               schema: {
                 title: fields.text({ label: "Title" }),
+                items: fields.array(fields.text({ label: "Item" }), {
+                  label: "Items",
+                  itemLabel: (props) => props.value,
+                }),
               },
             }),
             Flashcard: block({
