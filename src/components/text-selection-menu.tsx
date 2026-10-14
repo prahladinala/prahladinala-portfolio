@@ -5,6 +5,59 @@ import { Copy, Share2, Check, Sparkles, StickyNote, Image as ImageIcon } from "l
 import { STORAGE_KEYS } from "@/config/constants";
 import { QuoteCardModal } from "@/components/notes/quote-card-modal";
 import { HighlightItem } from "@/components/notes/note-highlighter";
+import { toast } from "@/components/ui/toast";
+
+function isValidNoteContentSelection(activeSelection: Selection): boolean {
+  if (typeof window === "undefined") return false;
+
+  // Must be on a note detail page (/notes/[topic]/[slug])
+  if (!window.location.pathname.startsWith("/notes/")) return false;
+
+  if (activeSelection.rangeCount === 0) return false;
+
+  const noteContentEl = document.getElementById("note-content");
+  if (!noteContentEl) return false;
+
+  const range = activeSelection.getRangeAt(0);
+
+  // Both start and end points must be inside #note-content
+  if (!noteContentEl.contains(range.startContainer) || !noteContentEl.contains(range.endContainer)) {
+    return false;
+  }
+
+  const isExcluded = (node: Node | null): boolean => {
+    if (!node) return false;
+    const el = node.nodeType === Node.ELEMENT_NODE ? (node as Element) : node.parentElement;
+    if (!el) return false;
+
+    // Must be inside #note-content
+    if (!noteContentEl.contains(el)) return true;
+
+    // Reject headings: h1, h2, h3, h4, h5, h6
+    if (el.closest("h1, h2, h3, h4, h5, h6")) return true;
+
+    // Reject code blocks: pre, data-code-block, or any elements inside code blocks
+    if (el.closest("pre, [data-code-block]")) return true;
+
+    // Reject buttons, inputs, heading anchor links, quiz options, tabs switcher
+    if (el.closest("button, input, textarea, select, [role='button'], [role='tab'], [role='tablist'], a[href^='#']")) return true;
+
+    // Reject interactive embed widgets (sandpack runner, iframe)
+    if (el.closest(".sp-wrapper, [data-sandpack], iframe")) return true;
+
+    return false;
+  };
+
+  if (
+    isExcluded(range.startContainer) ||
+    isExcluded(range.endContainer) ||
+    isExcluded(range.commonAncestorContainer)
+  ) {
+    return false;
+  }
+
+  return true;
+}
 
 export function TextSelectionMenu() {
   const [selection, setSelection] = useState("");
@@ -32,6 +85,12 @@ export function TextSelectionMenu() {
 
         const text = activeSelection.toString().trim();
         if (!text || text.length < 2) {
+          if (!showNoteInput) setShow(false);
+          return;
+        }
+
+        // Restrict strictly to note content (exclude headings, sidebars, code blocks, etc.)
+        if (!isValidNoteContentSelection(activeSelection)) {
           if (!showNoteInput) setShow(false);
           return;
         }
@@ -77,7 +136,8 @@ export function TextSelectionMenu() {
     try {
       await navigator.clipboard.writeText(selection);
       setCopied(true);
-      setTimeout(() => setShow(false), 1500);
+      toast.success("Text copied to clipboard", { icon: "📋" });
+      setTimeout(() => setShow(false), 1200);
     } catch (e) {
       console.error("Failed to copy text", e);
     }
@@ -119,6 +179,8 @@ export function TextSelectionMenu() {
       allHighlights[path] = [...items, newItem];
       localStorage.setItem(STORAGE_KEYS.noteHighlights, JSON.stringify(allHighlights));
       window.dispatchEvent(new CustomEvent("prahlad-highlights-updated"));
+
+      toast.success(stickyNoteText.trim() ? "Highlight & note saved" : "Highlight saved", { icon: "✨" });
 
       setShow(false);
       setShowNoteInput(false);

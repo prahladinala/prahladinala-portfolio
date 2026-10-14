@@ -346,7 +346,7 @@ export function Pre({ children, className, ...props }: React.HTMLAttributes<HTML
 
   return (
     <>
-      <div className="relative group my-6 rounded-2xl border border-border/80 bg-[#0d1117] overflow-hidden shadow-xl">
+      <div data-code-block="true" className="relative group my-6 rounded-2xl border border-border/80 bg-[#0d1117] overflow-hidden shadow-xl">
         {/* Top Header Bar for Code Tabs & Actions */}
         <div className="flex items-center justify-between px-4 py-2 border-b border-border/40 bg-zinc-950/60 text-xs text-zinc-400">
           {isPackageManagerCommand ? (
