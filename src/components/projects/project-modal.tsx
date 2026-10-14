@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { X, ExternalLink, Laptop, Sparkles, Activity, Layers } from "lucide-react";
 import { Github } from "@/components/icons";
@@ -10,6 +10,73 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+function canEmbedInIframe(url?: string): boolean {
+  if (!url) return false;
+  try {
+    const parsed = new URL(url);
+    const hostname = parsed.hostname.toLowerCase();
+
+    // Explicitly non-embeddable services that send X-Frame-Options: SAMEORIGIN / DENY
+    const nonEmbeddableHosts = [
+      "marketplace.visualstudio.com",
+      "visualstudio.com",
+      "github.com",
+      "gitlab.com",
+      "bitbucket.org",
+      "npmjs.com",
+      "yarnpkg.com",
+      "chromewebstore.google.com",
+      "twitter.com",
+      "x.com",
+      "linkedin.com",
+      "medium.com",
+      "facebook.com",
+      "instagram.com",
+      "reddit.com",
+      "play.google.com",
+      "apps.apple.com",
+    ];
+
+    if (nonEmbeddableHosts.some((h) => hostname === h || hostname.endsWith("." + h))) {
+      return false;
+    }
+
+    // Only allow known embed-friendly web apps (ToolMate, personal domains, Vercel deploys, CodeSandbox)
+    const allowedPatterns = [
+      "toolmate.co.in",
+      "prahladinala.in",
+      "vercel.app",
+      "codesandbox.io",
+      "csb.app",
+      "netlify.app",
+      "github.io",
+    ];
+
+    return allowedPatterns.some((pattern) => hostname === pattern || hostname.endsWith("." + pattern));
+  } catch {
+    return false;
+  }
+}
+
+function getLiveUrlLabel(url?: string): string {
+  if (!url) return "Visit Live Application";
+  try {
+    const hostname = new URL(url).hostname.toLowerCase();
+    if (hostname.includes("marketplace.visualstudio.com")) {
+      return "View on VS Code Marketplace";
+    }
+    if (hostname.includes("chromewebstore.google.com")) {
+      return "View on Chrome Web Store";
+    }
+    if (hostname.includes("npmjs.com")) {
+      return "View on NPM";
+    }
+    return "Visit Live Application";
+  } catch {
+    return "Visit Live Application";
+  }
+}
+
 type ProjectModalProps = {
   project: Project | null;
   onClose: () => void;
@@ -18,7 +85,14 @@ type ProjectModalProps = {
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const [activeTab, setActiveTab] = useState<"overview" | "preview">("overview");
 
+  // Reset to overview whenever selected project changes
+  useEffect(() => {
+    setActiveTab("overview");
+  }, [project?.id]);
+
   if (!project) return null;
+
+  const isEmbeddable = canEmbedInIframe(project.liveUrl);
 
   return (
     <AnimatePresence>
@@ -54,8 +128,8 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </div>
 
             <div className="flex items-center gap-2">
-              {/* Tabs for Overview vs Live Interactive Sandbox */}
-              {project.liveUrl && (
+              {/* Tabs for Overview vs Live Interactive Sandbox (Only for embeddable web tools) */}
+              {isEmbeddable && project.liveUrl && (
                 <div className="flex items-center bg-muted/60 p-1 rounded-xl border border-border/50 text-xs font-semibold mr-2">
                   <button
                     type="button"
@@ -97,7 +171,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           {/* Modal Content */}
           <div className="flex-1 overflow-y-auto p-6 space-y-6">
-            {activeTab === "preview" && project.liveUrl ? (
+            {activeTab === "preview" && isEmbeddable && project.liveUrl ? (
               /* Live In-Browser Demo Iframe Sandbox */
               <div className="flex flex-col h-[520px] rounded-2xl border border-border overflow-hidden bg-background">
                 <div className="flex items-center justify-between px-4 py-2 bg-muted/40 border-b border-border text-xs text-muted-foreground font-mono">
@@ -201,7 +275,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   rel="noopener noreferrer"
                   className={cn(buttonVariants({ size: "sm" }), "rounded-full shadow-xs gap-1.5")}
                 >
-                  Visit Live Application <ExternalLink className="w-3.5 h-3.5" />
+                  {getLiveUrlLabel(project.liveUrl)} <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               )}
               {project.githubUrl && (
