@@ -17,6 +17,13 @@ import { MdxImage } from "@/components/mdx/image";
 import { TableOfContents } from "@/components/table-of-contents";
 import { Callout } from "@/components/mdx/callout";
 import { SandpackRunner } from "@/components/mdx/sandpack-runner";
+import { Checklist } from "@/components/mdx/checklist";
+import { Flashcard } from "@/components/mdx/flashcard";
+import { Quiz } from "@/components/mdx/quiz";
+import { Tabs } from "@/components/mdx/tabs";
+import { BeforeAfter } from "@/components/mdx/before-after";
+import { Steps } from "@/components/mdx/steps";
+import { Accordion } from "@/components/mdx/accordion";
 import { ShareButtons } from "@/components/notes/share-buttons";
 import { GiscusComments } from "@/components/notes/giscus-comments";
 import { Edit3 } from "lucide-react";
@@ -28,8 +35,6 @@ import { ScrollToTop } from "@/components/scroll-to-top";
 import { ViewCounter } from "@/components/view-counter";
 import { NoteHighlighter } from "@/components/notes/note-highlighter";
 import { ReadingTracker } from "@/components/notes/reading-tracker";
-import { Checklist } from "@/components/mdx/checklist";
-import { Flashcard } from "@/components/mdx/flashcard";
 
 export async function generateStaticParams() {
   const topics = getNoteTopics();
@@ -349,6 +354,11 @@ export default async function NotePage({
                   SandpackRunner,
                   Checklist,
                   Flashcard,
+                  Quiz,
+                  Tabs,
+                  BeforeAfter,
+                  Steps,
+                  Accordion,
                 }}
               />
             </div>

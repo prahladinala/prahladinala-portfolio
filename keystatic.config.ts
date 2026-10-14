@@ -418,6 +418,105 @@ export default config({
                 hint: fields.text({ label: "Hint" }),
               },
             }),
+            Quiz: block({
+              label: "Quiz (Multiple Choice)",
+              schema: {
+                question: fields.text({ label: "Question" }),
+                options: fields.array(
+                  fields.object({
+                    text: fields.text({ label: "Option Text" }),
+                    isCorrect: fields.checkbox({ label: "Is Correct Answer?" }),
+                    explanation: fields.text({
+                      label: "Explanation (Optional)",
+                      multiline: true,
+                    }),
+                  }),
+                  {
+                    label: "Options",
+                    itemLabel: (props) =>
+                      `${props.fields.text.value || "Option"}${
+                        props.fields.isCorrect.value ? " (✓ Correct)" : ""
+                      }`,
+                  }
+                ),
+                explanation: fields.text({
+                  label: "General Explanation / Takeaway",
+                  multiline: true,
+                }),
+              },
+            }),
+            Tabs: block({
+              label: "Tabs (Code / Commands)",
+              schema: {
+                items: fields.array(
+                  fields.object({
+                    label: fields.text({ label: "Tab Label (e.g. pnpm / npm)" }),
+                    content: fields.text({
+                      label: "Content / Code",
+                      multiline: true,
+                    }),
+                  }),
+                  {
+                    label: "Tabs",
+                    itemLabel: (props) => props.fields.label.value || "Tab",
+                  }
+                ),
+              },
+            }),
+            BeforeAfter: block({
+              label: "Before / After (Do's & Don'ts)",
+              schema: {
+                beforeTitle: fields.text({
+                  label: "Before / Don't Title",
+                  defaultValue: "Don't (Anti-Pattern)",
+                }),
+                beforeCode: fields.text({
+                  label: "Before Code (Avoid)",
+                  multiline: true,
+                }),
+                afterTitle: fields.text({
+                  label: "After / Do Title",
+                  defaultValue: "Do (Recommended)",
+                }),
+                afterCode: fields.text({
+                  label: "After Code (Recommended)",
+                  multiline: true,
+                }),
+                explanation: fields.text({
+                  label: "Explanation / Takeaway",
+                  multiline: true,
+                }),
+              },
+            }),
+            Steps: block({
+              label: "Steps (Tutorial Walkthrough)",
+              schema: {
+                title: fields.text({ label: "Section Title (Optional)" }),
+                items: fields.array(
+                  fields.object({
+                    title: fields.text({ label: "Step Title" }),
+                    description: fields.text({
+                      label: "Step Description",
+                      multiline: true,
+                    }),
+                  }),
+                  {
+                    label: "Steps",
+                    itemLabel: (props) => props.fields.title.value || "Step",
+                  }
+                ),
+              },
+            }),
+            Accordion: wrapper({
+              label: "Accordion (Deep Dive / Spoiler)",
+              schema: {
+                title: fields.text({ label: "Accordion Title" }),
+                defaultOpen: fields.checkbox({
+                  label: "Open by Default?",
+                  defaultValue: false,
+                }),
+              },
+            }),
           },
         }),
       },

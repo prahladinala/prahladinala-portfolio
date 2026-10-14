@@ -75,6 +75,94 @@ const expensiveResult = useMemo(() => {
 > \
 >
 >
-> <Flashcard question="What is Js" answer="JS is JavaScript" hint="JS" />
+<Flashcard question="What is Js" answer="JS is JavaScript" hint="JS" />
 
 <Checklist title="Check" items={[]} />
+
+## Interactive Knowledge Check
+
+Test your understanding of React Hooks with these interactive flashcards:
+
+<Flashcard 
+  question="What happens if you omit the dependency array in useEffect completely?" 
+  answer="The effect will execute after every single render of the component, which can lead to severe performance degradation or infinite render loops." 
+  hint="An omitted dependency array is NOT the same as an empty array []!"
+/>
+
+<Flashcard 
+  question="When should you reach for useMemo vs calculating during render?" 
+  answer="Reach for useMemo only when profiling proves an expensive calculation (e.g. processing thousands of records) or when preserving referential equality for child memoization." 
+  hint="React is usually fast enough without premature memoization."
+/>
+
+## Best Practices Checklist
+
+Track your learning progress with this interactive checklist:
+
+<Checklist 
+  title="React Hooks Mastery Checklist" 
+  items={[
+    "Declare all reactive dependencies inside the useEffect array",
+    "Return a cleanup function for timers, subscriptions, or WebSocket connections",
+    "Avoid using useMemo for lightweight computations",
+    "Keep hooks at the top-level of function components without wrapping in loops or conditions"
+  ]}
+/>
+
+## Do's & Don'ts Comparison
+
+<BeforeAfter
+  beforeTitle="Anti-Pattern (Direct State Mutation)"
+  beforeCode={`// ❌ Mutating state directly
+const handleAdd = () => {
+  items.push(newItem);
+  setItems(items); // React won't detect reference change!
+};`}
+  afterTitle="Best Practice (Immutable Update)"
+  afterCode={`// ✅ Creating a fresh reference
+const handleAdd = () => {
+  setItems(prev => [...prev, newItem]);
+};`}
+  explanation="Always treat React state as read-only. Mutating arrays or objects in-place fails React's Object.is comparison check and will skip necessary re-renders."
+/>
+
+## Quick Knowledge Quiz
+
+<Quiz
+  question="What is the primary difference between useEffect and useLayoutEffect?"
+  options={[
+    { text: "useLayoutEffect runs asynchronously after paint", isCorrect: false },
+    { text: "useLayoutEffect runs synchronously immediately after DOM mutations before paint", isCorrect: true, explanation: "useLayoutEffect fires before the browser repaints the screen, making it ideal for measuring DOM nodes or preventing visual flickers." },
+    { text: "useEffect cannot return a cleanup function", isCorrect: false },
+    { text: "There is no difference in modern React 19", isCorrect: false }
+  ]}
+  explanation="Use useEffect by default. Only reach for useLayoutEffect when you must read layout dimensions or synchronize DOM mutations before the user sees the paint."
+/>
+
+## Package Installation Tabs
+
+<Tabs
+  items={[
+    { label: "pnpm", content: "pnpm add react react-dom lucide-react" },
+    { label: "npm", content: "npm install react react-dom lucide-react" },
+    { label: "yarn", content: "yarn add react react-dom lucide-react" },
+    { label: "bun", content: "bun add react react-dom lucide-react" }
+  ]}
+/>
+
+## Step-by-Step Custom Hook Walkthrough
+
+<Steps
+  title="3 Steps to Build a Production-Ready Custom Hook"
+  items={[
+    { title: "Identify Reusable Stateful Logic", description: "Look for duplicated lifecycle patterns, event listeners, or API subscriptions across multiple components." },
+    { title: "Extract into a 'use' Prefixed Function", description: "Create a function starting with 'use' (e.g. useWindowSize) so React ESLint rules enforce the Rules of Hooks." },
+    { title: "Expose a Clean & Minimal Return Interface", description: "Return either a tuple [data, actions] or a typed object with only the properties consumers need." }
+  ]}
+/>
+
+## Expandable Deep Dive
+
+<Accordion title="Deep Dive: How does React preserve Hook state between renders?">
+React maintains an internal linked list on each Fiber node. The `memoizedState` property points to the first hook, and each hook has a `next` pointer pointing to the following one. On every render, React walks this linked list sequentially. This is why calling hooks conditionally or inside loops violates the Rules of Hooks—React relies exclusively on the exact invocation order to pair each hook call with its preserved state cell!
+</Accordion>
