@@ -22,11 +22,6 @@ export function TerminalWidget() {
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-
-  if (pathname?.startsWith("/notes")) {
-    return null;
-  }
-
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
@@ -38,6 +33,10 @@ export function TerminalWidget() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [history]);
+
+  if (pathname?.startsWith("/notes")) {
+    return null;
+  }
 
   const handleCommand = (cmd: string) => {
     const trimmedCmd = cmd.trim().toLowerCase();
