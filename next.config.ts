@@ -37,6 +37,26 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/privacy",
+        destination: "/privacy-policy",
+        permanent: true,
+      },
+      {
+        source: "/privacy/:path*",
+        destination: "/privacy-policy/:path*",
+        permanent: true,
+      },
+      {
+        source: "/privacy-policy/universal-ai-chat-pdf-exporter",
+        destination: "/privacy-policy/universal-ai-chat-to-pdf-export",
+        permanent: true,
+      },
+      {
+        source: "/privacy-policy/universal-ai-chat-to-pdf-exporter",
+        destination: "/privacy-policy/universal-ai-chat-to-pdf-export",
+        permanent: true,
+      },
+      {
         source: "/admin/:path*",
         destination: "/keystatic/:path*",
         permanent: false,

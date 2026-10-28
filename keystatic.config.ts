@@ -141,7 +141,7 @@ export default config({
             itemLabel: (props) => {
               try {
                 return props.fields.keywords.elements[0].value || "Item";
-              } catch (_e) {
+              } catch {
                 return "Item";
               }
             },
@@ -359,7 +359,8 @@ export default config({
             { label: "Intermediate", value: "Intermediate" },
             { label: "Advanced", value: "Advanced" },
           ],
-          description: "Select difficulty or leave as Auto to calculate from content.",
+          description:
+            "Select difficulty or leave as Auto to calculate from content.",
         }),
 
         tags: fields.array(fields.text({ label: "Tag" }), {
@@ -448,7 +449,7 @@ export default config({
                       `${props.fields.text.value || "Option"}${
                         props.fields.isCorrect.value ? " (✓ Correct)" : ""
                       }`,
-                  }
+                  },
                 ),
                 explanation: fields.text({
                   label: "General Explanation / Takeaway",
@@ -461,7 +462,9 @@ export default config({
               schema: {
                 items: fields.array(
                   fields.object({
-                    label: fields.text({ label: "Tab Label (e.g. pnpm / npm)" }),
+                    label: fields.text({
+                      label: "Tab Label (e.g. pnpm / npm)",
+                    }),
                     content: fields.text({
                       label: "Content / Code",
                       multiline: true,
@@ -470,7 +473,7 @@ export default config({
                   {
                     label: "Tabs",
                     itemLabel: (props) => props.fields.label.value || "Tab",
-                  }
+                  },
                 ),
               },
             }),
@@ -514,7 +517,7 @@ export default config({
                   {
                     label: "Steps",
                     itemLabel: (props) => props.fields.title.value || "Step",
-                  }
+                  },
                 ),
               },
             }),
@@ -532,5 +535,77 @@ export default config({
         }),
       },
     }),
+    privacyPolicies: collection({
+      label: "Privacy Policies",
+      slugField: "title",
+      columns: ["title", "category", "lastUpdated"],
+      path: "src/content/privacy-policies/*",
+      format: { contentField: "content" },
+      schema: {
+        title: fields.slug({
+          name: {
+            label: "Title / Slug",
+            validation: { isRequired: true },
+          },
+        }),
+        shortTitle: fields.text({
+          label: "Short Title (e.g. Universal AI Chat PDF Exporter)",
+        }),
+        productName: fields.text({
+          label: "Product Name (e.g. Universal AI Chat PDF Exporter)",
+        }),
+        category: fields.select({
+          label: "Category",
+          defaultValue: "Browser Extension",
+          options: [
+            { label: "Browser Extension", value: "Browser Extension" },
+            { label: "General / All Apps", value: "General / All Apps" },
+            { label: "Web Application", value: "Web Application" },
+            { label: "Mobile App", value: "Mobile App" },
+            { label: "CLI Tool", value: "CLI Tool" },
+            { label: "Other", value: "Other" },
+          ],
+        }),
+        badge: fields.text({
+          label: "Badge Label (e.g. Chrome / Browser Extension)",
+          defaultValue: "Chrome / Browser Extension",
+        }),
+        lastUpdated: fields.text({
+          label: "Last Updated (e.g. October 2026)",
+          defaultValue: "October 2026",
+        }),
+        effectiveDate: fields.text({
+          label: "Effective Date (e.g. October 2026)",
+          defaultValue: "October 2026",
+        }),
+        summary: fields.text({
+          label: "Summary / Overview",
+          multiline: true,
+          validation: { isRequired: true },
+        }),
+        keyPoints: fields.array(
+          fields.object({
+            title: fields.text({ label: "Highlight Title" }),
+            description: fields.text({ label: "Highlight Description" }),
+          }),
+          {
+            label: "Key Privacy Highlights",
+            itemLabel: (props) => props.fields.title.value || "Highlight",
+          },
+        ),
+        contactEmail: fields.text({
+          label: "Contact Email",
+          defaultValue: "prahladinala@gmail.com",
+        }),
+        contactUrl: fields.text({
+          label: "Support / Contact URL (Optional)",
+        }),
+        content: fields.mdx({
+          label: "Policy Content (MDX)",
+        }),
+      },
+    }),
   },
 });
+
+// Cache bust: 1793210591739

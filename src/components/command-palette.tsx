@@ -9,8 +9,7 @@ import {
   Briefcase,
   PenTool,
   Search,
-  BookOpen,
-  Hash,
+  ShieldCheck,
 } from "lucide-react";
 import { Linkedin, Github, Twitter, Medium } from "@/components/icons";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -28,8 +27,13 @@ type NoteIndex = {
 };
 
 export function CommandPalette({ socials }: { socials: Socials | null }) {
-  if (!socials)
-    socials = { email: "", github: "", linkedin: "", twitter: "", medium: "" };
+  const safeSocials = socials || {
+    email: "",
+    github: "",
+    linkedin: "",
+    twitter: "",
+    medium: "",
+  };
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [notes, setNotes] = useState<NoteIndex[]>([]);
@@ -185,6 +189,15 @@ export function CommandPalette({ socials }: { socials: Socials | null }) {
                     <Mail className="mr-2 h-4 w-4" />
                     <span>Contact</span>
                   </Command.Item>
+                  <Command.Item
+                    onSelect={() =>
+                      runCommand(() => handleNavigate("/privacy-policy"))
+                    }
+                    className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                  >
+                    <ShieldCheck className="mr-2 h-4 w-4" />
+                    <span>Privacy Policies</span>
+                  </Command.Item>
                 </Command.Group>
 
                 <Command.Separator className="h-px bg-border my-1" />
@@ -202,7 +215,7 @@ export function CommandPalette({ socials }: { socials: Socials | null }) {
                   </Command.Item>
                   <Command.Item
                     onSelect={() =>
-                      runCommand(() => handleNavigate(socials.github))
+                      runCommand(() => handleNavigate(safeSocials.github))
                     }
                     className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                   >
@@ -211,7 +224,7 @@ export function CommandPalette({ socials }: { socials: Socials | null }) {
                   </Command.Item>
                   <Command.Item
                     onSelect={() =>
-                      runCommand(() => handleNavigate(socials.linkedin))
+                      runCommand(() => handleNavigate(safeSocials.linkedin))
                     }
                     className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                   >
@@ -220,7 +233,7 @@ export function CommandPalette({ socials }: { socials: Socials | null }) {
                   </Command.Item>
                   <Command.Item
                     onSelect={() =>
-                      runCommand(() => handleNavigate(socials.twitter))
+                      runCommand(() => handleNavigate(safeSocials.twitter))
                     }
                     className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                   >
@@ -229,7 +242,7 @@ export function CommandPalette({ socials }: { socials: Socials | null }) {
                   </Command.Item>
                   <Command.Item
                     onSelect={() =>
-                      runCommand(() => handleNavigate(socials.medium))
+                      runCommand(() => handleNavigate(safeSocials.medium))
                     }
                     className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                   >
