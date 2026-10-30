@@ -42,6 +42,8 @@ export function PrivacyPolicyList({ policies }: { policies: PrivacyPolicy[] }) {
     switch (category) {
       case "Browser Extension":
         return "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20";
+      case "Mobile App":
+        return "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20";
       case "General / All Apps":
         return "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20";
       case "Web Application":
@@ -114,7 +116,7 @@ export function PrivacyPolicyList({ policies }: { policies: PrivacyPolicy[] }) {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           {filteredPolicies.map((policy) => (
             <div
               key={policy.id}

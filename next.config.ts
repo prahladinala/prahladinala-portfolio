@@ -57,6 +57,16 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/privacy-policy/braintrainer",
+        destination: "/privacy-policy/brain-trainer",
+        permanent: true,
+      },
+      {
+        source: "/privacy-policy/com.prahladinala.braintrainer",
+        destination: "/privacy-policy/brain-trainer",
+        permanent: true,
+      },
+      {
         source: "/admin/:path*",
         destination: "/keystatic/:path*",
         permanent: false,

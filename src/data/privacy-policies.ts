@@ -42,6 +42,12 @@ const DEFAULT_ALIASES: Record<string, string[]> = {
     "ai-chat-pdf-export",
     "universal-ai-chat-export",
   ],
+  "brain-trainer": [
+    "braintrainer",
+    "brain-trainer-android",
+    "com-prahladinala-braintrainer",
+    "com.prahladinala.braintrainer",
+  ],
   general: ["all-apps", "general-privacy-policy", "apps", "software"],
   portfolio: ["website", "this-app", "portfolio-website", "prahladinala-in"],
 };
@@ -83,11 +89,12 @@ export function getAllPrivacyPolicies(): PrivacyPolicy[] {
     };
   });
 
-  // Sort: Universal AI Chat first, then General, then Website, then others
+  // Sort: Universal AI Chat first, Brain Trainer second, then General, then Website, then others
   const order: Record<string, number> = {
     "universal-ai-chat-to-pdf-export": 1,
-    general: 2,
-    portfolio: 3,
+    "brain-trainer": 2,
+    general: 3,
+    portfolio: 4,
   };
 
   return policies.sort((a, b) => {
