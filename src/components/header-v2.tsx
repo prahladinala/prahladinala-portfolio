@@ -32,6 +32,13 @@ export function Header({
   const navLinks = NAV_LINKS.filter((l) => enableNotes || l.title !== "Notes");
 
   useEffect(() => {
+    if (
+      pathname?.startsWith("/privacy-policy") ||
+      pathname?.startsWith("/privacy")
+    ) {
+      return;
+    }
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
@@ -87,6 +94,13 @@ export function Header({
     }
     setIsOpen(false);
   };
+
+  if (
+    pathname?.startsWith("/privacy-policy") ||
+    pathname?.startsWith("/privacy")
+  ) {
+    return null;
+  }
 
   return (
     <header

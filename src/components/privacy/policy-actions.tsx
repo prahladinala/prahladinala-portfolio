@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Check, Copy, Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle-v2";
 
 export function PolicyActions({ slug }: { title?: string; slug: string }) {
   const [copied, setCopied] = useState(false);
@@ -67,6 +68,7 @@ export function PolicyActions({ slug }: { title?: string; slug: string }) {
           <Printer className="w-3.5 h-3.5" />
           <span>Print / PDF</span>
         </Button>
+        <ThemeToggle />
       </div>
     </div>
   );
