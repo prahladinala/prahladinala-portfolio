@@ -67,6 +67,16 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/privacy-policy/htmlcodeeditor",
+        destination: "/privacy-policy/html-code-editor",
+        permanent: true,
+      },
+      {
+        source: "/privacy-policy/com.prahladinala.htmlcodeeditor",
+        destination: "/privacy-policy/html-code-editor",
+        permanent: true,
+      },
+      {
         source: "/admin/:path*",
         destination: "/keystatic/:path*",
         permanent: false,

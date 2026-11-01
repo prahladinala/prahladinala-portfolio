@@ -42,6 +42,12 @@ const DEFAULT_ALIASES: Record<string, string[]> = {
     "ai-chat-pdf-export",
     "universal-ai-chat-export",
   ],
+  "html-code-editor": [
+    "htmlcodeeditor",
+    "html-code-editor-android",
+    "com-prahladinala-htmlcodeeditor",
+    "com.prahladinala.htmlcodeeditor",
+  ],
   "brain-trainer": [
     "braintrainer",
     "brain-trainer-android",
@@ -92,9 +98,10 @@ export function getAllPrivacyPolicies(): PrivacyPolicy[] {
   // Sort: Universal AI Chat first, Brain Trainer second, then General, then Website, then others
   const order: Record<string, number> = {
     "universal-ai-chat-to-pdf-export": 1,
-    "brain-trainer": 2,
-    general: 3,
-    portfolio: 4,
+    "html-code-editor": 2,
+    "brain-trainer": 3,
+    general: 4,
+    portfolio: 5,
   };
 
   return policies.sort((a, b) => {
