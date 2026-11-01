@@ -77,6 +77,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/privacy-policy/colorpicker",
+        destination: "/privacy-policy/color-picker",
+        permanent: true,
+      },
+      {
         source: "/admin/:path*",
         destination: "/keystatic/:path*",
         permanent: false,

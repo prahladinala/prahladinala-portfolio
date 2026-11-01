@@ -157,7 +157,7 @@ export default function PrivacyPolicyIndexPage() {
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3">
           <a
-            href="mailto:prahladinala@gmail.com"
+            href="mailto:prahladjngp@gmail.com"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm"
           >
             <Mail className="w-4 h-4" />

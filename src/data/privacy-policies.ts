@@ -42,6 +42,11 @@ const DEFAULT_ALIASES: Record<string, string[]> = {
     "ai-chat-pdf-export",
     "universal-ai-chat-export",
   ],
+  "color-picker": [
+    "colorpicker",
+    "color-picker-chrome-extension",
+    "color-picker-extension",
+  ],
   "html-code-editor": [
     "htmlcodeeditor",
     "html-code-editor-android",
@@ -90,7 +95,7 @@ export function getAllPrivacyPolicies(): PrivacyPolicy[] {
       keyPoints: Array.isArray(data.keyPoints) ? data.keyPoints : [],
       preamble: data.preamble || "",
       content,
-      contactEmail: data.contactEmail || "prahladinala@gmail.com",
+      contactEmail: data.contactEmail || "prahladjngp@gmail.com",
       contactUrl: data.contactUrl || "https://prahladinala.in/#contact",
     };
   });
@@ -98,10 +103,11 @@ export function getAllPrivacyPolicies(): PrivacyPolicy[] {
   // Sort: Universal AI Chat first, Brain Trainer second, then General, then Website, then others
   const order: Record<string, number> = {
     "universal-ai-chat-to-pdf-export": 1,
-    "html-code-editor": 2,
-    "brain-trainer": 3,
-    general: 4,
-    portfolio: 5,
+    "color-picker": 2,
+    "html-code-editor": 3,
+    "brain-trainer": 4,
+    general: 5,
+    portfolio: 6,
   };
 
   return policies.sort((a, b) => {
