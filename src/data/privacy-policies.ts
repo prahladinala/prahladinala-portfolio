@@ -47,6 +47,12 @@ const DEFAULT_ALIASES: Record<string, string[]> = {
     "color-picker-chrome-extension",
     "color-picker-extension",
   ],
+  habitflow: [
+    "habit-flow",
+    "habitflow-android",
+    "com.prahladinala.habitflow",
+    "com-prahladinala-habitflow",
+  ],
   "html-code-editor": [
     "htmlcodeeditor",
     "html-code-editor-android",
@@ -104,10 +110,11 @@ export function getAllPrivacyPolicies(): PrivacyPolicy[] {
   const order: Record<string, number> = {
     "universal-ai-chat-to-pdf-export": 1,
     "color-picker": 2,
-    "html-code-editor": 3,
-    "brain-trainer": 4,
-    general: 5,
-    portfolio: 6,
+    habitflow: 3,
+    "html-code-editor": 4,
+    "brain-trainer": 5,
+    general: 6,
+    portfolio: 7,
   };
 
   return policies.sort((a, b) => {

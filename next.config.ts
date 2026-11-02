@@ -82,6 +82,16 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/privacy-policy/habit-flow",
+        destination: "/privacy-policy/habitflow",
+        permanent: true,
+      },
+      {
+        source: "/privacy-policy/com.prahladinala.habitflow",
+        destination: "/privacy-policy/habitflow",
+        permanent: true,
+      },
+      {
         source: "/admin/:path*",
         destination: "/keystatic/:path*",
         permanent: false,
