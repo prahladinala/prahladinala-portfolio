@@ -30,13 +30,18 @@ type SidebarProps = {
 
 export function NotesSidebar({ topics }: SidebarProps) {
   const pathname = usePathname();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  // On mobile (<768px) default to collapsed; on desktop default to expanded
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [completedNotes, setCompletedNotes] = useState<string[]>([]);
   const [bookmarkedNotes, setBookmarkedNotes] = useState<string[]>([]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    // On desktop (≥768px) open the sidebar by default; mobile stays collapsed
+    if (window.innerWidth >= 768) {
+      setIsCollapsed(false);
+    }
     const loadState = () => {
       try {
         setCompletedNotes(
