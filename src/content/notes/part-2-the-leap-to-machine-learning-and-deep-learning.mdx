@@ -1,0 +1,132 @@
+---
+title: 'Part 2: The Leap to Machine Learning and Deep Learning'
+draft: false
+description: 'Part 2: The Leap to Machine Learning and Deep Learning'
+date: 2026-11-05
+updatedAt: 2026-11-05
+topic: artificial-intelligence
+difficulty: auto
+tags: []
+---
+In Part 1, we looked at rule-based systems: computers followed rules written by humans. This approach works when the problem is clearly defined and the rules are manageable.
+
+But real-world problems are rarely that simple.
+
+For example, a spam email might use different words, spellings, or sentence structures to avoid a keyword-based spam filter. We cannot realistically write a rule for every possible message.
+
+**So, instead of telling a computer every rule, what if we could teach it using examples?**
+
+That is the central idea behind **Machine Learning (ML)**.
+
+### Machine Learning (ML): Learning Patterns from Examples
+
+With traditional rule-based programming, humans write the conditions. With machine learning, we provide data and a learning algorithm. The algorithm uses that data to train a **model** that can identify patterns and make predictions on new, unseen examples.
+
+**Example: Cat vs. Dog Classification**
+
+Imagine training a model with a large collection of images labelled `cat` or `dog`.
+
+* **Training:** The learning algorithm uses the labelled images to adjust the model's parameters.
+* **Pattern learning:** The model learns statistical patterns in the image data that help distinguish cats from dogs.
+* **Prediction:** When we provide a new image, the trained model produces a prediction for example, `cat: 80%` and `dog: 20%`.
+
+These scores are model outputs, not a guarantee that the prediction is correct. The model's reliability depends on the quality and variety of its training data, how it is trained, and how well it performs on new examples.
+
+**The basic ML workflow:**
+
+`Training data → Learning algorithm → Trained model → Prediction`
+
+> **Key idea:** In machine learning, we do not manually write every decision rule. We train a model to learn patterns from data.
+
+**Rule-Based Programming vs. Machine Learning**
+
+!\[]\(/images/notes/Rule%20Based%20Programming%20and%20Macine%20Learning.png)
+
+**Cat vs. Dog Machine Learning Workflow**\
+!\[]\(/images/notes/Cat%20vs%20Dog%20Image%20Classification.png)
+
+### Why Did We Need Deep Learning?
+
+Traditional machine-learning approaches often rely on **feature engineering**. This means people use their knowledge of the problem to select or create useful input features for a model.
+
+For example, in an image-classification task, a traditional approach might use measurements related to edges, shapes, textures, or colours. The model then learns how to use those features to make a prediction.
+
+However, choosing useful features can be difficult especially for complex data such as images, audio, and natural language.
+
+This is where **Deep Learning (DL)** became especially useful.
+
+### Deep Learning (DL): Learning Features with Neural Networks
+
+Deep learning is a subset of machine learning that uses neural networks with multiple layers. These networks are loosely inspired by the way biological neurons are connected, but they are mathematical and computational systems not actual human brains.
+
+A key advantage is that a deep neural network can learn useful representations from raw or lightly processed data during training.
+
+For example, in an image-recognition task, different layers may learn increasingly complex patterns:
+
+* Earlier layers may respond to simple features such as edges and textures.
+* Middle layers may combine these into patterns such as shapes or parts.
+* Later layers may use more complex combinations of patterns to help classify the image.
+
+The exact features learned depend on the model, training data, and task. The model is not being explicitly told that a particular group of pixels is an “eye”; it learns internal representations that can help it recognise objects.\
+\
+**How a Deep Neural Network Learns Image Features**
+
+!\[]\(/images/notes/How%20a%20Deep%20Neural%20Network%20Learns%20Image%20Features.png)
+
+### What Helped Deep Learning Advance?
+
+Deep learning existed as a research direction before today's AI boom. Its major progress was enabled by several developments working together:
+
+* **More data:** The growth of the internet and digital services made large datasets increasingly available.
+* **More computing power:** GPUs, originally designed to process graphics, proved useful for the parallel computations involved in training many neural networks.
+* **Better algorithms and techniques:** Improvements in network architectures, training methods, and software made it possible to train deeper and more capable models.
+
+These developments helped researchers train neural networks at a scale that had previously been difficult or impractical.
+
+**The Three Enablers of Modern Deep Learning**
+
+!\[]\(/images/notes/The%20Three%20Enablers%20of%20Modern%20Deep%20Learning.png)
+
+### Common Types of Neural Networks
+
+Here are three important neural-network families:
+
+* **FNN (Feedforward Neural Network):** Information moves from the input layer through one or more hidden layers to the output. It does not use recurrent connections to maintain a sequence state.
+* **CNN (Convolutional Neural Network):** Uses convolution operations to identify local patterns in data. CNNs have been widely used in image recognition and computer vision.
+* **RNN (Recurrent Neural Network):** Uses recurrent connections to process sequences, making it useful for tasks involving ordered data such as text, audio, and time series.
+
+These are examples of neural-network architectures, not an exhaustive list. Other architectures especially Transformers are also important in modern AI.
+
+**FNN vs. CNN vs. RNN**
+
+!\[]\(/images/notes/FNN%20vs.%20CNN%20vs.%20RNN.png)
+
+### Exploring the Difference: Machine Learning vs. Deep Learning
+
+Deep learning is part of machine learning—not a completely separate field. The comparison below describes common tendencies, not strict rules. The right choice depends on the problem, dataset, hardware, and performance requirements.
+
+| Aspect                   | Traditional Machine Learning                                                            | Deep Learning                                                                     |
+| ------------------------ | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| **Data requirements**    | Can work well with small or medium-sized datasets, depending on the problem and model   | Often benefits from large datasets, although some methods can work with less data |
+| **Computational cost**   | Many traditional models can be trained efficiently on a CPU                             | Training large/deep networks often benefits from GPUs or other accelerators       |
+| **Training time**        | Often faster to train, but depends on the algorithm and dataset                         | Can take longer, especially for large models and datasets                         |
+| **Feature engineering**  | Often relies more on people selecting or creating useful features                       | Can learn useful features/representations automatically during training           |
+| **Interpretability**     | Some models, such as decision trees and linear models, are relatively easy to interpret | Complex neural networks are often harder to interpret                             |
+| **Example applications** | Customer segmentation, fraud detection, and recommendation systems                      | Image recognition, speech processing, and many natural-language tasks             |
+
+**Machine Learning vs. Deep Learning Comparison**\
+!\[]\(/images/notes/Machine%20Learning%20vs.%20Deep%20Learning%20Comparison.png)
+
+### The Big Picture
+
+**Machine Learning** teaches computers to learn patterns from data and use those patterns to make predictions.
+
+**Deep Learning** is a specialised approach within machine learning that uses multi-layer neural networks to learn representations from data.
+
+In simple terms:
+
+* **Rule-Based Systems:** Humans write the rules.
+* **Machine Learning:** Models learn patterns from examples.
+* **Deep Learning:** Multi-layer neural networks learn complex representations from data.
+
+This progression helped move AI beyond manually written rules and enabled many of the capabilities we see in modern AI.
