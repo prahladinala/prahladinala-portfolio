@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ChevronRight, Clock, Sparkles } from "lucide-react";
@@ -26,6 +27,7 @@ import { BeforeAfter } from "@/components/mdx/before-after";
 import { Steps } from "@/components/mdx/steps";
 import { Accordion } from "@/components/mdx/accordion";
 import { H1, H2, H3, H4 } from "@/components/mdx/heading";
+import { Table, THead, TBody, TR, TH, TD } from "@/components/mdx/table";
 import { ShareButtons } from "@/components/notes/share-buttons";
 import { GiscusComments } from "@/components/notes/giscus-comments";
 import { Edit3 } from "lucide-react";
@@ -125,6 +127,7 @@ export default async function NotePage({
 
   const options = {
     mdxOptions: {
+      remarkPlugins: [remarkGfm],
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       rehypePlugins: [rehypeHighlight as any, rehypeSlug as any],
     },
@@ -378,6 +381,12 @@ export default async function NotePage({
                   h2: H2,
                   h3: H3,
                   h4: H4,
+                  table: Table,
+                  thead: THead,
+                  tbody: TBody,
+                  tr: TR,
+                  th: TH,
+                  td: TD,
                 }}
               />
             </div>
