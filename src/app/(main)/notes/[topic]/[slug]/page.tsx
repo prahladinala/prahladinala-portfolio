@@ -29,6 +29,7 @@ import { Accordion } from "@/components/mdx/accordion";
 import { H1, H2, H3, H4 } from "@/components/mdx/heading";
 import { Table, THead, TBody, TR, TH, TD } from "@/components/mdx/table";
 import { InlineCode } from "@/components/mdx/inline-code";
+import { MdxLink } from "@/components/mdx/link";
 import { ShareButtons } from "@/components/notes/share-buttons";
 import { GiscusComments } from "@/components/notes/giscus-comments";
 import { Edit3 } from "lucide-react";
@@ -389,6 +390,7 @@ export default async function NotePage({
                   th: TH,
                   td: TD,
                   code: InlineCode,
+                  a: MdxLink,
                 }}
               />
             </div>

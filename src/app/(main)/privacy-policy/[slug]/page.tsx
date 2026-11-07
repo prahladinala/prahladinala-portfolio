@@ -3,6 +3,10 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Script from "next/script";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
+import { MdxLink } from "@/components/mdx/link";
+import { Table, THead, TBody, TR, TH, TD } from "@/components/mdx/table";
+import { InlineCode } from "@/components/mdx/inline-code";
 import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 import {
@@ -229,7 +233,20 @@ export default async function PrivacyPolicyDetailPage({
 
       {/* Policy Content Body via MDX */}
       <article className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-bold prose-h1:hidden prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-4 prose-p:leading-relaxed prose-p:text-muted-foreground prose-li:text-muted-foreground">
-        <MDXRemote source={policy.content} options={mdxOptions} />
+        <MDXRemote
+          source={policy.content}
+          options={mdxOptions}
+          components={{
+            a: MdxLink,
+            table: Table,
+            thead: THead,
+            tbody: TBody,
+            tr: TR,
+            th: TH,
+            td: TD,
+            code: InlineCode,
+          }}
+        />
       </article>
 
       {/* Official Contact & Inquiries Card */}
