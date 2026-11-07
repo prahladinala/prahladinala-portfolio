@@ -82,6 +82,16 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/privacy-policy/fullpagecapture",
+        destination: "/privacy-policy/fullpage-capture",
+        permanent: true,
+      },
+      {
+        source: "/privacy-policy/full-page-capture",
+        destination: "/privacy-policy/fullpage-capture",
+        permanent: true,
+      },
+      {
         source: "/privacy-policy/habit-flow",
         destination: "/privacy-policy/habitflow",
         permanent: true,

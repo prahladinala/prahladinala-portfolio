@@ -1,0 +1,78 @@
+---
+title: Privacy Policy for FullPage Capture
+shortTitle: FullPage Capture (Extension)
+productName: FullPage Capture - Smart Screenshot & Editor
+category: Browser Extension
+badge: Chrome / Browser Extension
+lastUpdated: November 8, 2026
+effectiveDate: November 8, 2026
+summary: FullPage Capture - Smart Screenshot & Editor operates with a 100% client-side architecture. The extension does not collect, transmit, sell, or rent your personal data, browsing history, or screenshots. All captures and annotations stay strictly in your local browser storage.
+contactEmail: prahladjngp@gmail.com
+contactUrl: https://prahladinala.in/#contact
+keyPoints:
+  - title: 100% Client-Side Architecture
+    description: Operates completely within your local browser. Zero remote backend servers or cloud databases.
+  - title: Zero Personal Data Collection
+    description: No collection or transmission of personal info, IP addresses, browsing history, form data, or cookies.
+  - title: Local Storage Only
+    description: All screenshots and annotations are stored exclusively in your browser’s local IndexedDB and Chrome Storage.
+  - title: Transparent Permissions
+    description: Permissions are strictly limited to viewport measurement, scrolling capture, local file saving, and canvas stitching.
+---
+
+# Privacy Policy for FullPage Capture
+
+**Product:** FullPage Capture - Smart Screenshot & Editor  
+**Developer:** Prahlad Inala  
+**Last updated:** November 8, 2026  
+**Effective Date:** November 8, 2026
+
+FullPage Capture - Smart Screenshot & Editor ("we", "our", or "the extension") is committed to protecting your privacy. This policy explains our data practices.
+
+---
+
+## 1. 100% Client-Side Architecture
+
+- **No Remote Servers:** The extension operates entirely within your local browser. There are no backend servers or cloud databases operated by us.
+- **No Personal Data Collection:** We do not collect, transmit, sell, or rent your personal information, IP addresses, browsing history, form submissions, passwords, or cookies.
+- **No Third-Party Analytics:** We do not include telemetry scripts, Google Analytics, or tracking SDKs.
+- **No Account Registration:** No sign-up, login, or email address required.
+- **Local Storage Only:** All captured screenshots and annotations are stored exclusively in your browser’s local IndexedDB and Chrome Storage. They never leave your device unless you choose to export them.
+
+---
+
+## 2. Permissions Justification
+
+The extension requests only the minimum Chrome permissions required to perform screenshot captures and local file exports:
+
+- **`activeTab`:** Grants temporary access to the active webpage when you invoke a capture action (popup click, hotkey, or context menu) to measure dimensions and capture visible pixels.
+- **`scripting`:** Injects scrolling helpers to systematically scroll down and stitch full-page screenshots, and to display the element selection overlay.
+- **`storage`:** Stores local user preferences (format, delay, filename template, download folder).
+- **`downloads`:** Saves exported screenshots, PDFs, or ZIP archives directly to your local computer upon request.
+- **`contextMenus`:** Creates right-click menu shortcuts ("Capture Full Webpage", "Capture Visible Area", "Capture Selected Area") for instant access.
+- **`offscreen`:** Used for Canvas pixel stitching and thumbnail generation in compliance with Manifest V3 background service worker guidelines.
+- **`host_permissions` (`http://*/*`, `https://*/*`):** Required by Chrome Manifest V3 `chrome.scripting` to coordinate scrolling on webpages the user chooses to screenshot. The extension never inspects, reads, or transmits webpage text or network traffic.
+
+---
+
+## 3. Data Storage & User Control
+
+All screenshots are saved locally in the browser's IndexedDB. You maintain unilateral control over your captures:
+
+- You can delete individual captures or clear your entire history at any time from the Screenshot Gallery.
+- You can configure automatic retention pruning (e.g. 7 or 30 days) in Options.
+- Uninstalling the extension automatically purges all locally stored IndexedDB records and settings from your browser.
+
+---
+
+## 4. Contact
+
+If you have questions regarding this Privacy Policy or extension data practices, please contact us at:
+
+- **Developer:** Prahlad Inala
+- **Email:** [prahladjngp@gmail.com](mailto:prahladjngp@gmail.com)
+- **Support:** Through the official Chrome Web Store support dashboard or [https://prahladinala.in/#contact](https://prahladinala.in/#contact)
+
+---
+
+_© 2026 Prahlad Inala. All rights reserved._
