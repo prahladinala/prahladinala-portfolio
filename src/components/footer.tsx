@@ -80,6 +80,14 @@ export function Footer({ socials }: { socials?: Socials | null }) {
                   Privacy Policy
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/terms-and-conditions"
+                  className="hover:text-primary transition-colors"
+                >
+                  Terms & Conditions
+                </Link>
+              </li>
             </ul>
           </div>
           <div className="space-y-4">
@@ -152,6 +160,13 @@ export function Footer({ socials }: { socials?: Socials | null }) {
               className="hover:text-primary transition-colors"
             >
               Privacy Policy
+            </Link>
+            <span className="opacity-40">•</span>
+            <Link
+              href="/terms-and-conditions"
+              className="hover:text-primary transition-colors"
+            >
+              Terms & Conditions
             </Link>
             <span className="opacity-40">•</span>
             <p>

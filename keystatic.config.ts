@@ -605,6 +605,76 @@ export default config({
         }),
       },
     }),
+    termsAndConditions: collection({
+      label: "Terms and Conditions",
+      slugField: "title",
+      columns: ["title", "category", "lastUpdated"],
+      path: "src/content/terms-and-conditions/*",
+      format: { contentField: "content" },
+      schema: {
+        title: fields.slug({
+          name: {
+            label: "Title / Slug",
+            validation: { isRequired: true },
+          },
+        }),
+        shortTitle: fields.text({
+          label: "Short Title (e.g. Universal AI Chat PDF Exporter)",
+        }),
+        productName: fields.text({
+          label: "Product Name (e.g. Universal AI Chat PDF Exporter)",
+        }),
+        category: fields.select({
+          label: "Category",
+          defaultValue: "Browser Extension",
+          options: [
+            { label: "Browser Extension", value: "Browser Extension" },
+            { label: "General / All Apps", value: "General / All Apps" },
+            { label: "Web Application", value: "Web Application" },
+            { label: "Mobile App", value: "Mobile App" },
+            { label: "CLI Tool", value: "CLI Tool" },
+            { label: "Other", value: "Other" },
+          ],
+        }),
+        badge: fields.text({
+          label: "Badge Label (e.g. Chrome / Browser Extension)",
+          defaultValue: "Chrome / Browser Extension",
+        }),
+        lastUpdated: fields.text({
+          label: "Last Updated (e.g. November 2026)",
+          defaultValue: "November 2026",
+        }),
+        effectiveDate: fields.text({
+          label: "Effective Date (e.g. November 2026)",
+          defaultValue: "November 2026",
+        }),
+        summary: fields.text({
+          label: "Summary / Overview",
+          multiline: true,
+          validation: { isRequired: true },
+        }),
+        keyPoints: fields.array(
+          fields.object({
+            title: fields.text({ label: "Highlight Title" }),
+            description: fields.text({ label: "Highlight Description" }),
+          }),
+          {
+            label: "Key Terms Highlights",
+            itemLabel: (props) => props.fields.title.value || "Highlight",
+          },
+        ),
+        contactEmail: fields.text({
+          label: "Contact Email",
+          defaultValue: "prahladjngp@gmail.com",
+        }),
+        contactUrl: fields.text({
+          label: "Support / Contact URL (Optional)",
+        }),
+        content: fields.mdx({
+          label: "Terms Content (MDX)",
+        }),
+      },
+    }),
   },
 });
 

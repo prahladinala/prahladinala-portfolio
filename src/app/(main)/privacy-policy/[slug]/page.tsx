@@ -146,6 +146,8 @@ export default async function PrivacyPolicyDetailPage({
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const mdxOptions = {
     mdxOptions: {
+      remarkPlugins: [remarkGfm],
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       rehypePlugins: [rehypeHighlight as any, rehypeSlug as any],
     },
   };

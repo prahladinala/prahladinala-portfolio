@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { getAllNotes, getNoteTopics } from "@/lib/mdx";
 import { getAllPrivacyPolicies } from "@/data/privacy-policies";
+import { getAllTermsOfService } from "@/data/terms-and-conditions";
 import { SITE_CONFIG } from "@/config/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {

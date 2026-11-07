@@ -37,6 +37,26 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/terms",
+        destination: "/terms-and-conditions",
+        permanent: true,
+      },
+      {
+        source: "/terms-of-service",
+        destination: "/terms-and-conditions",
+        permanent: true,
+      },
+      {
+        source: "/tos",
+        destination: "/terms-and-conditions",
+        permanent: true,
+      },
+      {
+        source: "/terms/:path*",
+        destination: "/terms-and-conditions/:path*",
+        permanent: true,
+      },
+      {
         source: "/privacy",
         destination: "/privacy-policy",
         permanent: true,
