@@ -361,7 +361,7 @@ export default async function NotePage({
             {/* Main Content */}
             <div
               id="note-content"
-              className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-bold prose-h2:mt-12 prose-h3:mt-8 prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-border rounded-xl print:text-black print:prose-pre:border-gray-300 print:prose-a:text-blue-600 print:prose-headings:text-black print:prose-strong:text-black transition-all duration-300 ease-out"
+              className="prose prose-neutral dark:prose-invert max-w-none prose-code:before:content-none prose-code:after:content-none prose-headings:font-bold prose-h2:mt-12 prose-h3:mt-8 prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-border rounded-xl print:text-black print:prose-pre:border-gray-300 print:prose-a:text-blue-600 print:prose-headings:text-black print:prose-strong:text-black transition-all duration-300 ease-out"
             >
               <MDXRemote
                 source={note.content}
