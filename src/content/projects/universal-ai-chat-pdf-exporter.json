@@ -11,13 +11,6 @@
     "Local-First",
     "AI Tools"
   ],
-  "githubUrl": "https://github.com/prahladinala/universal-ai-chat-pdf-exporter",
   "liveUrl": "https://chromewebstore.google.com/detail/universal-ai-chat-pdf-exp/encgjibigfmpfagdialjgobjocaooacd?authuser=0&hl=en",
-  "featured": true,
-  "metrics": [
-    { "label": "Platforms Supported", "value": "12+" },
-    { "label": "Privacy Guarantee", "value": "100% Local" },
-    { "label": "Capture Accuracy", "value": "Zero-Loss" },
-    { "label": "Export Formats", "value": "PDF, MD, EPUB, JSON" }
-  ]
+  "featured": true
 }

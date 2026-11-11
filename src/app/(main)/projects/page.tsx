@@ -8,6 +8,8 @@ import { getProjects } from "@/lib/keystatic-data";
 import { SITE_CONFIG } from "@/config/constants";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle-v2";
+import { ChromeLogo } from "@/components/projects/universal-pdf-exporter-landing";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -67,13 +69,16 @@ export default function ProjectsIndexPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
 
-      {/* Top Bar with Breadcrumbs */}
-      <div className="flex items-center text-sm font-medium text-muted-foreground mb-8">
-        <Link href="/" className="hover:text-primary transition-colors">
-          Home
-        </Link>
-        <ChevronRight className="w-4 h-4 mx-2 flex-shrink-0" />
-        <span className="text-foreground font-semibold">Projects</span>
+      {/* Top Bar with Breadcrumbs & Theme Toggle */}
+      <div className="flex items-center justify-between gap-4 mb-8">
+        <div className="flex items-center text-sm font-medium text-muted-foreground">
+          <Link href="/" className="hover:text-primary transition-colors">
+            Home
+          </Link>
+          <ChevronRight className="w-4 h-4 mx-2 flex-shrink-0" />
+          <span className="text-foreground font-semibold">Projects</span>
+        </div>
+        <ThemeToggle />
       </div>
 
       {/* Hero Header */}
@@ -139,28 +144,19 @@ export default function ProjectsIndexPage() {
                 rel="noopener noreferrer"
                 className={cn(
                   buttonVariants({ variant: "outline", size: "lg" }),
-                  "rounded-full",
+                  "rounded-full flex items-center gap-2",
                 )}
               >
-                <ExternalLink className="w-4 h-4 mr-2" /> Chrome Web Store
-              </a>
-              <a
-                href="https://github.com/prahladinala/universal-ai-chat-pdf-exporter"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  buttonVariants({ variant: "ghost", size: "lg" }),
-                  "rounded-full text-muted-foreground hover:text-foreground",
-                )}
-              >
-                <Github className="w-4 h-4 mr-2" /> Source Code
+                <ChromeLogo className="w-4 h-4" />
+                <span>Add to Chrome</span>
+                <ExternalLink className="w-3.5 h-3.5 text-muted-foreground ml-1" />
               </a>
             </div>
           </div>
 
           <div className="w-full lg:w-1/2 aspect-video rounded-2xl overflow-hidden border border-border/80 shadow-2xl relative bg-muted group-hover:scale-[1.01] transition-transform duration-300">
             <Image
-              src="/images/projects/universal-ai-chat-pdf-exporter/renderer-dark.png"
+              src="/images/projects/universal-ai-chat-pdf-exporter/renderer-dark-framed.png"
               alt="Universal AI Chat PDF Exporter Dark Theme"
               fill
               className="object-cover"

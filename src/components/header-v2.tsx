@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle-v2";
 import { NAV_LINKS } from "@/config/constants";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
   Sheet,
@@ -34,7 +34,8 @@ export function Header({
   useEffect(() => {
     if (
       pathname?.startsWith("/privacy-policy") ||
-      pathname?.startsWith("/privacy")
+      pathname?.startsWith("/privacy") ||
+      pathname?.startsWith("/projects")
     ) {
       return;
     }
@@ -97,7 +98,8 @@ export function Header({
 
   if (
     pathname?.startsWith("/privacy-policy") ||
-    pathname?.startsWith("/privacy")
+    pathname?.startsWith("/privacy") ||
+    pathname?.startsWith("/projects")
   ) {
     return null;
   }
