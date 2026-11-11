@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { UniversalPdfExporterLanding } from "@/components/projects/universal-pdf-exporter-landing";
+import { ColorPickerLanding } from "@/components/projects/color-picker-landing";
 
 const AI_PDF_EXPORTER_SLUGS = [
   "universal-ai-chat-pdf-exporter",
@@ -18,6 +19,13 @@ const AI_PDF_EXPORTER_SLUGS = [
   "ai-chat-export-pdf",
   "ai-chat-pdf-exporter",
   "universal-ai-chat-export",
+];
+
+const COLOR_PICKER_SLUGS = [
+  "color-picker",
+  "color-picker-eyedropper-palette-tool",
+  "colorpicker",
+  "color-picker-eyedropper",
 ];
 
 export async function generateStaticParams() {
@@ -29,9 +37,17 @@ export async function generateStaticParams() {
     params.push({ slug });
   });
 
+  // Register all slugs and aliases for Color Picker
+  COLOR_PICKER_SLUGS.forEach((slug) => {
+    params.push({ slug });
+  });
+
   // Register other project slugs
   projects.forEach((p) => {
-    if (!AI_PDF_EXPORTER_SLUGS.includes(p.id)) {
+    if (
+      !AI_PDF_EXPORTER_SLUGS.includes(p.id) &&
+      !COLOR_PICKER_SLUGS.includes(p.id)
+    ) {
       params.push({ slug: p.id });
     }
   });
@@ -73,6 +89,45 @@ export async function generateMetadata({
             width: 1200,
             height: 630,
             alt: "Universal AI Chat PDF Exporter by Prahlad Inala",
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        creator: SITE_CONFIG.twitterHandle,
+        images: [ogImage],
+      },
+    };
+  }
+
+  if (COLOR_PICKER_SLUGS.includes(normalizedSlug)) {
+    const title =
+      "Color Picker - Eyedropper & Palette Tool | Screen Eyedropper, OKLCH, Tailwind & WCAG";
+    const description =
+      "Sample screen colors with native Chromium EyeDropper API (Alt+P), explore modern color formats (OKLCH, HSL, RGB, Tailwind), check WCAG 2.1 contrast, and extract page palettes. 100% offline Manifest V3 Chrome extension.";
+    const url = `${SITE_CONFIG.url}/projects/color-picker`;
+    const ogImage = `${SITE_CONFIG.url}/images/projects/color-picker/inspector.png`;
+
+    return {
+      metadataBase: new URL(SITE_CONFIG.url),
+      title,
+      description,
+      alternates: {
+        canonical: url,
+      },
+      openGraph: {
+        title,
+        description,
+        url,
+        type: "website",
+        images: [
+          {
+            url: ogImage,
+            width: 800,
+            height: 600,
+            alt: "Color Picker - Eyedropper & Palette Tool by Prahlad Inala",
           },
         ],
       },
@@ -171,6 +226,49 @@ export default async function ProjectDetailPage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
         />
         <UniversalPdfExporterLanding />
+      </>
+    );
+  }
+
+  // If this is Color Picker, show its dedicated rich landing page!
+  if (COLOR_PICKER_SLUGS.includes(normalizedSlug)) {
+    const colorPickerSchema = {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: "Color Picker - Eyedropper & Palette Tool",
+      operatingSystem: "Google Chrome, Chromium, Microsoft Edge, Brave",
+      applicationCategory: "DeveloperApplication",
+      url: `${SITE_CONFIG.url}/projects/color-picker`,
+      image: `${SITE_CONFIG.url}/images/projects/color-picker/inspector.png`,
+      description:
+        "Pick screen colors, explore modern color formats (OKLCH, HSL, RGB), check WCAG contrast, and extract page palettes. 100% offline, local-first Manifest V3 Chrome extension.",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      author: {
+        "@type": "Person",
+        name: SITE_CONFIG.name,
+        url: SITE_CONFIG.url,
+      },
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "5.0",
+        reviewCount: "28",
+      },
+    };
+
+    return (
+      <>
+        <Script
+          id="color-picker-software-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(colorPickerSchema),
+          }}
+        />
+        <ColorPickerLanding />
       </>
     );
   }

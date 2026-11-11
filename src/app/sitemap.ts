@@ -48,7 +48,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/projects/${project.id}`,
       lastModified: new Date(),
       changeFrequency: "weekly",
-      priority: project.id === "universal-ai-chat-pdf-exporter" ? 1.0 : 0.8,
+      priority:
+        project.id === "universal-ai-chat-pdf-exporter" ||
+        project.id === "color-picker"
+          ? 1.0
+          : 0.8,
     });
   });
 

@@ -1,0 +1,17 @@
+{
+  "title": "Color Picker - Eyedropper & Palette Tool",
+  "description": "Pick screen colors, explore modern color formats (OKLCH, HSL, RGB), check WCAG contrast, and extract page palettes.",
+  "longDescription": "A fast, lightweight, and privacy-first color eyedropper tool for web designers, developers, and digital creators. Sample any color directly from your screen with native Chromium EyeDropper API, explore modern formats (OKLCH, HSL, RGB, Tailwind), test WCAG 2.1 contrast, and extract page palettes with 100% offline execution.",
+  "image": "/images/projects/color-picker/inspector.png",
+  "tags": [
+    "Chrome Extension",
+    "Design Tools",
+    "Accessibility",
+    "OKLCH",
+    "Tailwind CSS",
+    "Manifest V3",
+    "Offline-First"
+  ],
+  "liveUrl": "",
+  "featured": true
+}
