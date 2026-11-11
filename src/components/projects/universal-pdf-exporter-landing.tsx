@@ -659,24 +659,35 @@ export function UniversalPdfExporterLanding() {
               </div>
             </div>
 
-            {/* Expansive Image Viewer Area (Generous Height for Readability) */}
+            {/* Flush Image Showcase Viewer (Zero Unwanted Gaps) */}
             <div
               onClick={() => setIsLightboxOpen(true)}
-              className="relative w-full min-h-[380px] sm:min-h-[520px] md:min-h-[620px] bg-gradient-to-b from-slate-950/90 to-zinc-950 flex items-center justify-center p-3 sm:p-6 cursor-zoom-in group"
+              className="relative w-full bg-slate-950/30 flex items-center justify-center cursor-zoom-in group overflow-hidden"
             >
-              <div className="relative w-full h-full flex items-center justify-center max-w-5xl">
+              {currentTab.id === "overview" || currentTab.id === "dark" ? (
                 <Image
                   src={currentTab.image}
                   alt={currentTab.alt}
-                  width={1280}
-                  height={800}
-                  className="rounded-xl shadow-2xl border border-border/40 object-contain max-h-[600px] w-auto transition-transform duration-300 group-hover:scale-[1.01]"
+                  width={1024}
+                  height={486}
+                  className="w-full h-auto block transition-transform duration-300 group-hover:scale-[1.008]"
                   priority
                 />
-              </div>
+              ) : (
+                <div className="py-8 sm:py-12 px-4 flex items-center justify-center w-full">
+                  <Image
+                    src={currentTab.image}
+                    alt={currentTab.alt}
+                    width={550}
+                    height={590}
+                    className="rounded-2xl shadow-2xl border border-border/60 max-h-[480px] w-auto transition-transform duration-300 group-hover:scale-[1.01]"
+                    priority
+                  />
+                </div>
+              )}
 
               {/* Floating Zoom Hint Pill */}
-              <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 px-3 py-1.5 rounded-full bg-background/90 backdrop-blur-md border border-border/80 text-xs text-muted-foreground group-hover:text-foreground flex items-center gap-1.5 shadow-md pointer-events-none transition-all">
+              <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 px-3 py-1.5 rounded-full bg-background/90 backdrop-blur-md border border-border/80 text-xs text-muted-foreground group-hover:text-foreground flex items-center gap-1.5 shadow-md pointer-events-none transition-all">
                 <Maximize2 className="w-3.5 h-3.5 text-primary" />
                 <span>Click image to zoom</span>
               </div>
