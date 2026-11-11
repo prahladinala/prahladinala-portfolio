@@ -57,6 +57,11 @@ export async function generateStaticParams() {
     }
   });
 
+  // Alias for ToolMate without hyphen
+  if (projects.some((p) => p.id === "tool-mate")) {
+    params.push({ slug: "toolmate" });
+  }
+
   return params;
 }
 
@@ -147,7 +152,9 @@ export async function generateMetadata({
   }
 
   const projects = getProjects();
-  const project = projects.find((p) => p.id === normalizedSlug);
+  const lookupSlug =
+    normalizedSlug === "toolmate" ? "tool-mate" : normalizedSlug;
+  const project = projects.find((p) => p.id === lookupSlug);
 
   if (!project) {
     return {
@@ -284,7 +291,9 @@ export default async function ProjectDetailPage({
   }
 
   const projects = getProjects();
-  const project = projects.find((p) => p.id === normalizedSlug);
+  const lookupSlug =
+    normalizedSlug === "toolmate" ? "tool-mate" : normalizedSlug;
+  const project = projects.find((p) => p.id === lookupSlug);
 
   if (!project) {
     notFound();

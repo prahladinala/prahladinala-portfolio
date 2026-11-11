@@ -1,9 +1,17 @@
 {
   "title": "ToolMate",
-  "description": "Fast browser tools. Built for devs - friendly for everyone.",
-  "longDescription": "Fast browser tools. Built for devs - friendly for everyone.",
-  "tags": ["Next.js", "AI", "TypeScript", "Tailwind CSS"],
+  "description": "100+ free, fast, and privacy-first online tools for developers, designers, and creators. Run formatters, converters, generators, and PDF utilities directly in your browser.",
+  "longDescription": "ToolMate is an all-in-one suite of 100+ fast, client-side browser utilities built for developers, designers, and digital creators. Designed with a minimal UI and mobile-first responsiveness, ToolMate offers JSON formatters, code converters, regex testers, UUID generators, image optimizers, and PDF tools running 100% offline in your browser with zero data tracking.",
+  "image": "/images/projects/tool-mate/overview.png",
+  "tags": [
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Developer Tools",
+    "Local-First",
+    "Web Utilities"
+  ],
   "githubUrl": "https://github.com/prahladinala/toolmate",
   "liveUrl": "https://www.toolmate.co.in/",
-  "featured": false
+  "featured": true
 }
