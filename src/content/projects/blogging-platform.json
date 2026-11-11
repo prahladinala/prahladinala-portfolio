@@ -1,14 +1,16 @@
 {
   "title": "Blogging Platform",
-  "description": "A blogging platform that allows users to create, edit, and publish their own blogs with a rich text editor and customizable themes.",
-  "image": "/images/projects/blogging-platform/image.jpg",
+  "description": "A high-performance digital notes and technical publishing platform featuring deep-dive articles on Artificial Intelligence, Machine Learning, and web engineering.",
+  "longDescription": "A clean, distraction-free digital garden and technical knowledge base built with Next.js, MDX, and Tailwind CSS. Organizes in-depth programming tutorials and conceptual breakdowns—from Artificial Intelligence fundamentals and Neural Networks to modern React architectures—with interactive code snippets, instant copy-to-clipboard, reading bookmarks, and search.",
+  "image": "/images/projects/blogging-platform/overview.png",
   "tags": [
-    "React",
+    "Next.js",
+    "MDX",
     "TypeScript",
-    "Node.js",
-    "AI",
-    "Tailwind CSS"
+    "Tailwind CSS",
+    "Artificial Intelligence",
+    "Technical Writing"
   ],
-  "liveUrl": "https://www.blog.toolmate.co.in/",
-  "featured": false
+  "liveUrl": "https://www.prahladinala.in/notes",
+  "featured": true
 }

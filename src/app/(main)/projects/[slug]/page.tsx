@@ -3,7 +3,12 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
-import { ChevronRight, ExternalLink, ArrowLeft } from "lucide-react";
+import {
+  ChevronRight,
+  ExternalLink,
+  ArrowLeft,
+  ArrowRight,
+} from "lucide-react";
 import { Github } from "@/components/icons";
 import { getProjects } from "@/lib/keystatic-data";
 import { SITE_CONFIG } from "@/config/constants";
@@ -345,11 +350,24 @@ export default async function ProjectDetailPage({
           {project.liveUrl && (
             <a
               href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              target={
+                project.liveUrl.startsWith("http") &&
+                !project.liveUrl.includes("prahladinala.in")
+                  ? "_blank"
+                  : undefined
+              }
+              rel={
+                project.liveUrl.startsWith("http") &&
+                !project.liveUrl.includes("prahladinala.in")
+                  ? "noopener noreferrer"
+                  : undefined
+              }
               className={cn(buttonVariants({ size: "sm" }), "rounded-full")}
             >
-              Visit Application <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
+              {project.id === "blogging-platform"
+                ? "Navigate to Notes"
+                : "Visit Application"}{" "}
+              <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
             </a>
           )}
           {project.githubUrl && (
@@ -375,9 +393,28 @@ export default async function ProjectDetailPage({
             <h2 className="text-lg font-semibold text-foreground mb-3">
               About the Project
             </h2>
-            <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+            <p className="text-muted-foreground leading-relaxed whitespace-pre-line mb-6">
               {project.longDescription}
             </p>
+
+            {project.id === "blogging-platform" && (
+              <div className="pt-4 border-t border-border/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <span className="text-sm text-muted-foreground">
+                  Explore tutorials and guides on AI, Machine Learning, and web
+                  engineering.
+                </span>
+                <Link
+                  href="/notes"
+                  className={cn(
+                    buttonVariants({ size: "sm" }),
+                    "rounded-full w-fit",
+                  )}
+                >
+                  Navigate to Notes{" "}
+                  <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                </Link>
+              </div>
+            )}
           </div>
         )}
 
