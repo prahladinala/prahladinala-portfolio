@@ -1,0 +1,23 @@
+{
+  "title": "Universal AI Chat PDF Exporter",
+  "description": "Export & archive full conversations from ChatGPT, Claude, Gemini, DeepSeek & more into publication-ready, beautiful PDFs with 1 click.",
+  "longDescription": "A privacy-focused, local-first Manifest V3 Chrome extension that captures and formats your AI conversations into presentation-grade PDFs, Markdown, JSON, and EPUB documents with a zero-loss completeness guarantee.",
+  "image": "/images/projects/universal-ai-chat-pdf-exporter/renderer-dark.png",
+  "tags": [
+    "Chrome Extension",
+    "TypeScript",
+    "React",
+    "PDF Generation",
+    "Local-First",
+    "AI Tools"
+  ],
+  "githubUrl": "https://github.com/prahladinala/universal-ai-chat-pdf-exporter",
+  "liveUrl": "https://chromewebstore.google.com/detail/universal-ai-chat-pdf-exp/encgjibigfmpfagdialjgobjocaooacd?authuser=0&hl=en",
+  "featured": true,
+  "metrics": [
+    { "label": "Platforms Supported", "value": "12+" },
+    { "label": "Privacy Guarantee", "value": "100% Local" },
+    { "label": "Capture Accuracy", "value": "Zero-Loss" },
+    { "label": "Export Formats", "value": "PDF, MD, EPUB, JSON" }
+  ]
+}

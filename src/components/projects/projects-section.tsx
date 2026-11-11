@@ -1,19 +1,23 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { FeaturedProject } from "./featured-project";
 import { ProjectCard } from "./project-card";
 import { ProjectModal } from "./project-modal";
 import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import type { Project } from "@/lib/keystatic-data";
 
 export function ProjectsSection({ projects }: { projects: Project[] }) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const projectCategories = useMemo(() => {
     const categories = new Set<string>();
-    categories.add('All');
-    projects.forEach(p => p.tags.forEach(t => categories.add(t)));
+    categories.add("All");
+    projects.forEach((p) => p.tags.forEach((t) => categories.add(t)));
     return Array.from(categories);
   }, [projects]);
   const [activeCategory, setActiveCategory] = useState("All");
@@ -26,7 +30,11 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
   );
 
   return (
-    <section id="projects" aria-label="Featured Software Projects" className="py-24 w-full relative">
+    <section
+      id="projects"
+      aria-label="Featured Software Projects"
+      className="py-24 w-full relative"
+    >
       <div className="container px-4 md:px-6 mx-auto">
         <div className="mb-16">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
@@ -89,6 +97,20 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
           </div>
         )}
 
+        {/* View All Projects Landing Pages Link */}
+        <div className="mt-14 text-center">
+          <Link
+            href="/projects"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "lg" }),
+              "rounded-full px-8 py-5 border-border hover:border-primary/50 text-foreground shadow-xs gap-2",
+            )}
+          >
+            <span>Explore All Projects &amp; Landing Pages</span>
+            <ArrowRight className="w-4 h-4 text-primary" />
+          </Link>
+        </div>
+
         {/* Quick View & Case Study Modal */}
         <ProjectModal
           project={selectedProject}
@@ -98,4 +120,3 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
     </section>
   );
 }
-

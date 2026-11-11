@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { getAllNotes, getNoteTopics } from "@/lib/mdx";
 import { getAllPrivacyPolicies } from "@/data/privacy-policies";
-import { getAllTermsOfService } from "@/data/terms-and-conditions";
+import { getProjects } from "@/lib/keystatic-data";
 import { SITE_CONFIG } from "@/config/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -22,6 +22,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/projects`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.95,
+    },
+    {
       url: `${baseUrl}/notes`,
       lastModified: new Date(),
       changeFrequency: "weekly",
@@ -34,6 +40,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
   ];
+
+  // Projects
+  const projects = getProjects();
+  projects.forEach((project) => {
+    routes.push({
+      url: `${baseUrl}/projects/${project.id}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: project.id === "universal-ai-chat-pdf-exporter" ? 1.0 : 0.8,
+    });
+  });
 
   // Topics
   const topics = getNoteTopics();

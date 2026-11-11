@@ -1,8 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { X, ExternalLink, Laptop, Sparkles, Activity, Layers } from "lucide-react";
+import Link from "next/link";
+import {
+  X,
+  ExternalLink,
+  Laptop,
+  Sparkles,
+  Layers,
+  ArrowRight,
+} from "lucide-react";
 import { Github } from "@/components/icons";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Project } from "@/lib/keystatic-data";
@@ -37,7 +45,11 @@ function canEmbedInIframe(url?: string): boolean {
       "apps.apple.com",
     ];
 
-    if (nonEmbeddableHosts.some((h) => hostname === h || hostname.endsWith("." + h))) {
+    if (
+      nonEmbeddableHosts.some(
+        (h) => hostname === h || hostname.endsWith("." + h),
+      )
+    ) {
       return false;
     }
 
@@ -52,7 +64,9 @@ function canEmbedInIframe(url?: string): boolean {
       "github.io",
     ];
 
-    return allowedPatterns.some((pattern) => hostname === pattern || hostname.endsWith("." + pattern));
+    return allowedPatterns.some(
+      (pattern) => hostname === pattern || hostname.endsWith("." + pattern),
+    );
   } catch {
     return false;
   }
@@ -83,12 +97,17 @@ type ProjectModalProps = {
 };
 
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
-  const [activeTab, setActiveTab] = useState<"overview" | "preview">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "preview">(
+    "overview",
+  );
+  const [prevProjectId, setPrevProjectId] = useState<string | undefined>(
+    project?.id,
+  );
 
-  // Reset to overview whenever selected project changes
-  useEffect(() => {
+  if (project?.id !== prevProjectId) {
+    setPrevProjectId(project?.id);
     setActiveTab("overview");
-  }, [project?.id]);
+  }
 
   if (!project) return null;
 
@@ -138,7 +157,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                       "px-3 py-1 rounded-lg transition-all",
                       activeTab === "overview"
                         ? "bg-card text-foreground shadow-xs font-bold"
-                        : "text-muted-foreground hover:text-foreground"
+                        : "text-muted-foreground hover:text-foreground",
                     )}
                   >
                     Overview
@@ -150,7 +169,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                       "px-3 py-1 rounded-lg transition-all flex items-center gap-1.5",
                       activeTab === "preview"
                         ? "bg-card text-foreground shadow-xs font-bold text-primary"
-                        : "text-muted-foreground hover:text-foreground"
+                        : "text-muted-foreground hover:text-foreground",
                     )}
                   >
                     <Laptop className="w-3.5 h-3.5" /> Live Demo
@@ -240,7 +259,8 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 <div className="space-y-4">
                   <div>
                     <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1.5 flex items-center gap-1.5">
-                      <Layers className="w-3.5 h-3.5 text-primary" /> Architecture & Summary
+                      <Layers className="w-3.5 h-3.5 text-primary" />{" "}
+                      Architecture & Summary
                     </h4>
                     <p className="text-sm sm:text-base text-foreground leading-relaxed font-medium">
                       {project.longDescription || project.description}
@@ -250,11 +270,16 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   {/* Tech Stack Pills */}
                   <div>
                     <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-primary" /> Technologies Used
+                      <Sparkles className="w-3.5 h-3.5 text-primary" />{" "}
+                      Technologies Used
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {project.tags.map((tag) => (
-                        <Badge key={tag} variant="secondary" className="px-3 py-1 text-xs">
+                        <Badge
+                          key={tag}
+                          variant="secondary"
+                          className="px-3 py-1 text-xs"
+                        >
                           {tag}
                         </Badge>
                       ))}
@@ -267,17 +292,33 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           {/* Footer Actions */}
           <div className="px-6 py-4 border-t border-border bg-muted/20 flex flex-wrap items-center justify-between gap-3 shrink-0">
-            <div className="flex items-center gap-3">
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={cn(buttonVariants({ size: "sm" }), "rounded-full shadow-xs gap-1.5")}
-                >
-                  {getLiveUrlLabel(project.liveUrl)} <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              )}
+            <div className="flex flex-wrap items-center gap-3">
+              <Link
+                href={`/projects/${project.id}`}
+                onClick={onClose}
+                className={cn(
+                  buttonVariants({ size: "sm" }),
+                  "rounded-full shadow-xs gap-1.5",
+                )}
+              >
+                <span>Full Landing Page</span>{" "}
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+              {project.liveUrl &&
+                !project.liveUrl.includes(`/projects/${project.id}`) && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(
+                      buttonVariants({ variant: "outline", size: "sm" }),
+                      "rounded-full shadow-xs gap-1.5",
+                    )}
+                  >
+                    {getLiveUrlLabel(project.liveUrl)}{" "}
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                )}
               {project.githubUrl && (
                 <a
                   href={project.githubUrl}
@@ -285,7 +326,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   rel="noopener noreferrer"
                   className={cn(
                     buttonVariants({ variant: "outline", size: "sm" }),
-                    "rounded-full gap-1.5"
+                    "rounded-full gap-1.5",
                   )}
                 >
                   <Github className="w-4 h-4" /> View Source Code
