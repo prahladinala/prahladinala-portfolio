@@ -1,12 +1,17 @@
 {
   "title": "ToolMate UI",
-  "description": "A modern and responsive portfolio website built with Next.js, showcasing my projects, skills, and experience.",
+  "description": "Clean, accessible, and customizable building blocks crafted with modern Tailwind CSS. Fully compatible with React, Astro, Vue, Svelte, and plain HTML.",
+  "longDescription": "ToolMate UI is a collection of 15+ production-ready, accessible UI primitives and templates crafted with modern Tailwind CSS. Built with zero runtime dependencies and copy-and-paste ease, it provides plug-and-play components across React, Next.js, Astro, Vue, Svelte, and HTML.",
+  "image": "/images/projects/toolmate-ui/overview.png",
   "tags": [
     "Next.js",
     "Tailwind CSS",
-    "Framer Motion"
+    "Framer Motion",
+    "React",
+    "Astro",
+    "UI Components"
   ],
   "githubUrl": "https://github.com/prahladinala/toolmate-ui",
-  "liveUrl": "https://www.ui.toolmate.co.in/",
-  "featured": false
+  "liveUrl": "https://ui.toolmate.co.in/",
+  "featured": true
 }

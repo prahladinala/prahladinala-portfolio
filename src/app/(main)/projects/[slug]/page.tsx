@@ -173,6 +173,7 @@ export async function generateMetadata({
       title,
       description,
       creator: SITE_CONFIG.twitterHandle,
+      images: project.image ? [project.image] : undefined,
     },
   };
 }
@@ -313,7 +314,7 @@ export default async function ProjectDetailPage({
           {project.title}
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          {project.longDescription || project.description}
+          {project.description}
         </p>
       </div>
 
@@ -366,6 +367,19 @@ export default async function ProjectDetailPage({
           )}
         </div>
       </div>
+
+      {/* About the Project / Long Description */}
+      {project.longDescription &&
+        project.longDescription !== project.description && (
+          <div className="p-6 rounded-2xl bg-card border border-border mb-10">
+            <h2 className="text-lg font-semibold text-foreground mb-3">
+              About the Project
+            </h2>
+            <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+              {project.longDescription}
+            </p>
+          </div>
+        )}
 
       {/* Metrics */}
       {project.metrics && project.metrics.length > 0 && (
