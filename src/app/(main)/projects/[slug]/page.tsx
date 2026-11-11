@@ -247,6 +247,10 @@ export default async function ProjectDetailPage({
         price: "0",
         priceCurrency: "USD",
       },
+      installUrl:
+        "https://chromewebstore.google.com/detail/color-picker-eyedropper-p/hncjklpkekgcmbnhjmfpmpmeoeobmook?authuser=0&hl=en",
+      downloadUrl:
+        "https://chromewebstore.google.com/detail/color-picker-eyedropper-p/hncjklpkekgcmbnhjmfpmpmeoeobmook?authuser=0&hl=en",
       author: {
         "@type": "Person",
         name: SITE_CONFIG.name,

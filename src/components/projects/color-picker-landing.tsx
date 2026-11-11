@@ -39,7 +39,7 @@ const EXTENSION_VERSION = "v1.2";
 // Placeholder / store URL - updated automatically when store listing ID is shared
 const CHROME_STORE_URL =
   process.env.NEXT_PUBLIC_COLOR_PICKER_STORE_URL ||
-  "https://chromewebstore.google.com/category/extensions";
+  "https://chromewebstore.google.com/detail/color-picker-eyedropper-p/hncjklpkekgcmbnhjmfpmpmeoeobmook?authuser=0&hl=en";
 
 // Screenshot Showcase Tabs
 const SCREENSHOT_TABS = [
