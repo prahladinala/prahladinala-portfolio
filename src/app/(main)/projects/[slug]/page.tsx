@@ -17,6 +17,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { UniversalPdfExporterLanding } from "@/components/projects/universal-pdf-exporter-landing";
 import { ColorPickerLanding } from "@/components/projects/color-picker-landing";
+import { DevCraftThemesLanding } from "@/components/projects/devcraft-themes-landing";
 
 const AI_PDF_EXPORTER_SLUGS = [
   "universal-ai-chat-pdf-exporter",
@@ -33,6 +34,14 @@ const COLOR_PICKER_SLUGS = [
   "color-picker-eyedropper",
 ];
 
+const DEVCRAFT_SLUGS = [
+  "devcraft-vscode-theme",
+  "devcraft-themes",
+  "devcraft",
+  "devcraft-theme",
+  "vscode-devcraft",
+];
+
 export async function generateStaticParams() {
   const projects = getProjects();
   const params: { slug: string }[] = [];
@@ -47,11 +56,17 @@ export async function generateStaticParams() {
     params.push({ slug });
   });
 
+  // Register all slugs and aliases for DevCraft Themes
+  DEVCRAFT_SLUGS.forEach((slug) => {
+    params.push({ slug });
+  });
+
   // Register other project slugs
   projects.forEach((p) => {
     if (
       !AI_PDF_EXPORTER_SLUGS.includes(p.id) &&
-      !COLOR_PICKER_SLUGS.includes(p.id)
+      !COLOR_PICKER_SLUGS.includes(p.id) &&
+      !DEVCRAFT_SLUGS.includes(p.id)
     ) {
       params.push({ slug: p.id });
     }
@@ -138,6 +153,44 @@ export async function generateMetadata({
             width: 800,
             height: 600,
             alt: "Color Picker - Eyedropper & Palette Tool by Prahlad Inala",
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        creator: SITE_CONFIG.twitterHandle,
+        images: [ogImage],
+      },
+    };
+  }
+
+  if (DEVCRAFT_SLUGS.includes(normalizedSlug)) {
+    const title = "DevCraft Themes | Premium VS Code Theme Suite";
+    const description =
+      "A premium suite of 7 handcrafted VS Code themes designed for clarity, comfort, and long coding sessions. From deep dark palettes like Obsidian Ink to crisp Glacier Light and modern Frosted Glass UI.";
+    const url = `${SITE_CONFIG.url}/projects/devcraft-vscode-theme`;
+    const ogImage = `${SITE_CONFIG.url}/images/projects/devcraft-themes/theme6.png`;
+
+    return {
+      metadataBase: new URL(SITE_CONFIG.url),
+      title,
+      description,
+      alternates: {
+        canonical: url,
+      },
+      openGraph: {
+        title,
+        description,
+        url,
+        type: "website",
+        images: [
+          {
+            url: ogImage,
+            width: 1920,
+            height: 1020,
+            alt: "DevCraft Themes for VS Code by Prahlad Inala",
           },
         ],
       },
@@ -286,6 +339,48 @@ export default async function ProjectDetailPage({
           }}
         />
         <ColorPickerLanding />
+      </>
+    );
+  }
+
+  // If this is DevCraft Themes, show its dedicated rich landing page!
+  if (DEVCRAFT_SLUGS.includes(normalizedSlug)) {
+    const devcraftSchema = {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: "DevCraft Themes",
+      operatingSystem: "Windows, macOS, Linux",
+      applicationCategory: "DeveloperApplication",
+      url: `${SITE_CONFIG.url}/projects/devcraft-vscode-theme`,
+      image: `${SITE_CONFIG.url}/images/projects/devcraft-themes/theme6.png`,
+      description:
+        "A premium suite of 7 handcrafted VS Code themes designed for clarity, comfort, and long coding sessions.",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      installUrl:
+        "https://marketplace.visualstudio.com/items?itemName=PrahladInala.devcraft-themes",
+      downloadUrl:
+        "https://marketplace.visualstudio.com/items?itemName=PrahladInala.devcraft-themes",
+      author: {
+        "@type": "Person",
+        name: SITE_CONFIG.name,
+        url: SITE_CONFIG.url,
+      },
+    };
+
+    return (
+      <>
+        <Script
+          id="devcraft-themes-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(devcraftSchema),
+          }}
+        />
+        <DevCraftThemesLanding />
       </>
     );
   }

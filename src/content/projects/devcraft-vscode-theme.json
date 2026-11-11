@@ -1,12 +1,17 @@
 {
-  "title": "DevCraft VS Code Theme",
-  "description": "A VS Code extension that provides a modern and customizable theme for developers.",
+  "title": "DevCraft Themes",
+  "description": "A premium suite of 7 handcrafted VS Code themes designed for clarity, comfort, and long coding sessions.",
+  "longDescription": "DevCraft Themes is a premium suite of 7 handcrafted VS Code themes engineered for clarity, balanced contrast, and reduced visual fatigue during long coding marathons. From deep dark palettes like Obsidian Ink and Aurora Borealis to crisp Glacier Light and modern Frosted Glass UI, DevCraft provides full semantic token highlighting across modern programming languages.",
+  "image": "/images/projects/devcraft-themes/overview.png",
   "tags": [
-    "VS Code",
-    "Theme",
-    "UI",
-    "Tools"
+    "VS Code Extension",
+    "Themes",
+    "Developer Tools",
+    "Dark Mode",
+    "Semantic Highlighting",
+    "Open Source"
   ],
+  "githubUrl": "https://github.com/prahladinala/devcraft-themes",
   "liveUrl": "https://marketplace.visualstudio.com/items?itemName=PrahladInala.devcraft-themes",
-  "featured": false
+  "featured": true
 }

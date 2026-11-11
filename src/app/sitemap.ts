@@ -50,9 +50,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority:
         project.id === "universal-ai-chat-pdf-exporter" ||
-        project.id === "color-picker"
+        project.id === "color-picker" ||
+        project.id === "devcraft-vscode-theme"
           ? 1.0
-          : 0.8,
+          : 0.85,
     });
   });
 
