@@ -433,22 +433,22 @@ export function UniversalPdfExporterLanding() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] bg-gradient-to-b from-primary/20 via-blue-500/10 to-transparent blur-3xl -z-10 pointer-events-none" />
       <div className="absolute top-96 right-0 w-[500px] h-[500px] bg-indigo-500/10 blur-3xl -z-10 pointer-events-none" />
 
-      {/* TOP DEDICATED NAVIGATION BAR (Replaces Global Floating Navbar for /projects) */}
+      {/* TOP DEDICATED NAVIGATION BAR (Responsive, Mobile-First for /projects) */}
       <header className="sticky top-0 z-40 w-full bg-background/80 backdrop-blur-xl border-b border-border/70 shadow-xs">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl h-16 flex items-center justify-between gap-4">
+        <div className="container mx-auto px-3 sm:px-6 lg:px-8 max-w-7xl h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
           {/* Brand & Breadcrumbs */}
-          <div className="flex items-center gap-3 min-w-0">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0">
             <Link
               href="/"
-              className="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0"
+              className="flex items-center gap-1.5 hover:opacity-80 transition-opacity shrink-0"
               title="Prahlad Inala Home"
             >
-              <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-bold text-xs">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-bold text-xs">
                 PI
               </div>
             </Link>
 
-            <ChevronRight className="w-4 h-4 text-muted-foreground/60 shrink-0" />
+            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
 
             <Link
               href="/projects"
@@ -457,15 +457,15 @@ export function UniversalPdfExporterLanding() {
               Projects
             </Link>
 
-            <ChevronRight className="w-4 h-4 text-muted-foreground/60 shrink-0 hidden sm:inline" />
+            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0 hidden md:inline" />
 
-            <span className="text-xs sm:text-sm font-semibold text-foreground truncate max-w-[140px] sm:max-w-xs md:max-w-md hidden sm:inline">
+            <span className="text-xs sm:text-sm font-semibold text-foreground truncate max-w-[140px] md:max-w-xs lg:max-w-md hidden md:inline">
               Universal AI Chat PDF Exporter
             </span>
           </div>
 
           {/* Right Action Cluster */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             {/* Install on Chrome Button */}
             <a
               href={CHROME_STORE_URL}
@@ -473,20 +473,21 @@ export function UniversalPdfExporterLanding() {
               rel="noopener noreferrer"
               className={cn(
                 buttonVariants({ size: "sm" }),
-                "rounded-full px-3.5 py-1.5 text-xs font-semibold shadow-sm hover:scale-105 transition-all bg-gradient-to-r from-blue-600 via-indigo-600 to-primary text-white gap-2",
+                "rounded-full px-2.5 sm:px-3.5 py-1.5 text-xs font-semibold shadow-xs hover:scale-105 transition-all bg-gradient-to-r from-blue-600 via-indigo-600 to-primary text-white flex items-center gap-1.5 shrink-0",
               )}
             >
-              <ChromeLogo className="w-4 h-4 shrink-0" />
-              <span className="hidden xs:inline">Add to Chrome</span>
-              <span className="xs:hidden">Install</span>
+              <ChromeLogo className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+              <span className="hidden sm:inline">Add to Chrome</span>
+              <span className="sm:hidden text-[11px]">Install</span>
             </a>
 
-            {/* Comprehensive Share Button */}
+            {/* Share Button */}
             <button
               type="button"
               onClick={() => setIsShareModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-card border border-border hover:border-primary/50 text-xs font-medium text-foreground transition-all hover:scale-105 shadow-xs"
+              className="inline-flex items-center gap-1.5 p-2 sm:px-3 sm:py-1.5 rounded-full bg-card border border-border hover:border-primary/50 text-xs font-medium text-foreground transition-all hover:scale-105 shadow-xs shrink-0"
               title="Share on social media"
+              aria-label="Share project"
             >
               <Share2 className="w-3.5 h-3.5 text-primary" />
               <span className="hidden sm:inline">Share</span>
@@ -498,25 +499,25 @@ export function UniversalPdfExporterLanding() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 max-w-6xl">
+      <div className="container mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-6xl">
         {/* HERO SECTION */}
-        <div className="text-center max-w-4xl mx-auto pt-6 pb-14">
+        <div className="text-center max-w-4xl mx-auto pt-4 sm:pt-6 pb-10 sm:pb-14">
           {/* Eyebrow Pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/25 mb-6 shadow-xs animate-in fade-in duration-500">
-            <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Official Chrome Web Store Listing</span>
-            <span className="text-muted-foreground">•</span>
-            <span>100% Local-First Architecture</span>
+          <div className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold bg-primary/10 text-primary border border-primary/25 mb-5 sm:mb-6 shadow-xs max-w-full">
+            <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+            <span>Official Chrome Web Store</span>
+            <span className="text-muted-foreground hidden sm:inline">•</span>
+            <span className="hidden sm:inline">100% Local Architecture</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-foreground leading-[1.15] mb-6">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-foreground leading-[1.18] sm:leading-[1.15] mb-5 sm:mb-6 break-words">
             Export AI Chats into{" "}
             <span className="bg-gradient-to-r from-primary via-indigo-500 to-cyan-500 bg-clip-text text-transparent">
               Beautiful, Presentation-Grade PDFs
             </span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-6 sm:mb-8 px-2 sm:px-0">
             Archive full conversations from <strong>ChatGPT</strong>,{" "}
             <strong>Claude</strong>, <strong>Gemini</strong>,{" "}
             <strong>DeepSeek</strong>, and 12+ platforms with one click.
@@ -524,15 +525,15 @@ export function UniversalPdfExporterLanding() {
             thought process with zero cloud transmission.
           </p>
 
-          {/* Action CTAs (No Github Links, Pure Chrome Store Focus) */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
+          {/* Action CTAs (Responsive buttons) */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-10 w-full max-w-md sm:max-w-none mx-auto">
             <a
               href={CHROME_STORE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
                 buttonVariants({ size: "lg" }),
-                "rounded-full px-8 py-6 text-base font-semibold shadow-xl shadow-primary/25 hover:shadow-primary/35 transition-all hover:scale-[1.02] bg-gradient-to-r from-blue-600 via-indigo-600 to-primary text-white flex items-center gap-2.5",
+                "w-full sm:w-auto rounded-full px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base font-semibold shadow-xl shadow-primary/25 hover:shadow-primary/35 transition-all hover:scale-[1.02] bg-gradient-to-r from-blue-600 via-indigo-600 to-primary text-white flex items-center justify-center gap-2.5",
               )}
             >
               <ChromeLogo className="w-5 h-5 shrink-0" />
@@ -543,10 +544,10 @@ export function UniversalPdfExporterLanding() {
               href="#showcase"
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
-                "rounded-full px-7 py-6 text-base font-semibold border-border hover:border-primary/50 transition-all hover:scale-[1.02] flex items-center gap-2",
+                "w-full sm:w-auto rounded-full px-6 sm:px-7 py-4 sm:py-6 text-sm sm:text-base font-semibold border-border hover:border-primary/50 transition-all hover:scale-[1.02] flex items-center justify-center gap-2",
               )}
             >
-              <Eye className="w-5 h-5 text-primary" />
+              <Eye className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               <span>Explore Live Showcase</span>
             </a>
 
@@ -555,16 +556,16 @@ export function UniversalPdfExporterLanding() {
               onClick={handleNativeShare}
               className={cn(
                 buttonVariants({ variant: "ghost", size: "lg" }),
-                "rounded-full px-5 py-6 text-base text-muted-foreground hover:text-foreground flex items-center gap-2",
+                "w-full sm:w-auto rounded-full px-5 py-4 sm:py-6 text-sm sm:text-base text-muted-foreground hover:text-foreground flex items-center justify-center gap-2",
               )}
             >
-              <Share2 className="w-5 h-5 text-primary" />
-              <span>Share Application</span>
+              <Share2 className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+              <span>Share App</span>
             </button>
           </div>
 
           {/* Trust Highlights Strip */}
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs sm:text-sm text-muted-foreground font-medium pt-4 border-t border-border/50 max-w-3xl mx-auto">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 sm:gap-x-6 gap-y-2.5 text-xs sm:text-sm text-muted-foreground font-medium pt-4 border-t border-border/50 max-w-3xl mx-auto px-2">
             <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
               <ShieldCheck className="w-4 h-4 shrink-0" /> 100% Local Processing
             </span>
@@ -602,8 +603,8 @@ export function UniversalPdfExporterLanding() {
             </p>
           </div>
 
-          {/* Screenshot Navigation Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
+          {/* Screenshot Navigation Pills (Scrollable on Mobile, Wrapped on Desktop) */}
+          <div className="flex items-center gap-1.5 sm:gap-2 mb-6 overflow-x-auto pb-2 sm:pb-0 sm:flex-wrap sm:justify-center no-scrollbar px-1 -mx-2 sm:mx-0">
             {SCREENSHOT_TABS.map((tab) => {
               const isActive = activeTab === tab.id;
               return (
@@ -612,7 +613,7 @@ export function UniversalPdfExporterLanding() {
                   type="button"
                   onClick={() => setActiveTab(tab.id)}
                   className={cn(
-                    "px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all flex items-center gap-2",
+                    "shrink-0 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all flex items-center gap-1.5 sm:gap-2",
                     isActive
                       ? "bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-[1.02]"
                       : "bg-card border border-border/80 text-muted-foreground hover:text-foreground hover:bg-muted",
@@ -621,7 +622,7 @@ export function UniversalPdfExporterLanding() {
                   <span>{tab.title}</span>
                   <span
                     className={cn(
-                      "text-[10px] px-1.5 py-0.5 rounded-full font-mono uppercase tracking-wider",
+                      "hidden sm:inline text-[10px] px-1.5 py-0.5 rounded-full font-mono uppercase tracking-wider",
                       isActive
                         ? "bg-primary-foreground/20 text-primary-foreground"
                         : "bg-muted text-muted-foreground",
@@ -637,24 +638,25 @@ export function UniversalPdfExporterLanding() {
           {/* Main Showcase Frame (Expansive Viewer with Lightbox Trigger) */}
           <div className="relative rounded-2xl md:rounded-3xl border border-border/80 bg-card overflow-hidden shadow-2xl transition-all duration-300">
             {/* Window Title Bar */}
-            <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-border/70 bg-muted/40">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-red-500/80" />
-                <span className="w-3 h-3 rounded-full bg-amber-500/80" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                <span className="text-xs font-mono text-muted-foreground ml-3 hidden sm:inline">
+            <div className="flex items-center justify-between px-3 sm:px-6 py-2.5 sm:py-3 border-b border-border/70 bg-muted/40">
+              <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500/80 shrink-0" />
+                <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500/80 shrink-0" />
+                <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500/80 shrink-0" />
+                <span className="text-[11px] sm:text-xs font-mono text-muted-foreground ml-2 sm:ml-3 truncate max-w-[150px] sm:max-w-md">
                   Universal AI Chat PDF Exporter — {currentTab.title}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 <button
                   type="button"
                   onClick={() => setIsLightboxOpen(true)}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-background/80 hover:bg-background border border-border/60 text-[11px] font-medium text-foreground transition-all hover:scale-105"
+                  className="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-md bg-background/80 hover:bg-background border border-border/60 text-[11px] font-medium text-foreground transition-all hover:scale-105"
                   title="Expand to Fullscreen"
                 >
                   <Maximize2 className="w-3 h-3 text-primary" />
-                  <span>Fullscreen Zoom</span>
+                  <span className="hidden sm:inline">Fullscreen Zoom</span>
+                  <span className="sm:hidden">Zoom</span>
                 </button>
               </div>
             </div>
@@ -842,30 +844,29 @@ export function UniversalPdfExporterLanding() {
         </section>
 
         {/* INTERACTIVE WORKSPACE SIMULATOR */}
-        <section className="mb-24 p-6 sm:p-10 rounded-3xl bg-card border border-border/80 shadow-xl">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-border/70">
+        <section className="mb-16 sm:mb-24 p-4 sm:p-6 md:p-10 rounded-3xl bg-card border border-border/80 shadow-xl">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6 pb-6 border-b border-border/70">
             <div>
               <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-2">
                 <Sliders className="w-3 h-3" />
                 <span>Live Interactive Preview</span>
               </div>
-              <h3 className="text-2xl font-bold text-foreground">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground">
                 Document Customizer Simulator
               </h3>
-              <p className="text-sm text-muted-foreground">
-                Test the dynamic document themes and 1-Click sensitive data
-                redaction filter.
+              <p className="text-xs sm:text-sm text-muted-foreground">
+                Test dynamic themes and 1-Click sensitive data redaction.
               </p>
             </div>
 
-            {/* Interactive Controls */}
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="flex items-center bg-muted/60 p-1 rounded-xl border border-border/60 text-xs font-medium">
+            {/* Interactive Controls (Full-width and wrap-friendly on mobile) */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full md:w-auto">
+              <div className="flex items-center bg-muted/60 p-1 rounded-xl border border-border/60 text-xs font-medium w-full sm:w-auto justify-between">
                 <button
                   type="button"
                   onClick={() => setSimTheme("light")}
                   className={cn(
-                    "px-3 py-1.5 rounded-lg transition-all",
+                    "flex-1 sm:flex-initial px-2.5 sm:px-3 py-1.5 rounded-lg transition-all text-center",
                     simTheme === "light"
                       ? "bg-background text-foreground shadow-xs font-bold"
                       : "text-muted-foreground hover:text-foreground",
@@ -877,7 +878,7 @@ export function UniversalPdfExporterLanding() {
                   type="button"
                   onClick={() => setSimTheme("dark")}
                   className={cn(
-                    "px-3 py-1.5 rounded-lg transition-all",
+                    "flex-1 sm:flex-initial px-2.5 sm:px-3 py-1.5 rounded-lg transition-all text-center",
                     simTheme === "dark"
                       ? "bg-background text-foreground shadow-xs font-bold"
                       : "text-muted-foreground hover:text-foreground",
@@ -889,7 +890,7 @@ export function UniversalPdfExporterLanding() {
                   type="button"
                   onClick={() => setSimTheme("sepia")}
                   className={cn(
-                    "px-3 py-1.5 rounded-lg transition-all",
+                    "flex-1 sm:flex-initial px-2.5 sm:px-3 py-1.5 rounded-lg transition-all text-center",
                     simTheme === "sepia"
                       ? "bg-[#f4ecd8] text-[#5b4636] shadow-xs font-bold"
                       : "text-muted-foreground hover:text-foreground",
@@ -904,7 +905,7 @@ export function UniversalPdfExporterLanding() {
                 type="button"
                 onClick={() => setRedactPii(!redactPii)}
                 className={cn(
-                  "px-3.5 py-2 rounded-xl text-xs font-semibold border flex items-center gap-1.5 transition-all shadow-xs",
+                  "w-full sm:w-auto justify-center px-3.5 py-2 rounded-xl text-xs font-semibold border flex items-center gap-1.5 transition-all shadow-xs",
                   redactPii
                     ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30"
                     : "bg-muted/60 text-muted-foreground border-border/60 hover:text-foreground",
@@ -923,7 +924,7 @@ export function UniversalPdfExporterLanding() {
           {/* Simulator Document Preview Box */}
           <div
             className={cn(
-              "mt-8 p-6 sm:p-8 rounded-2xl border transition-all duration-300 font-sans shadow-inner",
+              "mt-6 sm:mt-8 p-4 sm:p-8 rounded-2xl border transition-all duration-300 font-sans shadow-inner",
               simTheme === "light" && "bg-white text-zinc-900 border-zinc-200",
               simTheme === "dark" &&
                 "bg-zinc-950 text-zinc-100 border-zinc-800",
@@ -933,22 +934,22 @@ export function UniversalPdfExporterLanding() {
           >
             {/* Document Header */}
             <div className="border-b pb-4 mb-5 border-current/15">
-              <div className="flex items-center justify-between text-xs opacity-70 mb-2">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] sm:text-xs opacity-70 gap-1 mb-2">
                 <span className="font-mono uppercase font-bold tracking-wider">
                   CHATGPT • GPT-4O
                 </span>
                 <span>Exported: Nov 11, 2026, 12:25 PM</span>
               </div>
-              <h4 className="text-xl sm:text-2xl font-bold tracking-tight">
+              <h4 className="text-lg sm:text-2xl font-bold tracking-tight">
                 Architectural RFC: Local-First Session Data Isolation
               </h4>
-              <p className="text-xs opacity-75 mt-1 font-mono">
+              <p className="text-[11px] sm:text-xs opacity-75 mt-1 font-mono break-all">
                 Source: https://chatgpt.com/c/arch-session-rfc-2026
               </p>
             </div>
 
             {/* Simulated Turn 1: User */}
-            <div className="mb-6 p-4 rounded-xl border border-current/10 bg-current/[0.03]">
+            <div className="mb-6 p-3 sm:p-4 rounded-xl border border-current/10 bg-current/[0.03]">
               <div className="flex items-center justify-between text-xs font-bold mb-2 opacity-80">
                 <span className="flex items-center gap-1.5">
                   <span className="w-5 h-5 rounded-md bg-primary text-primary-foreground flex items-center justify-center text-[10px]">
@@ -960,11 +961,11 @@ export function UniversalPdfExporterLanding() {
                   10:14 AM
                 </span>
               </div>
-              <p className="text-sm">
+              <p className="text-xs sm:text-sm">
                 How should we authenticate with the staging cluster securely
                 without leaking our API key?
               </p>
-              <p className="text-xs font-mono mt-2 p-2 rounded bg-current/[0.05]">
+              <p className="text-[11px] sm:text-xs font-mono mt-2 p-2 rounded bg-current/[0.05] break-all leading-relaxed">
                 Developer Contact:{" "}
                 {redactPii ? (
                   <span className="bg-red-500/20 text-red-500 font-bold px-1 rounded">
@@ -990,7 +991,7 @@ export function UniversalPdfExporterLanding() {
             </div>
 
             {/* Simulated Turn 2: Assistant */}
-            <div className="p-4 rounded-xl border border-current/10 bg-current/[0.03]">
+            <div className="p-3 sm:p-4 rounded-xl border border-current/10 bg-current/[0.03]">
               <div className="flex items-center justify-between text-xs font-bold mb-2 opacity-80">
                 <span className="flex items-center gap-1.5">
                   <span className="w-5 h-5 rounded-md bg-emerald-600 text-white flex items-center justify-center text-[10px]">
@@ -1006,7 +1007,7 @@ export function UniversalPdfExporterLanding() {
               {/* Reasoning Block */}
               <div className="mb-3 p-3 rounded-lg border border-indigo-500/30 bg-indigo-500/10 text-xs">
                 <div className="font-semibold text-indigo-500 dark:text-indigo-400 flex items-center gap-1.5 mb-1">
-                  <Sparkles className="w-3.5 h-3.5" />
+                  <Sparkles className="w-3.5 h-3.5 shrink-0" />
                   <span>
                     Thinking Process: Secret Masking &amp; Least Privilege
                   </span>
@@ -1035,7 +1036,7 @@ export async function initializeSessionVault(token: string) {
                 </pre>
               </div>
 
-              <p className="text-sm">
+              <p className="text-xs sm:text-sm">
                 Always ensure sensitive credentials are scrubbed prior to
                 publishing logs to shared channels.
               </p>
@@ -1044,53 +1045,64 @@ export async function initializeSessionVault(token: string) {
         </section>
 
         {/* COMPARISON TABLE */}
-        <section className="mb-24">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-3">
+        <section className="mb-16 sm:mb-24">
+          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2 sm:mb-3">
               Why Universal AI Chat PDF Exporter?
             </h2>
-            <p className="text-muted-foreground text-sm sm:text-base">
+            <p className="text-muted-foreground text-xs sm:text-base">
               Comparing native features against standard browser print and
               third-party web converters.
             </p>
           </div>
 
-          <div className="rounded-2xl border border-border/80 bg-card overflow-x-auto shadow-md">
-            <table className="w-full text-left border-collapse text-xs sm:text-sm">
-              <thead>
-                <tr className="border-b border-border/80 bg-muted/40 font-semibold text-foreground">
-                  <th className="p-4 sm:p-5">Capability / Requirement</th>
-                  <th className="p-4 sm:p-5 text-primary bg-primary/5">
-                    Universal AI Chat PDF Exporter
-                  </th>
-                  <th className="p-4 sm:p-5 text-muted-foreground">
-                    Standard Browser Ctrl+P
-                  </th>
-                  <th className="p-4 sm:p-5 text-muted-foreground">
-                    Cloud PDF Converters
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border/60">
-                {COMPARISON_ROWS.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-muted/30 transition-colors">
-                    <td className="p-4 sm:p-5 font-medium text-foreground">
-                      {row.feature}
-                    </td>
-                    <td className="p-4 sm:p-5 font-semibold text-primary bg-primary/5 flex items-center gap-1.5">
-                      <Check className="w-4 h-4 text-emerald-500 shrink-0" />
-                      <span>{row.extension}</span>
-                    </td>
-                    <td className="p-4 sm:p-5 text-muted-foreground">
-                      {row.browserPrint}
-                    </td>
-                    <td className="p-4 sm:p-5 text-muted-foreground">
-                      {row.otherTools}
-                    </td>
+          <div className="rounded-2xl border border-border/80 bg-card overflow-hidden shadow-md">
+            {/* Mobile Scroll Hint */}
+            <div className="sm:hidden px-4 py-2 bg-muted/40 border-b border-border/70 text-[11px] text-muted-foreground flex items-center justify-between">
+              <span>Swipe horizontally to compare</span>
+              <span className="font-mono text-xs">→</span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[580px] text-left border-collapse text-xs sm:text-sm">
+                <thead>
+                  <tr className="border-b border-border/80 bg-muted/40 font-semibold text-foreground">
+                    <th className="p-3.5 sm:p-5">Capability / Requirement</th>
+                    <th className="p-3.5 sm:p-5 text-primary bg-primary/5">
+                      Universal AI Chat PDF Exporter
+                    </th>
+                    <th className="p-3.5 sm:p-5 text-muted-foreground">
+                      Standard Browser Ctrl+P
+                    </th>
+                    <th className="p-3.5 sm:p-5 text-muted-foreground">
+                      Cloud PDF Converters
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-border/60">
+                  {COMPARISON_ROWS.map((row, idx) => (
+                    <tr
+                      key={idx}
+                      className="hover:bg-muted/30 transition-colors"
+                    >
+                      <td className="p-3.5 sm:p-5 font-medium text-foreground">
+                        {row.feature}
+                      </td>
+                      <td className="p-3.5 sm:p-5 font-semibold text-primary bg-primary/5 flex items-center gap-1.5">
+                        <Check className="w-4 h-4 text-emerald-500 shrink-0" />
+                        <span>{row.extension}</span>
+                      </td>
+                      <td className="p-3.5 sm:p-5 text-muted-foreground">
+                        {row.browserPrint}
+                      </td>
+                      <td className="p-3.5 sm:p-5 text-muted-foreground">
+                        {row.otherTools}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
 
@@ -1219,23 +1231,23 @@ export async function initializeSessionVault(token: string) {
         </section>
 
         {/* BOTTOM CALL TO ACTION (Pure Chrome Web Store Focus) */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-primary/10 via-indigo-500/10 to-cyan-500/10 border border-primary/20 text-center relative overflow-hidden shadow-2xl">
+        <div className="p-6 sm:p-12 rounded-3xl bg-gradient-to-r from-primary/10 via-indigo-500/10 to-cyan-500/10 border border-primary/20 text-center relative overflow-hidden shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground mb-4">
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-foreground mb-3 sm:mb-4">
               Ready to Turn Your Conversations into Lasting Documentation?
             </h2>
-            <p className="text-muted-foreground text-sm sm:text-base mb-8">
+            <p className="text-muted-foreground text-xs sm:text-base mb-6 sm:mb-8">
               100% private, local-first, and built for professionals.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-md sm:max-w-none mx-auto">
               <a
                 href={CHROME_STORE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
                   buttonVariants({ size: "lg" }),
-                  "rounded-full px-8 py-6 text-base font-semibold shadow-xl shadow-primary/25 hover:scale-[1.02] transition-all bg-gradient-to-r from-blue-600 via-indigo-600 to-primary text-white flex items-center gap-2.5",
+                  "w-full sm:w-auto rounded-full px-6 sm:px-8 py-5 sm:py-6 text-sm sm:text-base font-semibold shadow-xl shadow-primary/25 hover:scale-[1.02] transition-all bg-gradient-to-r from-blue-600 via-indigo-600 to-primary text-white flex items-center justify-center gap-2.5",
                 )}
               >
                 <ChromeLogo className="w-5 h-5 shrink-0" />
@@ -1247,7 +1259,7 @@ export async function initializeSessionVault(token: string) {
                 onClick={() => setIsShareModalOpen(true)}
                 className={cn(
                   buttonVariants({ variant: "outline", size: "lg" }),
-                  "rounded-full px-6 py-6 text-base font-semibold hover:border-primary/50 flex items-center gap-2",
+                  "w-full sm:w-auto rounded-full px-6 py-5 sm:py-6 text-sm sm:text-base font-semibold hover:border-primary/50 flex items-center justify-center gap-2",
                 )}
               >
                 <Share2 className="w-4 h-4 text-primary" />
@@ -1319,7 +1331,7 @@ export async function initializeSessionVault(token: string) {
           onClick={() => setIsShareModalOpen(false)}
         >
           <div
-            className="bg-card border border-border rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl relative"
+            className="bg-card border border-border rounded-3xl p-5 sm:p-8 max-w-md w-full shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
@@ -1346,8 +1358,8 @@ export async function initializeSessionVault(token: string) {
               researchers, and productivity enthusiasts.
             </p>
 
-            {/* Social Channels Grid */}
-            <div className="grid grid-cols-4 gap-3 mb-6">
+            {/* Social Channels Grid (2 cols on mobile, 4 cols on desktop) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 mb-6">
               {/* X / Twitter */}
               <button
                 type="button"
