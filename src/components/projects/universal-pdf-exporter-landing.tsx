@@ -434,7 +434,7 @@ export function UniversalPdfExporterLanding() {
       <div className="absolute top-96 right-0 w-[500px] h-[500px] bg-indigo-500/10 blur-3xl -z-10 pointer-events-none" />
 
       {/* TOP DEDICATED NAVIGATION BAR (Responsive, Mobile-First for /projects) */}
-      <header className="sticky top-0 z-40 w-full bg-background/80 backdrop-blur-xl border-b border-border/70 shadow-xs">
+      <header className="sticky top-0 z-40 w-full backdrop-blur-xl border-b border-border/70 shadow-xs">
         <div className="container mx-auto px-3 sm:px-6 lg:px-8 max-w-7xl h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
           {/* Brand & Breadcrumbs */}
           <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0">
