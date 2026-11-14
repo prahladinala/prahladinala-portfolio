@@ -25,6 +25,7 @@ import {
   getAllTermsOfService,
   getTermsOfServiceBySlug,
 } from "@/data/terms-and-conditions";
+import { ThemeToggle } from "@/components/theme-toggle-v2";
 import { SITE_CONFIG } from "@/config/constants";
 
 export async function generateStaticParams() {
@@ -118,23 +119,26 @@ export default async function TermDetailPage({
         }}
       />
 
-      {/* Breadcrumb Navigation */}
-      <nav className="flex items-center text-sm font-medium text-muted-foreground mb-8">
-        <Link href="/" className="hover:text-primary transition-colors">
-          Home
-        </Link>
-        <ChevronRight className="w-4 h-4 mx-2" />
-        <Link
-          href="/terms-and-conditions"
-          className="hover:text-primary transition-colors"
-        >
-          Terms & Conditions
-        </Link>
-        <ChevronRight className="w-4 h-4 mx-2" />
-        <span className="text-foreground truncate max-w-xs sm:max-w-md">
-          {term.shortTitle}
-        </span>
-      </nav>
+      {/* Top Bar with Breadcrumbs & Theme Toggle */}
+      <div className="flex items-center justify-between gap-4 mb-8">
+        <nav className="flex items-center text-sm font-medium text-muted-foreground truncate">
+          <Link href="/" className="hover:text-primary transition-colors">
+            Home
+          </Link>
+          <ChevronRight className="w-4 h-4 mx-2 flex-shrink-0" />
+          <Link
+            href="/terms-and-conditions"
+            className="hover:text-primary transition-colors flex-shrink-0"
+          >
+            Terms & Conditions
+          </Link>
+          <ChevronRight className="w-4 h-4 mx-2 flex-shrink-0" />
+          <span className="text-foreground truncate max-w-xs sm:max-w-md">
+            {term.shortTitle}
+          </span>
+        </nav>
+        <ThemeToggle />
+      </div>
 
       {/* Header Info Banner */}
       <header className="mb-10 pb-8 border-b border-border/80 space-y-4">
@@ -210,7 +214,8 @@ export default async function TermDetailPage({
               Questions or License Inquiries?
             </h4>
             <p className="text-xs text-muted-foreground">
-              Reach out directly to the developer for clarifications or commercial requests.
+              Reach out directly to the developer for clarifications or
+              commercial requests.
             </p>
           </div>
           <div className="flex items-center gap-3">

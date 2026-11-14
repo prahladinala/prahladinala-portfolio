@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { getAllTermsOfService } from "@/data/terms-and-conditions";
 import { TermsList } from "@/components/terms/terms-list";
+import { ThemeToggle } from "@/components/theme-toggle-v2";
 import { SITE_CONFIG } from "@/config/constants";
 
 export const metadata: Metadata = {
@@ -63,14 +64,17 @@ export default function TermsIndexPage() {
         }}
       />
 
-      {/* Header Breadcrumb */}
-      <nav className="flex items-center text-sm font-medium text-muted-foreground mb-6">
-        <Link href="/" className="hover:text-primary transition-colors">
-          Home
-        </Link>
-        <ChevronRight className="w-4 h-4 mx-2" />
-        <span className="text-foreground">Terms and Conditions</span>
-      </nav>
+      {/* Top Bar with Breadcrumbs & Theme Toggle */}
+      <div className="flex items-center justify-between gap-4 mb-8">
+        <nav className="flex items-center text-sm font-medium text-muted-foreground">
+          <Link href="/" className="hover:text-primary transition-colors">
+            Home
+          </Link>
+          <ChevronRight className="w-4 h-4 mx-2 flex-shrink-0" />
+          <span className="text-foreground">Terms and Conditions</span>
+        </nav>
+        <ThemeToggle />
+      </div>
 
       {/* Hero Title */}
       <div className="space-y-4 mb-12">
@@ -82,7 +86,9 @@ export default function TermsIndexPage() {
           Terms & Conditions
         </h1>
         <p className="text-base sm:text-lg text-muted-foreground max-w-3xl leading-relaxed">
-          Transparent terms of service, usage licenses, and acceptable use guidelines for all browser extensions, mobile apps, and developer tools created by Prahlad Inala.
+          Transparent terms of service, usage licenses, and acceptable use
+          guidelines for all browser extensions, mobile apps, and developer
+          tools created by Prahlad Inala.
         </p>
       </div>
 

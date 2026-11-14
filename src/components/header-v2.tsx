@@ -35,6 +35,8 @@ export function Header({
     if (
       pathname?.startsWith("/privacy-policy") ||
       pathname?.startsWith("/privacy") ||
+      pathname?.startsWith("/terms-and-conditions") ||
+      pathname?.startsWith("/terms") ||
       pathname?.startsWith("/projects")
     ) {
       return;
@@ -99,6 +101,8 @@ export function Header({
   if (
     pathname?.startsWith("/privacy-policy") ||
     pathname?.startsWith("/privacy") ||
+    pathname?.startsWith("/terms-and-conditions") ||
+    pathname?.startsWith("/terms") ||
     pathname?.startsWith("/projects")
   ) {
     return null;
